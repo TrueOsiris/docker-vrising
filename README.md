@@ -1,5 +1,6 @@
 # docker-vrising<br>
 Minimal Mono container with a V-Rising dedicated server<br>
+Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instructions for json configuration settings.
 
 ![Trueosiris Rules](https://img.shields.io/badge/trueosiris-rules-f08060) 
 [![Docker Pulls](https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising/) 
@@ -22,15 +23,14 @@ Minimal Mono container with a V-Rising dedicated server<br>
 
 | Volume                    | Container path                                                   |
 | ------------------------- | ---------------------------------------------------------------- |
-| github                    | /mnt/github |
+| /mnt/vrising              | /mnt/vrising |
 
 ### Run command
 
-    docker run -d --name='git' \
+    docker run -d --name='vrising' \
     --net='bridge' \
     -e TZ="Europe/Paris" \
-    -v '/path/on/host/':'/mnt/github':'rw' \
-    -v '/var/run/docker.sock':'/var/run/docker.sock':'rw' \
+    -v '/path/on/host/':'/mnt/vrising':'rw' \
     'trueosiris/vrising'
 
 ### links
