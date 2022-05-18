@@ -8,4 +8,6 @@ LABEL maintainer="Tim Chaubet"
 ARG DEBIAN_FRONTEND="noninteractive"
 ENV XDG_CONFIG_HOME="/config/xdg"
 
-
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+CMD ["/start.sh"]
