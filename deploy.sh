@@ -1,9 +1,7 @@
 #!/bin/bash
-#if [ -z /mnt/vrising/VRisingServer.exe ]; then
 s=/mnt/vrising/server
 p=/mnt/vrising/persistentdata
-/home/steam/steamcmd/steamcmd.sh +force_install_dir "$s" +login anonymous +app_update 1829350 +quit
-#fi
+/usr/bin/steamcmd +force_install_dir "$s" +login anonymous +app_update 1829350 +quit
 echo "steam_appid: "`cat $s/steam_appid.txt`
 echo " "
 if [ ! -f "$p/ServerGameSettings.json" ]; then
