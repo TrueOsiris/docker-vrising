@@ -14,7 +14,8 @@ RUN add-apt-repository multiverse && \
     apt-get upgrade -y
 RUN apt install -y  lib32gcc1 
 RUN useradd -m steam && cd /home/steam
-RUN apt install -y steamcmd && \
+RUN apt purge steam steamcmd && \
+    apt install -y steam steamcmd && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd
 RUN rm -rf /var/lib/apt/lists/* && \
     apt clean 
