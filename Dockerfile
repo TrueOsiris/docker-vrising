@@ -12,7 +12,7 @@ RUN add-apt-repository multiverse && \
     dpkg --add-architecture i386 && \
     apt update -y && \
     apt-get upgrade -y
-RUN apt install -y  lib32gccl
+RUN apt install -y  lib32gccl \
 		    steamcmd \
     && \
     rm -rf /var/lib/apt/lists/* && \
