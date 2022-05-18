@@ -4,11 +4,11 @@
 #fi
 echo "steam_appid: "`cat /mnt/vrising/steam_appid.txt`
 echo " "
-if [ -z "/mnt/vrising/ServerGameSettings.json" ]; then
+if [ ! -f "/mnt/vrising/ServerGameSettings.json" ]; then
 	echo "/mnt/vrising/ServerGameSettings.json not found. Copying default file."
 	cp /mnt/vrising/VRisingServer_Data/StreamingAssets/Settings/ServerGameSettings.json /mnt/vrising/ 2>&1
 fi
-if [ -z "/mnt/vrising/ServerHostSettings.json" ]; then
+if [ ! -f "/mnt/vrising/ServerHostSettings.json" ]; then
 	echo "/mnt/vrising/ServerHostSettings.json not found. Copying default file."
 	cp /mnt/vrising/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json /mnt/vrising/ 2>&1
 fi
