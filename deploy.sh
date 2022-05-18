@@ -19,5 +19,4 @@ set SteamAppId=`cat $s/steam_appid.txt`
 echo "Starting V Rising Dedicated Server - PRESS CTRL-C to exit"
 echo "SteamAppId set to $SteamAppId"
 echo " "
-
-
+exit 0
