@@ -3,11 +3,14 @@
 /home/steam/steamcmd/steamcmd.sh +force_install_dir /mnt/vrising +login anonymous +app_update 1829350 +quit
 #fi
 echo "steam_appid: "`cat /mnt/vrising/steam_appid.txt`
-if [ -z /mnt/vrising/ServerGameSettings.json ]; then
-	cp /mnt/vrising/VRisingServer_Data/StreamingAssets/Settings/ServerGameSettings.json /mnt/vrising
+echo " "
+if [ -z "/mnt/vrising/ServerGameSettings.json" ]; then
+	echo "/mnt/vrising/ServerGameSettings.json not found. Copying default file."
+	cp /mnt/vrising/VRisingServer_Data/StreamingAssets/Settings/ServerGameSettings.json /mnt/vrising/ 2>&1
 fi
-if [ -z /mnt/vrising/ServerHostSettings.json ]; then
-	cp /mnt/vrising/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json /mnt/vrising
+if [ -z "/mnt/vrising/ServerHostSettings.json" ]; then
+	echo "/mnt/vrising/ServerHostSettings.json not found. Copying default file."
+	cp /mnt/vrising/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json /mnt/vrising/ 2>&1
 fi
 /usr/bin/tail -f /var/log/dpkg.log
 
