@@ -12,12 +12,12 @@ RUN add-apt-repository multiverse && \
     dpkg --add-architecture i386 && \
     apt update -y && \
     apt-get upgrade -y
-RUN apt install -y  lib32gcc1 \
-		    steamcmd \
-    && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt clean && \
+RUN apt install -y  lib32gcc1 
+RUN useradd -m steam && cd /home/steam
+RUN apt install -y steamcmd && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd
+RUN rm -rf /var/lib/apt/lists/* && \
+    apt clean 
 
 #FROM cm2network/steamcmd:latest AS steamdeploy
 COPY deploy.sh /deploy.sh
