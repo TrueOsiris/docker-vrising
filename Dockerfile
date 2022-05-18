@@ -14,8 +14,10 @@ RUN add-apt-repository multiverse && \
     apt-get upgrade -y
 RUN apt install -y  lib32gcc1 
 RUN useradd -m steam && cd /home/steam
+RUN echo steam steam/question select "I AGREE" | debconf-set-selections && \
+    echo steam steam/license note '' | debconf-set-selections
 RUN apt purge steam steamcmd && \
-    apt install -y steam steamcmd && \
+    apt install -y steamcmd && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd
 RUN rm -rf /var/lib/apt/lists/* && \
     apt clean 
