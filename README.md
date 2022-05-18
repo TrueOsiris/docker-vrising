@@ -21,9 +21,10 @@ Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instruction
 
 ### volumes
 
-| Volume                    | Container path                                                   |
-| ------------------------- | ---------------------------------------------------------------- |
-| /mnt/vrising              | /mnt/vrising |
+| Volume                    | Container path                                                   | Description |
+| ------------------------- | ---------------------------------------------------------------- | ----------------------------------------------- |
+| steam install path    | /mnt/vrising/server | path to hold the dedicated server files |
+| world | /mnt/vrising/persistentdata | path that holds the world files |
 
 ### Run command
 

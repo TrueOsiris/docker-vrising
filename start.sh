@@ -1,16 +1,23 @@
 #!/bin/bash
 #if [ -z /mnt/vrising/VRisingServer.exe ]; then
-/home/steam/steamcmd/steamcmd.sh +force_install_dir /mnt/vrising +login anonymous +app_update 1829350 +quit
+s=/mnt/vrising/server
+p=/mnt/vrising/persistentdata
+/home/steam/steamcmd/steamcmd.sh +force_install_dir "$s" +login anonymous +app_update 1829350 +quit
 #fi
-echo "steam_appid: "`cat /mnt/vrising/steam_appid.txt`
+echo "steam_appid: "`cat $s/steam_appid.txt`
 echo " "
-if [ ! -f "/mnt/vrising/ServerGameSettings.json" ]; then
-	echo "/mnt/vrising/ServerGameSettings.json not found. Copying default file."
-	cp /mnt/vrising/VRisingServer_Data/StreamingAssets/Settings/ServerGameSettings.json /mnt/vrising/ 2>&1
+if [ ! -f "$p/ServerGameSettings.json" ]; then
+	echo "$p/ServerGameSettings.json not found. Copying default file."
+	cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerGameSettings.json" "$p/" 2>&1
 fi
-if [ ! -f "/mnt/vrising/ServerHostSettings.json" ]; then
-	echo "/mnt/vrising/ServerHostSettings.json not found. Copying default file."
-	cp /mnt/vrising/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json /mnt/vrising/ 2>&1
+if [ ! -f "$p/ServerHostSettings.json" ]; then
+	echo "$p/ServerHostSettings.json not found. Copying default file."
+	cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json" "$p/" 2>&1
 fi
+cd "$s"
+set SteamAppId=`cat $s/steam_appid.txt`
+echo "Starting V Rising Dedicated Server - PRESS CTRL-C to exit"
+#VRisingServer.exe -persistentDataPath .\save-data -serverName "My V Rising Server" -saveName "world1" -logFile ".\logs\VRisingServer.log"
+
 /usr/bin/tail -f /var/log/dpkg.log
 
