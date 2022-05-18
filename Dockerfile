@@ -1,4 +1,5 @@
 FROM ghcr.io/linuxserver/baseimage-mono:focal
+FROM cm2network/steamcmd:latest
 
 # set version label
 LABEL maintainer="Tim Chaubet"
