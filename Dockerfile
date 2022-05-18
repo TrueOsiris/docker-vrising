@@ -23,10 +23,6 @@ RUN rm -rf /var/lib/apt/lists/* && \
     apt clean 
 
 #FROM cm2network/steamcmd:latest AS steamdeploy
-COPY deploy.sh /deploy.sh
-RUN chmod +x /deploy.sh
-RUN /deploy.sh
-
 #FROM ghcr.io/linuxserver/baseimage-mono:focal
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
