@@ -11,19 +11,22 @@ RUN apt update -y && \
     add-apt-repository multiverse && \
     dpkg --add-architecture i386 && \
     apt update -y && \
-    apt-get upgrade -y && \
-    useradd -m steam && cd /home/steam && \
+    apt-get upgrade -y 
+RUN useradd -m steam && cd /home/steam && \
     echo steam steam/question select "I AGREE" | debconf-set-selections && \
     echo steam steam/license note '' | debconf-set-selections && \
     apt purge steam steamcmd && \
-    apt install -y steamcmd \
-		   wget \
-                   mono-complete \
-		   wine \
-		   wine64 && \
-    ln -s /usr/games/steamcmd /usr/bin/steamcmd && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt clean 
+    apt install -y gdebi-core  \
+                   libgl1-mesa-glx:i386 \
+                   wget && \
+    apt install -y steamcmd && \
+    ln -s /usr/games/steamcmd /usr/bin/steamcmd
+RUN apt install -y mono-complete
+RUN apt install -y wine \
+		   wine64 
+RUN rm -rf /var/lib/apt/lists/* && \
+    apt clean && \
+    apt autoremove -y
 
 
 #FROM cm2network/steamcmd:latest AS steamdeploy
