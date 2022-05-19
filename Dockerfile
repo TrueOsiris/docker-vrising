@@ -18,7 +18,7 @@ RUN apt update -y && \
     echo steam steam/license note '' | debconf-set-selections && \
     apt purge steam steamcmd && \
     apt install -y steamcmd \
-		   wget
+		   wget \
                    mono-complete && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd && \
     rm -rf /var/lib/apt/lists/* && \
