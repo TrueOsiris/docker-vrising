@@ -23,7 +23,7 @@ RUN apt update -y && \
     apt clean 
 RUN apt update -y && \
     apt-get upgrade -y && \
-    apt-get install -y  mono && \
+    apt-get install -y  mono-complete && \
     apt-get autoclean -y && apt-get autoremove -y \
     rm -rf /var/lib/apt/lists/* && \
     apt clean
