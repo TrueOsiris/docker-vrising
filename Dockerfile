@@ -12,7 +12,6 @@ RUN apt update -y && \
     dpkg --add-architecture i386 && \
     apt update -y && \
     apt-get upgrade -y && \
-    apt install -y  lib32gcc1 && \
     useradd -m steam && cd /home/steam && \
     echo steam steam/question select "I AGREE" | debconf-set-selections && \
     echo steam steam/license note '' | debconf-set-selections && \
