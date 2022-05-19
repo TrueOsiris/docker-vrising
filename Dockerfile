@@ -17,16 +17,12 @@ RUN apt update -y && \
     echo steam steam/question select "I AGREE" | debconf-set-selections && \
     echo steam steam/license note '' | debconf-set-selections && \
     apt purge steam steamcmd && \
-    apt install -y steamcmd && \
+    apt install -y steamcmd \
+		   wget
+                   mono-complete && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd && \
     rm -rf /var/lib/apt/lists/* && \
     apt clean 
-RUN apt update -y && \
-    apt-get upgrade -y && \
-    apt-get install -y  mono-complete && \
-    apt-get autoclean -y && apt-get autoremove -y \
-    rm -rf /var/lib/apt/lists/* && \
-    apt clean
 
 
 #FROM cm2network/steamcmd:latest AS steamdeploy
