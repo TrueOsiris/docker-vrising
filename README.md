@@ -1,5 +1,7 @@
 # docker-vrising<br>
-Minimal Mono container with a V-Rising dedicated server<br>
+Minimal Ubuntu 22.04 container with wine, mono and dotnet packages<br>
+Goal is to run a dedicated game server.<br>
+In this case: a V-Rising dedicated server<br>
 Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instructions for json configuration settings.
 
 ![Trueosiris Rules](https://img.shields.io/badge/trueosiris-rules-f08060) 
