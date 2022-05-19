@@ -19,7 +19,8 @@ RUN apt update -y && \
     apt purge steam steamcmd && \
     apt install -y steamcmd \
 		   wget \
-                   mono-complete && \
+                   mono-complete \
+		   wine64 && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd && \
     rm -rf /var/lib/apt/lists/* && \
     apt clean 
