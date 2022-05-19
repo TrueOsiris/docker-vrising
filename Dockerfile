@@ -20,6 +20,7 @@ RUN apt update -y && \
     apt install -y steamcmd \
 		   wget \
                    mono-complete \
+		   wine \
 		   wine64 && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd && \
     rm -rf /var/lib/apt/lists/* && \
