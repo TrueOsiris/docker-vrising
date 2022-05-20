@@ -22,9 +22,7 @@ RUN useradd -m steam && cd /home/steam && \
     apt install -y steamcmd && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd
 RUN apt install -y mono-complete
-RUN apt install -y wine \
-		   wine32 \
-		   wine64 
+RUN apt install -y wine 
 RUN apt install -y xserver-xorg \
                    xvfb
 RUN rm -rf /var/lib/apt/lists/* && \
