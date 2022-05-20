@@ -21,6 +21,12 @@ Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instruction
 | -------------------- | ---------------------------- | ------------------------------------------------------------------------------- |
 | TZ | Europe/Brussels | timezone for ntpdate |
 
+### ports
+
+| Exposed Container port | type |
+| 9876 | UDP |
+| 9877 | UDP |
+
 ### volumes
 
 | Volume                    | Container path                                                   | Description |
@@ -33,7 +39,10 @@ Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instruction
     docker run -d --name='vrising' \
     --net='bridge' \
     -e TZ="Europe/Paris" \
-    -v '/path/on/host/':'/mnt/vrising':'rw' \
+    -v '/path/on/host/dedicatedserverfiles':'/mnt/vrising/server':'rw' \
+    -v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
+    -p 9876:9876 \
+    -p 9877:9877 \
     'trueosiris/vrising'
 
 ### links
