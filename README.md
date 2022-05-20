@@ -22,6 +22,7 @@ Will work on that tomorrow!
 | Environment Variable | Key | Description |
 | -------------------- | ---------------------------- | ------------------------------------------------------------------------------- |
 | TZ | Europe/Brussels | timezone for ntpdate |
+| SERVERNAME | published servername |
 
 ### ports
 
@@ -42,6 +43,7 @@ Will work on that tomorrow!
     docker run -d --name='vrising' \
     --net='bridge' \
     -e TZ="Europe/Paris" \
+    -e SERVERNAME="trueosiris-V" \
     -v '/path/on/host/dedicatedserverfiles':'/mnt/vrising/server':'rw' \
     -v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
     -p 9876:9876 \

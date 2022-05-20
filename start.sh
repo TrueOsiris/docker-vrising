@@ -5,8 +5,11 @@ d=/mnt/vrising/persistentdata/dotnet
 echo " "
 echo "Downloading and installing .NET SDK 6.0.300 and core runtime..."
 echo " "
-mkdir "$d" 2>&1
-chmod -R 777 "$d" 2>&1
+mkdir "$d" 2>/dev/null
+chmod -R 777 "$d" 2>/dev/null
+if [ -z $SERVERNAME ]; then
+	SERVERNAME="trueosiris-V"
+fi
 cd /tmp
 rm -R /tmp/*
 if [ ! -f "$d/dotnet" ]; then
@@ -44,12 +47,12 @@ if [ ! -f "$p/ServerHostSettings.json" ]; then
 fi
 cd "$s"
 set SteamAppId=`cat $s/steam_appid.txt`
-echo "Starting V Rising Dedicated Server - PRESS CTRL-C to exit"
+echo "Starting V Rising Dedicated Server with name $SERVERNAME"
 echo "SteamAppId set to $SteamAppId"
 echo "Starting mono ..."
 echo " "
 Xvfb :0 -screen 0 1024x768x16 &
-DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath /mnt/vrising/persistentdata/ -serverName "trueosiris" -saveName "world1" -logFile /mnt/vrising/persistentdata/VRisingServer.log
+DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "world1" -logFile "$p/VRisingServer.log"
 
 /usr/bin/tail -f /var/log/dpkg.log
 
