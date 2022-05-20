@@ -14,6 +14,8 @@ Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instruction
 ![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
 
 ### setup
+This is only an initial version. I'll add docker parameters later on to set servername etc ...<br>
+Will work on that tomorrow!
 
 ### environment variables
 
