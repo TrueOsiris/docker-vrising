@@ -23,7 +23,8 @@ Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instruction
 
 ### ports
 
-| Exposed Container port | type |
+| Exposed Container port | Type |
+| ---------------------- | ---- |
 | 9876 | UDP |
 | 9877 | UDP |
 
