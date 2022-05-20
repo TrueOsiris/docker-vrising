@@ -29,9 +29,6 @@ RUN rm -rf /var/lib/apt/lists/* && \
     apt clean && \
     apt autoremove -y
 
-
-#FROM cm2network/steamcmd:latest AS steamdeploy
-#FROM ghcr.io/linuxserver/baseimage-mono:focal
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 CMD ["/start.sh"]

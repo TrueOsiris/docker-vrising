@@ -50,7 +50,6 @@ echo "Starting mono ..."
 echo " "
 Xvfb :0 -screen 0 1024x768x16 &
 DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath /mnt/vrising/persistentdata/ -serverName "trueosiris" -saveName "world1" -logFile /mnt/vrising/persistentdata/VRisingServer.log
-#VRisingServer.exe -persistentDataPath .\save-data -serverName "My V Rising Server" -saveName "world1" -logFile ".\logs\VRisingServer.log"
 
 /usr/bin/tail -f /var/log/dpkg.log
 
