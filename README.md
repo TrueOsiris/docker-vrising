@@ -18,12 +18,12 @@ Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instruction
 Configuration settings are still those in /path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings<br>
 so NOT those in /persistentdata. Working on that.
 
-- If you forward ports, you can only use direct connect.
+- If you forward ports, you can only use direct connect.<br>
 If you want to see the server in the server list and want to use 27015-27016/UDP for example, <br>
 you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016.<br>
 And then just expose ports <br>
 
-    -p 27015:27015
+    -p 27015:27015 \
     -p 27016:27016
 
 ### environment variables
