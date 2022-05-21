@@ -15,7 +15,8 @@ Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instruction
 
 ### setup
 This is only an initial version. I'll add docker parameters later on to set servername etc ...<br>
-Will work on that tomorrow!
+Configuration settings are still those in /path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings<br>
+so NOT those in /persistentdata. Working on that.
 
 ### environment variables
 
