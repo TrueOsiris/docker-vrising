@@ -10,6 +10,9 @@ chmod -R 777 "$d" 2>/dev/null
 if [ -z $SERVERNAME ]; then
 	SERVERNAME="trueosiris-V"
 fi
+if [ -z $WORLDNAME ]; then
+	WORLDNAME="world1"
+fi
 cd /tmp
 rm -R /tmp/*
 if [ ! -f "$d/dotnet" ]; then
@@ -52,7 +55,7 @@ echo "SteamAppId set to $SteamAppId"
 echo "Starting mono ..."
 echo " "
 Xvfb :0 -screen 0 1024x768x16 &
-DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "world1" -logFile "$p/VRisingServer.log"
+DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log"
 
 /usr/bin/tail -f /var/log/dpkg.log
 
