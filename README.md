@@ -48,17 +48,37 @@ And then just expose ports <br>
 | steam install path    | /mnt/vrising/server | path to hold the dedicated server files |
 | world | /mnt/vrising/persistentdata | path that holds the world files |
 
-### Run command
+### docker cli
+```terminal
+docker run -d --name='vrising' \
+--net='bridge' \
+-e TZ="Europe/Paris" \
+-e SERVERNAME="trueosiris-V" \
+-v '/path/on/host/dedicatedserverfiles':'/mnt/vrising/server':'rw' \
+-v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
+-p 9876:9876 \
+-p 9877:9877 \
+'trueosiris/vrising'
+```
 
-    docker run -d --name='vrising' \
-    --net='bridge' \
-    -e TZ="Europe/Paris" \
-    -e SERVERNAME="trueosiris-V" \
-    -v '/path/on/host/dedicatedserverfiles':'/mnt/vrising/server':'rw' \
-    -v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
-    -p 9876:9876 \
-    -p 9877:9877 \
-    'trueosiris/vrising'
+### docker-compose.yml
+```
+version: '3.3'
+services:
+  vrising:
+    container_name: vrising
+    image: trueosiris/vrising
+    network_mode: bridge
+    environment:
+      - TZ=Europe/Paris
+      - SERVERNAME=vrisingDocker
+    volumes:
+      - './server:/mnt/vrising/server:rw'
+      - './data:/mnt/vrising/persistentdata:rw'
+    ports:
+      - '9876:9876'
+      - '9877:9877'
+```
 
 ### links
 

@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  vrising:
+    # build: . # Build from Dockerfile
+    container_name: vrising
+    image: trueosiris/vrising
+    network_mode: bridge
+    environment:
+      - TZ=Europe/Paris
+      - SERVERNAME=vrisingDocker
+    volumes:
+      - './server:/mnt/vrising/server:rw'
+      - './data:/mnt/vrising/persistentdata:rw'
+    ports:
+      - '9876:9876'
+      - '9877:9877'
