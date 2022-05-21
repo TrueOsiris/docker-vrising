@@ -24,6 +24,8 @@ And then just expose ports <br>
 
     -p 27015:27015 \
     -p 27016:27016
+    -p 27015:27015/udp \
+    -p 27016:27016/udp
 
 ### environment variables
 
@@ -57,6 +59,8 @@ docker run -d --name='vrising' \
 -v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
 -p 9876:9876 \
 -p 9877:9877 \
+-p 9876:9876/udp \
+-p 9877:9877/udp \
 'trueosiris/vrising'
 ```
 
@@ -77,6 +81,8 @@ services:
     ports:
       - '9876:9876'
       - '9877:9877'
+      - '9876/udp:9876/udp'
+      - '9877/udp:9877/udp'
 ```
 
 ### links
