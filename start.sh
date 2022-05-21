@@ -54,7 +54,7 @@ cd "$s"
 set SteamAppId=`cat $s/steam_appid.txt`
 echo "Starting V Rising Dedicated Server with name $SERVERNAME"
 echo "SteamAppId set to $SteamAppId"
-echo "Starting mono ..."
+echo "Starting Xvfb and wine64 ..."
 echo " "
 Xvfb :0 -screen 0 1024x768x16 &
 DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" 2>&1
