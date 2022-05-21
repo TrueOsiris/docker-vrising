@@ -14,8 +14,7 @@ Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instruction
 ![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
 
 ### setup
-- This is only an initial version. I'll add docker parameters later on to set servername etc ...<br>
-Configuration settings are still those in /path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings<br>
+- Configuration settings are still those in /path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings<br>
 so NOT those in /persistentdata. Working on that.
 
 - If you forward ports, you can only use direct connect.<br>
