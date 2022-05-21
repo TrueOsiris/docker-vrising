@@ -57,7 +57,7 @@ echo "SteamAppId set to $SteamAppId"
 echo "Starting mono ..."
 echo " "
 Xvfb :0 -screen 0 1024x768x16 &
-DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log"
+DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" 2>&1
 
 /usr/bin/tail -f /var/log/dpkg.log
 
