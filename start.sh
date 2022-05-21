@@ -34,6 +34,8 @@ if [ ! -f "$d/dotnet" ]; then
 fi
 export DOTNET_ROOT=$d
 export PATH=$PATH:$d
+mkdir -p /root/.steam 2>/dev/null
+chmod -R 777 /root/.steam 2>/dev/null
 echo " "
 echo "Updating V-Rising Dedicated Server files..."
 echo " "
