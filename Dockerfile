@@ -19,7 +19,8 @@ RUN useradd -m steam && cd /home/steam && \
     apt install -y gdebi-core  \
                    libgl1-mesa-glx:i386 \
                    wget && \
-    apt install -y steamcmd && \
+    apt install -y steam \
+                   steamcmd && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd
 RUN apt install -y mono-complete
 RUN apt install -y wine 
