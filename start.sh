@@ -14,7 +14,7 @@ if [ -z $WORLDNAME ]; then
 	WORLDNAME="world1"
 fi
 cd /tmp
-rm -R /tmp/*
+rm -R /tmp/* 2>/dev/null
 if [ ! -f "$d/dotnet" ]; then
 	### ARM ###
 	#wget https://download.visualstudio.microsoft.com/download/pr/2a6f82fe-0ae8-4867-9664-c8d012301a9a/496da28497b7c7f62151e9837eb5db6f/dotnet-sdk-6.0.300-linux-musl-arm64.tar.gz
