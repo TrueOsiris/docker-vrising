@@ -22,8 +22,6 @@ If you want to see the server in the server list and want to use 27015-27016/UDP
 you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016.<br>
 And then just expose ports <br>
 
-    -p 27015:27015 \
-    -p 27016:27016
     -p 27015:27015/udp \
     -p 27016:27016/udp
 
@@ -57,8 +55,6 @@ docker run -d --name='vrising' \
 -e SERVERNAME="trueosiris-V" \
 -v '/path/on/host/dedicatedserverfiles':'/mnt/vrising/server':'rw' \
 -v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
--p 9876:9876 \
--p 9877:9877 \
 -p 9876:9876/udp \
 -p 9877:9877/udp \
 'trueosiris/vrising'
@@ -79,8 +75,6 @@ services:
       - './server:/mnt/vrising/server:rw'
       - './data:/mnt/vrising/persistentdata:rw'
     ports:
-      - '9876:9876'
-      - '9877:9877'
       - '9876/udp:9876/udp'
       - '9877/udp:9877/udp'
 ```
