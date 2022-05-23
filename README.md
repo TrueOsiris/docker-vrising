@@ -15,7 +15,7 @@ Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instruction
 
 ### setup
 - Configuration settings are still those in /path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings<br>
-so NOT those in /persistentdata. Working on that.
+so NOT those in /persistentdata.
 
 - If you forward ports, you can only use direct connect.<br>
 If you want to see the server in the server list and want to use 27015-27016/UDP for example, <br>
@@ -24,6 +24,11 @@ And then just expose ports <br>
 
     -p 27015:27015/udp \
     -p 27016:27016/udp
+
+- If you want to continue from your local game, stop the container, overwrite the persistentdata<br>
+contents, and relaunch the server. <br>
+-- I have chmod 777 that folder on my dockerhost.<br>
+-- I can access my docker volumes via samba, so I was able to copy those files via windows. <br>
 
 ### environment variables
 
