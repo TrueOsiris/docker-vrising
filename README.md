@@ -1,58 +1,73 @@
-# docker-vrising<br>
-Minimal Ubuntu 22.04 container with wine and dotnet packages<br>
-Goal is to run a dedicated game server.<br>
-In this case: a V-Rising dedicated server<br>
-Refer to https://github.com/StunlockStudios/vrising-dedicated-server-instructions for json configuration settings.
+<p align="center">
+  <a href="https://github.com/TrueOsiris/docker-vrising">
+    <img alt="Iroh" src="assets/docker-virising.png?raw=true" height="250">
+  </a>
+  <p  align="center">A dockersized V Rising dedicated server on Ubuntu 22.04 with Wine.</p>
+</p>
 
-![Trueosiris Rules](https://img.shields.io/badge/trueosiris-rules-f08060) 
-[![Docker Pulls](https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising/) 
-[![Docker Stars](https://badgen.net/docker/stars/trueosiris/vrising?icon=docker&label=stars)](https://hub.docker.com/r/trueosiris/vrising/) 
-[![Docker Image Size](https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/vrising/) 
-![Github stars](https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars) 
-![Github forks](https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=forks) 
-![Github issues](https://img.shields.io/github/issues/TrueOsiris/docker-vrising)
-![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
+<p align="center">
+  <img alt="Trueosiris Rules" src="https://img.shields.io/badge/trueosiris-rules-f08060" />
+  <a href="https://hub.docker.com/r/trueosiris/vrising/">
+    <img alt="Docker Pulls" src="https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls" />
+  </a>
+  <a href="https://hub.docker.com/r/trueosiris/vrising/">
+    <img alt="Docker stars" src="https://badgen.net/docker/stars/trueosiris/vrising?icon=docker&label=stars" />
+  </a>
+  <a href="https://hub.docker.com/r/trueosiris/vrising/">
+    <img alt="Docker stars" src="https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size" />
+  </a>
+  <a href="https://hub.docker.com/r/trueosiris/vrising/">
+    <img alt="Docker stars" src="https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size" />
+  </a>
+  <br>
+  <img alt="Github forks" src="https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars" />
+  <img alt="Github forks" src="https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=forks" />
+  <a href="https://github.com/TrueOsiris/docker-vrising/issues/">
+    <img alt="Github issues" src="https://img.shields.io/github/issues/TrueOsiris/docker-vrising" />
+  </a>
+  <img alt="Github last-commit" src="https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising" />
+</p>
 
-### setup
-- Configuration settings are still those in /path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings<br>
-so NOT those in /persistentdata.
+## Environment variables
 
-- If you forward ports, you can only use direct connect.<br>
-If you want to see the server in the server list and want to use 27015-27016/UDP for example, <br>
-you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016.<br>
-And then just expose ports <br>
-
-    -p 27015:27015/udp \
-    -p 27016:27016/udp
-
-- If you want to continue from your local game, stop the container, overwrite the persistentdata<br>
-contents, and relaunch the server. <br>
--- I have chmod 777 that folder on my dockerhost.<br>
--- I can access my docker volumes via samba, so I was able to copy those files via windows. <br>
-
-### environment variables
-
-| Environment Variable | Key | Description |
+| Variable | Key | Description |
 | -------------------- | ---------------------------- | ------------------------------------------------------------------------------- |
 | TZ | Europe/Brussels | timezone for ntpdate |
 | SERVERNAME | published servername | mandatory setting that overrules the ServerHostSettings.json entry |
 | WORLDNAME | optional worldname | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
 
-### ports
+## Ports
+Edit `ServerHostSettings.json` if you wan't to change the ports,name,descriptions etc. If you change the ports make sure you do the same for the dcoker container.
 
-| Exposed Container port | Type |
-| ---------------------- | ---- |
-| 9876 | UDP |
-| 9877 | UDP |
+| Exposed Container port | Type | Default |  Comment | 
+| ---------------------- | ---- | ------- | -------- |
+| 9876 | UDP | ✔️ | Replacing with **27015** the server will show up on server list ingame |
+| 9877 | UDP | ✔️ | Replacing with **27016** the server will show up on server list ingame |
 
-### volumes
+## RCON <small>- Optional</small>
+To enable RCON edit `ServerHostSettings.json` and paste following lines after `QueryPort`. To communitate using RCON protocal use a [RCON CLI](https://github.com/gorcon/rcon-cli) by gorcon.
+
+```json
+"Rcon": {
+  "Enabled": true,
+  "Password": "docker",
+  "Port": 25575
+},
+```
+
+## Volumes
+
+If you want to continue from your local game, stop the container, overwrite the persistentdata
+contents, and relaunch the server. 
 
 | Volume                    | Container path                                                   | Description |
 | ------------------------- | ---------------------------------------------------------------- | ----------------------------------------------- |
 | steam install path    | /mnt/vrising/server | path to hold the dedicated server files |
 | world | /mnt/vrising/persistentdata | path that holds the world files |
 
-### docker cli
+
+## Docker cli
+You can find your server config files in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`
 ```terminal
 docker run -d --name='vrising' \
 --net='bridge' \
@@ -65,7 +80,10 @@ docker run -d --name='vrising' \
 'trueosiris/vrising'
 ```
 
-### docker-compose.yml
+## docker-compose.yml
+
+You can find your server config files in `server/VRisingServer_Data/StreamingAssets/Settings`
+
 ```
 version: '3.3'
 services:
@@ -84,9 +102,12 @@ services:
       - '9877/udp:9877/udp'
 ```
 
-### links
+## Good links
 
-github repo: https://github.com/TrueOsiris/docker-vrising <br>
-dockerhub repo: https://hub.docker.com/repository/docker/trueosiris/vrising <br>
+- [V Rising Dedicated Server Instructions](https://github.com/StunlockStudios/vrising-dedicated-server-instructions)
+- [Dockerhub - Trueosiris/vrising](https://hub.docker.com/repository/docker/trueosiris/vrising)
 
-
+# Contributors
+<a href="https://github.com/TrueOsiris/docker-vrising/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=TrueOsiris/docker-vrising" />
+</a>
