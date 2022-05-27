@@ -2,7 +2,7 @@
   <a href="https://github.com/TrueOsiris/docker-vrising">
     <img alt="Iroh" src="assets/docker-virising.png?raw=true" height="250">
   </a>
-  <p  align="center">A dockersized V Rising dedicated server on Ubuntu 22.04 with Wine.</p>
+  <p  align="center">A dockerized V Rising dedicated server on Ubuntu 22.04 with Wine.</p>
 </p>
 
 <p align="center">
@@ -109,7 +109,7 @@ services:
 
 - [V Rising Dedicated Server Instructions](https://github.com/StunlockStudios/vrising-dedicated-server-instructions)
 - [Dockerhub - Trueosiris/vrising](https://hub.docker.com/repository/docker/trueosiris/vrising)
-- [Github - trueosiris/vrising] (https://github.com/TrueOsiris/docker-vrising)
+- [Github - trueosiris/vrising](https://github.com/TrueOsiris/docker-vrising)
 
 ## Contributors
 <a href="https://github.com/TrueOsiris/docker-vrising/graphs/contributors">
