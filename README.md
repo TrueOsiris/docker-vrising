@@ -99,6 +99,7 @@ services:
     environment:
       - TZ=Europe/Paris
       - SERVERNAME=vrisingDocker
+      - AUTO_BACKUP=1
     volumes:
       - './server:/mnt/vrising/server:rw'
       - './data:/mnt/vrising/persistentdata:rw'
