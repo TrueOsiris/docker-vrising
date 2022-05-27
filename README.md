@@ -37,11 +37,13 @@
 | WORLDNAME | optional worldname | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
 
 ## Ports
-Edit `ServerHostSettings.json` if you wan't to change the ports,name,descriptions etc. If you change the ports make sure you do the same for the docker container.
+If you change the ports make sure you do the same for the docker container and set `"ListOnMasterServer"` to **true** in `ServerHostSettings.json`. 
+
+- *Don't forget to portforward on you'r router*
 
 | Exposed Container port | Type | Default |  Comment | 
 | ---------------------- | ---- | ------- | -------- |
-| 9876 | UDP | ✔️ | Replacing with **27015** the server will show up on server list ingame |
+| 9876 | UDP | ✔️ | Replacing with **27015** the server will show up on server list ingame  |
 | 9877 | UDP | ✔️ | Replacing with **27016** the server will show up on server list ingame |
 
 ## RCON <small>- Optional</small>
