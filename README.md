@@ -2,7 +2,7 @@
   <a href="https://github.com/TrueOsiris/docker-vrising">
     <img alt="Iroh" src="https://github.com/TrueOsiris/docker-vrising/blob/main/assets/docker-virising.png?raw=true" height="250">
   </a>
-  <p  align="center">A dockerized V Rising dedicated server on Ubuntu 22.04 with Wine.</p>
+  <p  align="center">Dockerized V Rising dedicated server in an Ubuntu 22.04 container with Wine.</p>
 </p>
 
 <p align="center">
@@ -32,30 +32,15 @@
 | WORLDNAME | optional worldname | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
 
 ## Ports
-Edit `ServerHostSettings.json` if you wan't to change the ports,name,descriptions etc.
-
-- *Set `"ListOnMasterServer"` to **true** in `ServerHostSettings.json` so the server will show up on server list ingame*.
+Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
+Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings.
 
 | Exposed Container port | Type | Default |
 | ---------------------- | ---- | ------- |
 | 9876 | UDP | ✔️ |
 | 9877 | UDP | ✔️ |
 
-## RCON <small>- Optional</small>
-To enable RCON edit `ServerHostSettings.json` and paste following lines after `QueryPort`. To communitate using RCON protocal use a [RCON CLI](https://github.com/gorcon/rcon-cli) by gorcon.
-
-```json
-"Rcon": {
-  "Enabled": true,
-  "Password": "docker",
-  "Port": 25575
-},
-```
-
 ## Volumes
-
-If you want to continue from your local game, stop the container, overwrite the persistentdata
-contents, and relaunch the server. 
 
 | Volume                    | Container path                                                   | Description |
 | ------------------------- | ---------------------------------------------------------------- | ----------------------------------------------- |
@@ -64,7 +49,6 @@ contents, and relaunch the server.
 
 
 ## Docker cli
-Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`
 ```terminal
 docker run -d --name='vrising' \
 --net='bridge' \
@@ -78,9 +62,6 @@ docker run -d --name='vrising' \
 ```
 
 ## docker-compose.yml
-
-You can find your server config files in `server/VRisingServer_Data/StreamingAssets/Settings`
-
 ```
 version: '3.3'
 services:
@@ -105,6 +86,17 @@ services:
 - [Dockerhub - Trueosiris/vrising](https://hub.docker.com/repository/docker/trueosiris/vrising)
 - [Github - trueosiris/vrising](https://github.com/TrueOsiris/docker-vrising)
 
+## RCON <small>- Optional</small>
+To enable RCON edit `ServerHostSettings.json` and paste following lines after `QueryPort`. To communicate using RCON protocal use the [RCON CLI](https://github.com/gorcon/rcon-cli) by gorcon.
+
+```json
+"Rcon": {
+  "Enabled": true,
+  "Password": "docker",
+  "Port": 25575
+},
+```
+
 ## Contributors
 <a href="https://github.com/TrueOsiris/docker-vrising/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=TrueOsiris/docker-vrising" />
@@ -125,3 +117,5 @@ so NOT those in /persistentdata.
 
 - If you want to continue from your local game, stop the container, overwrite the persistentdata
 contents with your local data, and relaunch the server.
+
+- Set `"ListOnMasterServer"` to **true** in `ServerHostSettings.json` so the server will show up on server list ingame.
