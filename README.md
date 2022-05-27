@@ -30,11 +30,13 @@
 
 ## Environment variables
 
-| Variable | Key | Description |
-| -------------------- | ---------------------------- | ------------------------------------------------------------------------------- |
-| TZ | Europe/Brussels | timezone for ntpdate |
-| SERVERNAME | published servername | mandatory setting that overrules the ServerHostSettings.json entry |
-| WORLDNAME | optional worldname | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
+| Variable | Type | Default | Description |
+| -------------------- | ---------------------------- |  ---------------------------- | ------------------------------------------------------------------------------- |
+| TZ | `string` |   | Timezone for ntpdate `Europe/Paris` |
+| SERVERNAME | `string` | trueosiris-V | Mandatory setting that overrules the ServerHostSettings.json entry |
+| WORLDNAME | `string` | world1 | Optional: No real need to alter this. saves will be in a subdir WORLDNAME |
+| AUTO_BACKUP | `boolean` | 0 | Enables auto backup task, backups older then 1 day will be removed |
+| AUTO_BACKUP_SCHEDULE | `*/15 * * * *` | 30min | Set interval for each save |
 
 ## Ports
 Edit `ServerHostSettings.json` if you wan't to change the ports,name,descriptions etc.

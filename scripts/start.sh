@@ -13,6 +13,16 @@ fi
 if [ -z $WORLDNAME ]; then
 	WORLDNAME="world1"
 fi
+if [ -z $AUTO_BACKUP ]; then
+	AUTO_BACKUP=0
+fi
+if [ -z "$AUTO_BACKUP_SCHEDULE" ]; then
+	AUTO_BACKUP_SCHEDULE="*/30 * * * *"
+fi
+if [ $AUTO_BACKUP -eq 1 ]; then
+	service cron start
+	crontab -l | { cat; echo "${AUTO_BACKUP_SCHEDULE} bash /auto_backup.sh"; } | crontab -
+fi
 cd /tmp
 rm -R /tmp/* 2>/dev/null
 if [ ! -f "$d/dotnet" ]; then
