@@ -121,7 +121,7 @@ so NOT those in /persistentdata.
  "Port": 27015,
  "QueryPort": 27016,
 ``` 
-4. Port forward incoming wan udp ports 27015 and 27016 to the same udp ports on your dockerhost ip.<br>
+4. On your firewall, port forward incoming wan udp ports 27015 and 27016 to the same udp ports on your dockerhost ip.<br>
 5. Restart the container with these ports:
 ```
 -p 27015:27015/udp
