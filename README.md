@@ -33,7 +33,7 @@
 
 ## Ports
 Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
-Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings.
+Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`.
 
 | Exposed Container port | Type | Default |
 | ---------------------- | ---- | ------- |
