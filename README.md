@@ -37,14 +37,15 @@
 | WORLDNAME | optional worldname | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
 
 ## Ports
-If you change the ports make sure you do the same for the docker container and set `"ListOnMasterServer"` to **true** in `ServerHostSettings.json`. 
+Edit `ServerHostSettings.json` if you wan't to change the ports,name,descriptions etc.
 
-- *Don't forget to portforward on you'r router*
+- *Set `"ListOnMasterServer"` to **true** in `ServerHostSettings.json` so the server will show up on server list ingame*.
+- *Don't forget to portforward on you'r router*.
 
-| Exposed Container port | Type | Default |  Comment | 
-| ---------------------- | ---- | ------- | -------- |
-| 9876 | UDP | ✔️ | Replacing with **27015** the server will show up on server list ingame  |
-| 9877 | UDP | ✔️ | Replacing with **27016** the server will show up on server list ingame |
+| Exposed Container port | Type | Default |
+| ---------------------- | ---- | ------- |
+| 9876 | UDP | ✔️ |
+| 9877 | UDP | ✔️ |
 
 ## RCON <small>- Optional</small>
 To enable RCON edit `ServerHostSettings.json` and paste following lines after `QueryPort`. To communitate using RCON protocal use a [RCON CLI](https://github.com/gorcon/rcon-cli) by gorcon.
