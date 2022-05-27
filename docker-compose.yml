@@ -9,6 +9,7 @@ services:
       - TZ=Europe/Paris
       - SERVERNAME=vrisingDocker
       - AUTO_BACKUP=1
+      - AUTO_BACKUP_SCHEDULE="*/15 * * * *"
     volumes:
       - './server:/mnt/vrising/server:rw'
       - './data:/mnt/vrising/persistentdata:rw'
