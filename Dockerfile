@@ -8,6 +8,7 @@ RUN apt update -y && \
     apt-get upgrade -y && \
     apt-get install -y  apt-utils && \
     apt-get install -y  software-properties-common && \
+    apt-get install -y  cron && \
     add-apt-repository multiverse && \
     dpkg --add-architecture i386 && \
     apt update -y && \
@@ -28,8 +29,14 @@ RUN apt install -y xserver-xorg \
                    xvfb
 RUN rm -rf /var/lib/apt/lists/* && \
     apt clean && \
-    apt autoremove -y
+    apt autoremove -y 
 
+# Copy scripts 
 COPY start.sh /start.sh
-RUN chmod +x /start.sh
+COPY auto_backup.sh /auto_backup.sh
+
+# Set permissions
+RUN chmod +x /start.sh && \
+    chmod +x /auto_backup.sh
+
 CMD ["/start.sh"]
