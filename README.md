@@ -35,6 +35,8 @@
 | TZ | Europe/Brussels | timezone for ntpdate |
 | SERVERNAME | published servername | mandatory setting that overrules the ServerHostSettings.json entry |
 | WORLDNAME | optional worldname | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
+| AUTO_BACKUP | 1 | enables auto backup crontask. default = `0` (false) 
+| AUTO_BACKUP_SCHEDULE | `*/15 * * * *` | default = `"*/30 * * * *"` 30min interval
 
 ## Ports
 Edit `ServerHostSettings.json` if you wan't to change the ports,name,descriptions etc. If you change the ports make sure you do the same for the docker container.
