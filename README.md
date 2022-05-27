@@ -15,12 +15,7 @@
   </a>
   <a href="https://hub.docker.com/r/trueosiris/vrising/">
     <img alt="Docker stars" src="https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size" />
-  </a>
-  <a href="https://hub.docker.com/r/trueosiris/vrising/">
-    <img alt="Docker stars" src="https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size" />
-  </a>
-  <br>
-  <img alt="Github forks" src="https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars" />
+  <img alt="Github stars" src="https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars" />
   <img alt="Github forks" src="https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=forks" />
   <a href="https://github.com/TrueOsiris/docker-vrising/issues/">
     <img alt="Github issues" src="https://img.shields.io/github/issues/TrueOsiris/docker-vrising" />
