@@ -118,5 +118,3 @@ so NOT those in /persistentdata.
 
 - If you want to continue from your local game, stop the container, overwrite the persistentdata
 contents with your local data, and relaunch the server.
-
-- Set `"ListOnMasterServer"` to **true** in `ServerHostSettings.json` so the server will show up on server list ingame.
