@@ -23,6 +23,9 @@
   <img alt="Github last-commit" src="https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising" />
 </p>
 
+Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
+Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`.
+
 ## Environment variables
 
 | Variable | Key | Description |
@@ -32,8 +35,6 @@
 | WORLDNAME | optional worldname | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
 
 ## Ports
-Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
-Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`.
 
 | Exposed Container port | Type | Default |
 | ---------------------- | ---- | ------- |
