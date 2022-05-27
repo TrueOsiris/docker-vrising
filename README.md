@@ -105,12 +105,31 @@ services:
       - '9877/udp:9877/udp'
 ```
 
-## Good links
+## Links
 
 - [V Rising Dedicated Server Instructions](https://github.com/StunlockStudios/vrising-dedicated-server-instructions)
 - [Dockerhub - Trueosiris/vrising](https://hub.docker.com/repository/docker/trueosiris/vrising)
+- [Github - trueosiris/vrising] (https://github.com/TrueOsiris/docker-vrising)
 
-# Contributors
+## Contributors
 <a href="https://github.com/TrueOsiris/docker-vrising/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=TrueOsiris/docker-vrising" />
 </a>
+
+## Remarks
+
+- Configuration settings are still those in /path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings
+so NOT those in /persistentdata.
+
+- If you use different internal & external ports, you can only use direct connect.
+If you want to see the server in the server list and want to use 27015-27016/UDP for example,
+you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016.
+Then expose these ports
+
+```
+-p 27015:27015/udp
+-p 27016:27016/udp
+```
+
+- If you want to continue from your local game, stop the container, overwrite the persistentdata
+contents with your local data, and relaunch the server.
