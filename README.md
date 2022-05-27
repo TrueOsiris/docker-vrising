@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/TrueOsiris/docker-vrising">
-    <img alt="Iroh" src="assets/docker-virising.png?raw=true" height="250">
+    <img alt="Iroh" src="https://github.com/TrueOsiris/docker-vrising/blob/main/assets/docker-virising.png?raw=true" height="250">
   </a>
   <p  align="center">A dockerized V Rising dedicated server on Ubuntu 22.04 with Wine.</p>
 </p>
