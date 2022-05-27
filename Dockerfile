@@ -32,8 +32,8 @@ RUN rm -rf /var/lib/apt/lists/* && \
     apt autoremove -y 
 
 # Copy scripts 
-COPY start.sh /start.sh
-COPY auto_backup.sh /auto_backup.sh
+COPY scripts/start.sh /start.sh
+COPY scripts/auto_backup.sh /auto_backup.sh
 
 # Set permissions
 RUN chmod +x /start.sh && \
