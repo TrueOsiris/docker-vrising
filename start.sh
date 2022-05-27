@@ -2,18 +2,26 @@
 s=/mnt/vrising/server
 p=/mnt/vrising/persistentdata
 d=/mnt/vrising/persistentdata/dotnet
-b=/mnt/vrising/persistentdata/backup
 echo " "
 echo "Downloading and installing .NET SDK 6.0.300 and core runtime..."
 echo " "
 mkdir "$d" 2>/dev/null
-mkdir "$b" 2>/dev/null
 chmod -R 777 "$d" 2>/dev/null
 if [ -z $SERVERNAME ]; then
 	SERVERNAME="trueosiris-V"
 fi
 if [ -z $WORLDNAME ]; then
 	WORLDNAME="world1"
+fi
+if [ -z $AUTO_BACKUP ]; then
+	AUTO_BACKUP=0
+fi
+if [ -z "$AUTO_BACKUP_SCHEDULE" ]; then
+	AUTO_BACKUP_SCHEDULE=*/30 * * * *
+fi
+if [ $AUTO_BACKUP -eq 1 ]; then
+	service cron start
+	crontab -l | { cat; echo "${AUTO_BACKUP_SCHEDULE} bash /auto_backup.sh"; } | crontab -
 fi
 cd /tmp
 rm -R /tmp/* 2>/dev/null
@@ -36,19 +44,6 @@ if [ ! -f "$d/dotnet" ]; then
 fi
 export DOTNET_ROOT=$d
 export PATH=$PATH:$d
-# START OF BACKUP 
-if [ -z $AUTO_BACKUP ]; then
-	AUTO_BACKUP=0
-fi
-if [ "${AUTO_BACKUP}" -eq 1 ]; then
-	echo " "
-	echo "Setting up backup system..."
-	echo " "
-	if [ ! -f "$b/backup" ]; then
-		touch $b/test
-	fi
-fi
-# END OF BACKUP
 mkdir -p /root/.steam 2>/dev/null
 chmod -R 777 /root/.steam 2>/dev/null
 echo " "
