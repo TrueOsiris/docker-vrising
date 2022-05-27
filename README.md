@@ -64,7 +64,7 @@ contents, and relaunch the server.
 
 
 ## Docker cli
-You can find your server config files in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`
+Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`
 ```terminal
 docker run -d --name='vrising' \
 --net='bridge' \
@@ -115,7 +115,9 @@ services:
 - Configuration settings are still those in /path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings
 so NOT those in /persistentdata.
 
--If you use different internal & external ports, you can only use direct connect. If you want to see the server in the server list and want to use 27015-27016/UDP for example, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.
+- If you use different internal & external ports, you can only use direct connect. Example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible, even if  `"ListOnMasterServer=true"`
+
+- If you want to see the server in the server list and want to use 27015-27016/UDP for example, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.
 ```
 -p 27015:27015/udp
 -p 27016:27016/udp
