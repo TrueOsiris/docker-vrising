@@ -29,9 +29,8 @@ if [ ! -f "$d/dotnet" ]; then
 	### x64 ###
 	tar zxf dotnet-sdk-6.0.300-linux-x64.tar.gz -C "$d"
 	tar zxf aspnetcore-runtime-6.0.5-linux-x64.tar.gz -C "$d"
-
-	rm -R /tmp/*
 fi
+rm -R /tmp/* 2>/dev/null
 export DOTNET_ROOT=$d
 export PATH=$PATH:$d
 mkdir -p /root/.steam 2>/dev/null
@@ -42,23 +41,15 @@ echo " "
 /usr/bin/steamcmd +force_install_dir "$s" +login anonymous +app_update 1829350 +quit
 echo "steam_appid: "`cat $s/steam_appid.txt`
 echo " "
-if [ ! -f "$p/ServerGameSettings.json" ]; then
-        echo "$p/ServerGameSettings.json not found. Copying default file."
-        cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerGameSettings.json" "$p/" 2>&1
-fi
-if [ ! -f "$p/ServerHostSettings.json" ]; then
-        echo "$p/ServerHostSettings.json not found. Copying default file."
-        cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json" "$p/" 2>&1
-fi
 cd "$s"
 echo "Starting V Rising Dedicated Server with name $SERVERNAME"
 echo "Trying to remove /tmp/.X0-lock"
 rm /tmp/.X0-lock 2>&1
+echo " "
 echo "Starting Xvfb"
 Xvfb :0 -screen 0 1024x768x16 &
 echo "Launching wine64 V Rising"
 echo " "
 DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" 2>&1
-
 /usr/bin/tail -f /var/log/dpkg.log
 
