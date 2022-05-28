@@ -39,7 +39,7 @@ fi
 
 if [ $AUTO_BACKUP -eq 1 ]; then
 	service cron start
-	crontab -l | { cat; echo "${AUTO_BACKUP_SCHEDULE} bash /auto_backup.sh"; } | crontab -
+	crontab -l | { cat; echo "${AUTO_BACKUP_SCHEDULE} bash /home/steam/auto_backup.sh"; } | crontab -
 fi
 
 if [ ! -f "$dotnetDir/dotnet" ]; then
