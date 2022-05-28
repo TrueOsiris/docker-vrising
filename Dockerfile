@@ -32,11 +32,11 @@ RUN rm -rf /var/lib/apt/lists/* && \
     apt autoremove -y 
 
 # Copy scripts 
-COPY scripts/start.sh /start.sh
-COPY scripts/auto_backup.sh /auto_backup.sh
+COPY scripts/start.sh /home/steam/start.sh
+COPY scripts/auto_backup.sh /home/steam/auto_backup.sh
 
 # Set permissions
-RUN chmod +x /start.sh && \
-    chmod +x /auto_backup.sh
+RUN chmod +x /home/steam/start.sh && \
+    chmod +x /home/steam/auto_backup.sh
 
-CMD ["/start.sh"]
+CMD ["/bin/bash", "/home/steam/start.sh"]
