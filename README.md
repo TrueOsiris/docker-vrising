@@ -77,8 +77,8 @@ services:
       - './server:/mnt/vrising/server:rw'
       - './data:/mnt/vrising/persistentdata:rw'
     ports:
-      - '9876/udp:9876/udp'
-      - '9877/udp:9877/udp'
+      - '9876:9876/udp'
+      - '9877:9877/udp'
 ```
 
 ## Links
