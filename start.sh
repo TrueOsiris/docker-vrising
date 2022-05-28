@@ -51,12 +51,13 @@ if [ ! -f "$p/ServerHostSettings.json" ]; then
         cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json" "$p/" 2>&1
 fi
 cd "$s"
-set SteamAppId=`cat $s/steam_appid.txt`
 echo "Starting V Rising Dedicated Server with name $SERVERNAME"
-echo "SteamAppId set to $SteamAppId"
-echo "Starting Xvfb and wine64 ..."
-echo " "
+echo "Trying to remove /tmp/.X0-lock"
+rm /tmp/.X0-lock 2>&1
+echo "Starting Xvfb"
 Xvfb :0 -screen 0 1024x768x16 &
+echo "Launching wine64 V Rising"
+echo " "
 DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" 2>&1
 
 /usr/bin/tail -f /var/log/dpkg.log
