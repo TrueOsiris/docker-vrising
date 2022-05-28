@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://github.com/TrueOsiris/docker-vrising">
-    <img alt="Iroh" src="assets/docker-virising.png?raw=true" height="250">
+    <img alt="Iroh" src="https://github.com/TrueOsiris/docker-vrising/blob/main/assets/docker-virising.png?raw=true" height="250">
   </a>
-  <p  align="center">A dockersized V Rising dedicated server on Ubuntu 22.04 with Wine.</p>
+  <p  align="center">Dockerized V Rising dedicated server in an Ubuntu 22.04 container with Wine.</p>
 </p>
 
 <p align="center">
@@ -15,18 +15,16 @@
   </a>
   <a href="https://hub.docker.com/r/trueosiris/vrising/">
     <img alt="Docker stars" src="https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size" />
-  </a>
-  <a href="https://hub.docker.com/r/trueosiris/vrising/">
-    <img alt="Docker stars" src="https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size" />
-  </a>
-  <br>
-  <img alt="Github forks" src="https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars" />
+  <img alt="Github stars" src="https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars" />
   <img alt="Github forks" src="https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=forks" />
   <a href="https://github.com/TrueOsiris/docker-vrising/issues/">
     <img alt="Github issues" src="https://img.shields.io/github/issues/TrueOsiris/docker-vrising" />
   </a>
   <img alt="Github last-commit" src="https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising" />
 </p>
+
+Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
+Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`.
 
 ## Environment variables
 
@@ -39,31 +37,13 @@
 | AUTO_BACKUP_SCHEDULE | `*/15 * * * *` | 30min | Set interval for each save |
 
 ## Ports
-Edit `ServerHostSettings.json` if you wan't to change the ports,name,descriptions etc.
-
-- *Set `"ListOnMasterServer"` to **true** in `ServerHostSettings.json` so the server will show up on server list ingame*.
-- *Don't forget to portforward on you'r router*.
 
 | Exposed Container port | Type | Default |
 | ---------------------- | ---- | ------- |
 | 9876 | UDP | ✔️ |
 | 9877 | UDP | ✔️ |
 
-## RCON <small>- Optional</small>
-To enable RCON edit `ServerHostSettings.json` and paste following lines after `QueryPort`. To communitate using RCON protocal use a [RCON CLI](https://github.com/gorcon/rcon-cli) by gorcon.
-
-```json
-"Rcon": {
-  "Enabled": true,
-  "Password": "docker",
-  "Port": 25575
-},
-```
-
 ## Volumes
-
-If you want to continue from your local game, stop the container, overwrite the persistentdata
-contents, and relaunch the server. 
 
 | Volume                    | Container path                                                   | Description |
 | ------------------------- | ---------------------------------------------------------------- | ----------------------------------------------- |
@@ -72,7 +52,6 @@ contents, and relaunch the server.
 
 
 ## Docker cli
-You can find your server config files in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`
 ```terminal
 docker run -d --name='vrising' \
 --net='bridge' \
@@ -86,9 +65,6 @@ docker run -d --name='vrising' \
 ```
 
 ## docker-compose.yml
-
-You can find your server config files in `server/VRisingServer_Data/StreamingAssets/Settings`
-
 ```
 version: '3.3'
 services:
@@ -112,27 +88,49 @@ services:
 
 - [V Rising Dedicated Server Instructions](https://github.com/StunlockStudios/vrising-dedicated-server-instructions)
 - [Dockerhub - Trueosiris/vrising](https://hub.docker.com/repository/docker/trueosiris/vrising)
-- [Github - trueosiris/vrising] (https://github.com/TrueOsiris/docker-vrising)
+- [Github - trueosiris/vrising](https://github.com/TrueOsiris/docker-vrising)
+
+## RCON <small>- Optional</small>
+To enable RCON edit `ServerHostSettings.json` and paste following lines after `QueryPort`. To communicate using RCON protocal use the [RCON CLI](https://github.com/gorcon/rcon-cli) by gorcon.
+
+```json
+"Rcon": {
+  "Enabled": true,
+  "Password": "docker",
+  "Port": 25575
+},
+```
 
 ## Contributors
 <a href="https://github.com/TrueOsiris/docker-vrising/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=TrueOsiris/docker-vrising" />
 </a>
 
-## Remarks
+## Remarks 
+### as requested or logged in issues
 
 - Configuration settings are still those in /path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings
 so NOT those in /persistentdata.
 
-- If you use different internal & external ports, you can only use direct connect.
-If you want to see the server in the server list and want to use 27015-27016/UDP for example,
-you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016.
-Then expose these ports
 
+- If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible, even if  `"ListOnMasterServer=true"`
+
+
+- If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.<br>
+1. Start the container & let the server install<br>It ends with something like `0024:fixme:ntdll:EtwEventSetInformation (deadbeef, 2, 000014B2D39FA170, 65) stub`
+2. Stop the container.<br>
+3. Alter the ports in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json` to<br>
+```
+ "Port": 27015,
+ "QueryPort": 27016,
+``` 
+4. On your firewall, port forward incoming wan udp ports 27015 and 27016 to the same udp ports on your dockerhost ip.<br>
+5. Restart the container with these ports:
 ```
 -p 27015:27015/udp
 -p 27016:27016/udp
 ```
+
 
 - If you want to continue from your local game, stop the container, overwrite the persistentdata
 contents with your local data, and relaunch the server.
