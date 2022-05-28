@@ -7,7 +7,7 @@ mkdir "$dir" 2>/dev/null
 find $dir -mtime +1 -type f -exec rm -fv {} \;
 
 ## Start backup process
-if [ ! -f "$dir/backup" ]; then
+if [ ! -f "$dir" ]; then
     fileName="$(date +"%Y%m%d-%H%M%S")-${1:-"backup"}.tar.gz"
     tar -cvpzf $dir/$fileName /mnt/vrising/persistentdata/Saves
 fi
