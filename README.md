@@ -98,11 +98,6 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 },
 ```
 
-## Contributors
-<a href="https://github.com/TrueOsiris/docker-vrising/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=TrueOsiris/docker-vrising" />
-</a>
-
 ## Remarks 
 ### as requested or logged in issues
 
@@ -131,3 +126,8 @@ so NOT those in /persistentdata.
 
 - If you want to continue from your local game, stop the container, overwrite the persistentdata
 contents with your local data, and relaunch the server.
+
+## Contributors
+<a href="https://github.com/TrueOsiris/docker-vrising/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=TrueOsiris/docker-vrising" />
+</a>
