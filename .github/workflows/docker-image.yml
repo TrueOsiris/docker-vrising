@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu:22.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER)
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u $D0CKER_USER -p $DOCKER_PASSWORD
+    - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag vrising-server:$(date +%s)
+    - name: Docker Push
+        run: docker push $t{secrets .DOCKER_USER}}/rakma/vrising-server
