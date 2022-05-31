@@ -14,11 +14,11 @@ if [ -z $WORLDNAME ]; then
 	WORLDNAME="world1"
 fi
 game_port=""
-if [ -z $GAMEPORT ]; then
+if [ ! -z $GAMEPORT ]; then
 	game_port=" -gamePort $GAMEPORT"
 fi
 query_port=""
-if [ -z $QUERYPORT ]; then
+if [ ! -z $QUERYPORT ]; then
 	query_port=" -queryPort $QUERYPORT"
 fi
 cd /tmp
