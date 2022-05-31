@@ -13,6 +13,14 @@ fi
 if [ -z $WORLDNAME ]; then
 	WORLDNAME="world1"
 fi
+game_port=""
+if [ -z $GAMEPORT ]; then
+	game_port=" -gamePort $GAMEPORT"
+fi
+query_port=""
+if [ -z $QUERYPORT ]; then
+	query_port=" -queryPort $QUERYPORT"
+fi
 cd /tmp
 rm -R /tmp/* 2>/dev/null
 if [ ! -f "$d/dotnet" ]; then
@@ -50,6 +58,6 @@ echo "Starting Xvfb"
 Xvfb :0 -screen 0 1024x768x16 &
 echo "Launching wine64 V Rising"
 echo " "
-DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" 2>&1
+DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" "$game_port" "$query_port" 2>&1
 /usr/bin/tail -f /var/log/dpkg.log
 

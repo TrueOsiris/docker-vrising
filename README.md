@@ -33,6 +33,8 @@ Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Dat
 | TZ | Europe/Brussels | timezone for ntpdate |
 | SERVERNAME | published servername | mandatory setting that overrules the ServerHostSettings.json entry |
 | WORLDNAME | optional worldname | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
+| GAMEPORT | game udp port | to overwrite Port in ServerHostSettings.json config |
+| QUERYPORT | query port | to overwrite QueryPort in ServerHostSettings.json config |
 
 ## Ports
 
@@ -55,6 +57,8 @@ docker run -d --name='vrising' \
 --net='bridge' \
 -e TZ="Europe/Paris" \
 -e SERVERNAME="trueosiris-V" \
+-e GAMEPORT="9876" \
+-e QUERYPORT="9877" \
 -v '/path/on/host/dedicatedserverfiles':'/mnt/vrising/server':'rw' \
 -v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
 -p 9876:9876/udp \
@@ -73,6 +77,8 @@ services:
     environment:
       - TZ=Europe/Paris
       - SERVERNAME=vrisingDocker
+      - GAMEPORT=9876
+      - QUERYPORT=9877
     volumes:
       - './server:/mnt/vrising/server:rw'
       - './data:/mnt/vrising/persistentdata:rw'
@@ -104,7 +110,7 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 - Configuration settings are still those in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`
 so **NOT** those in /persistentdata.<br>
 update: I removed duplication of the files to /persistentdata. I was working on adding them to the executable line, in order to always retain the original files, but I do not longer see the point.<br>
-<font color="red">Serverpatch overwrites config files!</font> - working on it.
+<font color="red">Serverpatch overwrites config files!</font> - working on it. use GAMEPORT & QUERYPORT environment variables.
 
 
 - If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible, even if  `"ListOnMasterServer=true"`
