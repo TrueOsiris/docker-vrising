@@ -6,6 +6,15 @@
 </p>
 
 <p align="center">
+![Trueosiris Rules](https://img.shields.io/badge/trueosiris-rules-f08060) 
+[![Docker Pulls](https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising/) 
+[![Docker Stars](https://badgen.net/docker/stars/trueosiris/vrising?icon=docker&label=stars)](https://hub.docker.com/r/trueosiris/vrising/) 
+[![Docker Image Size](https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/vrising/) 
+![Github stars](https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars) 
+![Github forks](https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=forks) 
+![Github issues](https://img.shields.io/github/issues/TrueOsiris/docker-vrising)
+![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
+<br><br>
   <img alt="Trueosiris Rules" src="https://img.shields.io/badge/trueosiris-rules-f08060" />
   <a href="https://hub.docker.com/r/trueosiris/vrising/">
     <img alt="Docker Pulls" src="https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls" />
