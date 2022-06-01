@@ -99,8 +99,8 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 ## Remarks 
 ### as requested or logged in issues
 
-- Configuration settings are still those in `/path/on/host/persistentdata/Settings/`.<br>
-  Serverpatch overwrites config files in /path/on/host/server!
+- Configuration settings are in `/path/on/host/persistentdata/Settings/`.<br>
+  Serverpatch overwrites config files in /path/on/host/server so avoid touching those json files.
 
 
 - If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible, even if  `"ListOnMasterServer=true"`
