@@ -43,6 +43,15 @@ export DOTNET_ROOT=$d
 export PATH=$PATH:$d
 mkdir -p /root/.steam 2>/dev/null
 chmod -R 777 /root/.steam 2>/dev/null
+mkdir "$p/Settings" 2>/dev/null
+if [ ! -f "$p/Settings/ServerGameSettings.json" ]; then
+        echo "$p/Settings/ServerGameSettings.json not found. Copying default file."
+        cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerGameSettings.json" "$p/Settings/" 2>&1
+fi
+if [ ! -f "$p/Settings/ServerHostSettings.json" ]; then
+        echo "$p/Settings/ServerHostSettings.json not found. Copying default file."
+        cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json" "$p/Settings/" 2>&1
+fi
 echo " "
 echo "Updating V-Rising Dedicated Server files..."
 echo " "
