@@ -15,7 +15,11 @@
 ![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
 
 Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
-Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`.
+![Big Change](https://img.shields.io/badge/big-change-f03020)
+Server config files are in `/path/on/host/persistentdata/Settings`.<br>
+Change needed as files in `/path/on/host/server/` are overwritten on update.<br>
+Priority of settings is 1. container variables, 2. files in /persistentdata, 3. files in /server<br>
+If there are no files in `/path/on/host/persistentdata/Settings`, the default files (which may have been altered by you) will be copied there.
 
 ## Environment variables
 
@@ -48,7 +52,7 @@ docker run -d --name='vrising' \
 --net='bridge' \
 -e TZ="Europe/Paris" \
 -e SERVERNAME="trueosiris-V" \
--v '/path/on/host/dedicatedserverfiles':'/mnt/vrising/server':'rw' \
+-v '/path/on/host/server':'/mnt/vrising/server':'rw' \
 -v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
 -p 9876:9876/udp \
 -p 9877:9877/udp \
@@ -94,10 +98,8 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 ## Remarks 
 ### as requested or logged in issues
 
-- Configuration settings are still those in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`
-so **NOT** those in /persistentdata.<br>
-update: I removed duplication of the files to /persistentdata. I was working on adding them to the executable line, in order to always retain the original files, but I do not longer see the point.<br>
-<font color="#E00000">Serverpatch overwrites config files!</font> - working on it. use GAMEPORT & QUERYPORT environment variables.
+- Configuration settings are still those in `/path/on/host/persistentdata/Settings/`.<br>
+  Serverpatch overwrites config files in /path/on/host/server!
 
 
 - If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible, even if  `"ListOnMasterServer=true"`
@@ -106,7 +108,7 @@ update: I removed duplication of the files to /persistentdata. I was working on 
 - If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.<br>
 1. Start the container & let the server install<br>It ends with something like `0024:fixme:ntdll:EtwEventSetInformation (deadbeef, 2, 000014B2D39FA170, 65) stub`
 2. Stop the container.<br>
-3. Alter the ports in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json` to<br>
+3. Alter the ports in `/path/on/host/persistentdata/Settings/ServerHostSettings.json` to<br>
 ```
  "Port": 27015,
  "QueryPort": 27016,
