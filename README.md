@@ -110,17 +110,17 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 - If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.<br>
   - Start the container & let the server install.<br>It ends with something like `0024:fixme:ntdll:EtwEventSetInformation (deadbeef, 2, 000014B2D39FA170, 65) stub`
   - Stop the container.
-  - Alter the ports in `/path/on/host/persistentdata/Settings/ServerHostSettings.json` to<br>
+  - Alter the ports in `/path/on/host/persistentdata/Settings/ServerHostSettings.json` to
     ```
      "Port": 27015,
      "QueryPort": 27016,
     ``` 
   - On your firewall, port forward incoming wan udp ports 27015 and 27016 to the same udp ports on your dockerhost ip.
   - Restart the container with these ports:
-```
--p 27015:27015/udp
--p 27016:27016/udp
-```
+    ```
+     -p 27015:27015/udp
+     -p 27016:27016/udp
+    ```
 
 
 - If you want to continue from your local game, stop the container, overwrite the persistentdata
