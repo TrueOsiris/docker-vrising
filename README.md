@@ -5,7 +5,6 @@
   <p  align="center">Dockerized V Rising dedicated server in an Ubuntu 22.04 container with Wine.</p>
 </p>
 
-<p align="center">
 ![Trueosiris Rules](https://img.shields.io/badge/trueosiris-rules-f08060) 
 [![Docker Pulls](https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising/) 
 [![Docker Stars](https://badgen.net/docker/stars/trueosiris/vrising?icon=docker&label=stars)](https://hub.docker.com/r/trueosiris/vrising/) 
@@ -15,6 +14,7 @@
 ![Github issues](https://img.shields.io/github/issues/TrueOsiris/docker-vrising)
 ![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
 <br><br>
+<p align="center">
   <img alt="Trueosiris Rules" src="https://img.shields.io/badge/trueosiris-rules-f08060" />
   <a href="https://hub.docker.com/r/trueosiris/vrising/">
     <img alt="Docker Pulls" src="https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls" />
