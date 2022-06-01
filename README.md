@@ -15,7 +15,8 @@
 ![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
 
 Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
-![Big Change](https://img.shields.io/badge/big-change-f03020)
+
+![Big Change](https://img.shields.io/badge/big-change-f03020)<br>
 Server config files are in `/path/on/host/persistentdata/Settings`.<br>
 Change needed as files in `/path/on/host/server/` are overwritten on update.<br>
 Priority of settings is 1. container variables, 2. files in /persistentdata, 3. files in /server<br>
