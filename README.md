@@ -57,8 +57,6 @@ docker run -d --name='vrising' \
 --net='bridge' \
 -e TZ="Europe/Paris" \
 -e SERVERNAME="trueosiris-V" \
--e GAMEPORT="9876" \
--e QUERYPORT="9877" \
 -v '/path/on/host/dedicatedserverfiles':'/mnt/vrising/server':'rw' \
 -v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
 -p 9876:9876/udp \
@@ -77,8 +75,6 @@ services:
     environment:
       - TZ=Europe/Paris
       - SERVERNAME=vrisingDocker
-      - GAMEPORT=9876
-      - QUERYPORT=9877
     volumes:
       - './server:/mnt/vrising/server:rw'
       - './data:/mnt/vrising/persistentdata:rw'
