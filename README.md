@@ -111,10 +111,10 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
   - Start the container & let the server install.<br>It ends with something like `0024:fixme:ntdll:EtwEventSetInformation (deadbeef, 2, 000014B2D39FA170, 65) stub`
   - Stop the container.
   - Alter the ports in `/path/on/host/persistentdata/Settings/ServerHostSettings.json` to<br>
-```
- "Port": 27015,
- "QueryPort": 27016,
-``` 
+    ```
+     "Port": 27015,
+     "QueryPort": 27016,
+    ``` 
   - On your firewall, port forward incoming wan udp ports 27015 and 27016 to the same udp ports on your dockerhost ip.
   - Restart the container with these ports:
 ```
