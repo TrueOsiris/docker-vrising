@@ -110,7 +110,7 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 - Configuration settings are still those in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`
 so **NOT** those in /persistentdata.<br>
 update: I removed duplication of the files to /persistentdata. I was working on adding them to the executable line, in order to always retain the original files, but I do not longer see the point.<br>
-<font color="red">Serverpatch overwrites config files!</font> - working on it. use GAMEPORT & QUERYPORT environment variables.
+<font color="#E00000">Serverpatch overwrites config files!</font> - working on it. use GAMEPORT & QUERYPORT environment variables.
 
 
 - If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible, even if  `"ListOnMasterServer=true"`
