@@ -13,24 +13,6 @@
 ![Github forks](https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=forks) 
 ![Github issues](https://img.shields.io/github/issues/TrueOsiris/docker-vrising)
 ![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
-<br><br>
-<p align="center">
-  <img alt="Trueosiris Rules" src="https://img.shields.io/badge/trueosiris-rules-f08060" />
-  <a href="https://hub.docker.com/r/trueosiris/vrising/">
-    <img alt="Docker Pulls" src="https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls" />
-  </a>
-  <a href="https://hub.docker.com/r/trueosiris/vrising/">
-    <img alt="Docker stars" src="https://badgen.net/docker/stars/trueosiris/vrising?icon=docker&label=stars" />
-  </a>
-  <a href="https://hub.docker.com/r/trueosiris/vrising/">
-    <img alt="Docker stars" src="https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size" />
-  <img alt="Github stars" src="https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars" />
-  <img alt="Github forks" src="https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=forks" />
-  <a href="https://github.com/TrueOsiris/docker-vrising/issues/">
-    <img alt="Github issues" src="https://img.shields.io/github/issues/TrueOsiris/docker-vrising" />
-  </a>
-  <img alt="Github last-commit" src="https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising" />
-</p>
 
 Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
 Server config files are in `/path/on/host/dedicatedserverfiles/VRisingServer_Data/StreamingAssets/Settings`.
