@@ -16,8 +16,8 @@
 
 Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
 
-![Big Change](https://img.shields.io/badge/big-change-f03020)<br>
-Server config files are in `/path/on/host/persistentdata/Settings`.<br>
+![Big Change](https://img.shields.io/badge/big-change-f03020) on June 1st:<br>
+Server config files are now in `/path/on/host/persistentdata/Settings`.<br>
 This change was needed as files in `/path/on/host/server/` are overwritten on Steam update.<br>
 Priority of settings is 1. container variables, 2. files in /persistentdata, 3. files in /server<br>
 If there are no files in `/path/on/host/persistentdata/Settings`, the default files (which may have been altered by you) will be copied there.
