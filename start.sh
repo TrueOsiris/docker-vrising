@@ -2,6 +2,10 @@
 s=/mnt/vrising/server
 p=/mnt/vrising/persistentdata
 d=/mnt/vrising/persistentdata/dotnet
+echo "Setting timezone to $TZ"
+echo $TZ > /etc/timezone 2>&1
+ln -snf /usr/share/zoneinfo/$TZ /etc/localtime 2>&1
+dpkg-reconfigure -f noninteractive tzdata 2>&1
 echo " "
 echo "Downloading and installing .NET SDK 6.0.300 and core runtime..."
 echo " "
