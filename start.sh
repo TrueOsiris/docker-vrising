@@ -47,6 +47,12 @@ export DOTNET_ROOT=$d
 export PATH=$PATH:$d
 mkdir -p /root/.steam 2>/dev/null
 chmod -R 777 /root/.steam 2>/dev/null
+echo " "
+echo "Updating V-Rising Dedicated Server files..."
+echo " "
+/usr/bin/steamcmd +force_install_dir "$s" +login anonymous +app_update 1829350 +quit
+echo "steam_appid: "`cat $s/steam_appid.txt`
+echo " "
 mkdir "$p/Settings" 2>/dev/null
 if [ ! -f "$p/Settings/ServerGameSettings.json" ]; then
         echo "$p/Settings/ServerGameSettings.json not found. Copying default file."
@@ -56,12 +62,6 @@ if [ ! -f "$p/Settings/ServerHostSettings.json" ]; then
         echo "$p/Settings/ServerHostSettings.json not found. Copying default file."
         cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json" "$p/Settings/" 2>&1
 fi
-echo " "
-echo "Updating V-Rising Dedicated Server files..."
-echo " "
-/usr/bin/steamcmd +force_install_dir "$s" +login anonymous +app_update 1829350 +quit
-echo "steam_appid: "`cat $s/steam_appid.txt`
-echo " "
 cd "$s"
 echo "Starting V Rising Dedicated Server with name $SERVERNAME"
 echo "Trying to remove /tmp/.X0-lock"
