@@ -1,5 +1,4 @@
 FROM ubuntu:22.04 
-USER root
 LABEL maintainer="Tim Chaubet"
 VOLUME ["/mnt/vrising/server", "/mnt/vrising/persistentdata"]
 
