@@ -17,10 +17,11 @@
 Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
 
 
-| ![Big Change](https://img.shields.io/badge/big-change-f03020) on June 1st |
+| ![Important](https://img.shields.io/badge/important-remark-f03020) |
 | :--- |
-| Server config files are now in `/path/on/host/persistentdata/Settings`. This change was needed as files in `/path/on/host/server/` are overwritten on Steam update. Priority of settings is 1) container variables, 2) files in /persistentdata, 3) files in /server. 
-If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files (which may have been altered by you) will be copied there from the /server directory. |
+| Server config files are now in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update. Priority of settings is 1) container variables, 2) files in /persistentdata, 3) files in /server. 
+If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory. |
+| If using docker-compose, you may need to alter the volume paths on your host  |
 
 
 ## Environment variables
