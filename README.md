@@ -53,6 +53,7 @@ If there are no files in `/path/on/host/persistentdata/Settings` on container st
 ```terminal
 docker run -d --name='vrising' \
 --net='bridge' \
+--restart=unless-stopped \
 -e TZ="Europe/Paris" \
 -e SERVERNAME="trueosiris-V" \
 -v '/path/on/host/server':'/mnt/vrising/server':'rw' \
