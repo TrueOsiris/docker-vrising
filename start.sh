@@ -37,9 +37,9 @@ echo " "
 if ! grep -o 'avx[^ ]*' /proc/cpuinfo; then
 	unsupported_file="VRisingServer_Data/Plugins/x86_64/lib_burst_generated.dll"
 	echo "AVX or AVX2 not supported; Check if unsupported ${unsupported_file} exists"
-	if [ -f "${path_server}/${unsupported_file}" ]; then
+	if [ -f "${s}/${unsupported_file}" ]; then
 		echo "Changing ${unsupported_file} as attempt to fix issues..."
-		mv "${path_server}/${unsupported_file}" "${path_server}/${unsupported_file}.bak"
+		mv "${s}/${unsupported_file}" "${s}/${unsupported_file}.bak"
 	fi
 fi
 
