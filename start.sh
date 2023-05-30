@@ -30,8 +30,19 @@ chmod -R 777 /root/.steam 2>/dev/null
 echo " "
 echo "Updating V-Rising Dedicated Server files..."
 echo " "
-/usr/bin/steamcmd +force_install_dir "$s" +login anonymous +app_update 1829350 +quit
+/usr/bin/steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir "$s" +login anonymous +app_update 1829350 validate +quit
 echo "steam_appid: "`cat $s/steam_appid.txt`
+
+echo " "
+if ! grep -o 'avx[^ ]*' /proc/cpuinfo; then
+	unsupported_file="VRisingServer_Data/Plugins/x86_64/lib_burst_generated.dll"
+	echo "AVX or AVX2 not supported; Check if unsupported ${unsupported_file} exists"
+	if [ -f "${s}/${unsupported_file}" ]; then
+		echo "Changing ${unsupported_file} as attempt to fix issues..."
+		mv "${s}/${unsupported_file}" "${s}/${unsupported_file}.bak"
+	fi
+fi
+
 echo " "
 mkdir "$p/Settings" 2>/dev/null
 if [ ! -f "$p/Settings/ServerGameSettings.json" ]; then
