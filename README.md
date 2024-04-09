@@ -19,6 +19,7 @@ Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc
 
 | ![Important](https://img.shields.io/badge/important-remarks-f03020) |
 | :--- |
+| make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are added to the config, so the server is visible in the serverlist |
 | Update 2023-05-30: Merged changes from <a href="https://github.com/baldandbearded93/docker-vrising-noavx">baldandbearded93's fork</a> into stream to fix current issues. |
 | Server config files are now in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update. Priority of settings is 1) container variables, 2) files in /persistentdata, 3) files in /server. 
 If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory. |
@@ -66,21 +67,30 @@ docker run -d --name='vrising' \
 
 ## docker-compose.yml
 ```
-version: '3.3'
+version: '3.8'
 services:
   vrising:
     container_name: vrising
     image: trueosiris/vrising
-    network_mode: bridge
     environment:
       - TZ=Europe/Paris
-      - SERVERNAME=vrisingDocker
+      - SERVERNAME=vrising-TrueOsiris
     volumes:
-      - './server:/mnt/vrising/server:rw'
-      - './data:/mnt/vrising/persistentdata:rw'
+      - type: bind
+        source: /your/host/vrising/server
+        target: /mnt/vrising/server
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /your/host/vrising/persistentdata
+        target: /mnt/vrising/persistentdata
+        bind:
+          create_host_path: true
     ports:
       - '9876:9876/udp'
       - '9877:9877/udp'
+    restart: unless-stopped
+    network_mode: bridge
 ```
 
 ## Links
@@ -109,11 +119,6 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 
 - If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible, even if  `"ListOnMasterServer=true"`
 
-- In ServerHostSettings Put this in:<br>
-  `"ListOnSteam": true,`<br>
-  It is required to list it on steam and for the server list to pick it up.<br>
-  This is no longer working:<br>
-  `"ListOnMasterServer": true,` is deprecated
 
 - If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.<br>
   - Start the container & let the server install.<br>It ends with something like `0024:fixme:ntdll:EtwEventSetInformation (deadbeef, 2, 000014B2D39FA170, 65) stub`
