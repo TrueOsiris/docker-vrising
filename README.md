@@ -20,10 +20,10 @@ Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc
 | ![Important](https://img.shields.io/badge/important-remarks-f03020) |
 | :--- |
 | make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist |
-| Update 2023-05-30: Merged changes from <a href="https://github.com/baldandbearded93/docker-vrising-noavx">baldandbearded93's fork</a> into stream to fix current issues. |
-| Server config files are now in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update. Priority of settings is 1) container variables, 2) files in /persistentdata, 3) files in /server. 
+| Server config files are in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update. Priority of settings is 1) container variables, 2) files in /persistentdata, 3) files in /server. 
 If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory. |
 | If using docker-compose, you may need to alter the volume paths on your host. There are a few open issues reported on this.  |
+| Please change that server name in the environment variables. I'm seeing 15 TrueOsiris servers :-D |
 
 
 ## Environment variables
