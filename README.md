@@ -22,8 +22,11 @@
 
 ## Important remarks
 
-- Server config files are in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update. Priority of settings is 
-  1) container variables, 2) files in /persistentdata, 3) files in /server. <br>
+- Server config files are in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update. Priority of settings is<br>
+  1) container variables 
+  2) files in /persistentdata 
+  3) files in /server. 
+  
   If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.<br>
   Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
 - If using docker-compose, you may need to alter the volume paths on your host. There are a few open issues reported on this. 
