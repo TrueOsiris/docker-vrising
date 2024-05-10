@@ -17,7 +17,7 @@
 ## 1.0 update
 
 - The game is working perfectly with a new run of the container (from scratch). I'm on it with several buddies and <i>tested</i> for 3 hours.
-- When the server is passworded, joining via Steam seems <b>not</b> to be possible. Use the ingame server list to join.
+- When the server is passworded, joining via Steam seems <b>not</b> possible. Use the ingame server list to join.
 - Make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist
 
 ## Environment variables
