@@ -11,7 +11,7 @@
 ![Github stars](https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars)
 ![Github forks](https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=forks)
 ![Github open issues](https://badgen.net/github/open-issues/TrueOsiris/docker-vrising)
-![Github closed issues](https://badgen.net/github/closed-issues/TrueOsiris/docker-vrising) 
+![Github closed issues](https://badgen.net/github/closed-issues/TrueOsiris/docker-vrising)
 ![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
 
 ## 1.0 update
@@ -19,6 +19,7 @@
 - The game is working perfectly with a new run of the container (from scratch). I'm on it with several buddies and <i>tested</i> for 3 hours.
 - When the server is passworded, joining via Steam seems <b>not</b> possible. Use the ingame server list to join.
 - Make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist
+- Launching the server can take up to 10 minutes, even on a fast system, certainly with an existing save. Below is a screenshot of the end of the docker log of a functioning server, at the time we are able to connect to it.
 
 ## Environment variables
 
@@ -49,7 +50,7 @@
 
 ## Docker cli
 
-``` bash
+```bash
 docker run -d --name='vrising' \
 --net='bridge' \
 --restart=unless-stopped \
@@ -64,7 +65,7 @@ docker run -d --name='vrising' \
 
 ## docker-compose.yml
 
-``` yaml
+```yaml
 services:
   vrising:
     image: trueosiris/vrising
@@ -99,7 +100,7 @@ services:
 
 To enable RCON edit `ServerHostSettings.json` and paste following lines after `QueryPort`. To communicate using RCON protocal use the [RCON CLI](https://github.com/gorcon/rcon-cli) by gorcon.
 
-``` json
+```json
 "Rcon": {
   "Enabled": true,
   "Password": "docker",
@@ -120,11 +121,8 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 
   If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.<br>
   Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.
-
 - If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible ~~, even if  `"ListOnMasterServer=true"`~~
-
 - Make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist.
-
 - If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.
 
   - Start the container & let the server install.
@@ -142,3 +140,9 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
     ```
 - If you want to continue from your local game, stop the container, overwrite the persistentdata
   contents with your local data, and relaunch the server.
+
+## Docker log
+
+The log of a functional server in 1.0 should look like this:
+
+![docker-log](https://timmer.ninja/images/vrising-dockerlog.png)
