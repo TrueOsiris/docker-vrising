@@ -20,19 +20,6 @@
 - When the server is passworded, joining via Steam seems <b>not</b> to be possible. Use the ingame server list to join. 
 - Make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist 
 
-## Important remarks
-
-- Server config files are in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update. Priority of settings is<br>
-  1) container variables 
-  2) files in /persistentdata 
-  3) files in /server. 
-  
-  If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.<br>
-  Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
-- If using docker-compose, you may need to alter the volume paths on your host. There are a few open issues reported on this. 
-- Please change that server name in the environment variables. I'm seeing 15 servers named TrueOsiris.
-
-
 ## Environment variables
 
 | Variable | Key | Description |
@@ -120,8 +107,13 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 ## Remarks 
 ### as requested or logged in issues
 
-- Configuration settings are in `/path/on/host/persistentdata/Settings/`.<br>
-  Serverpatch overwrites config files in /path/on/host/server so avoid touching those json files.
+- Server config files are in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update.<br>Priority of settings is<br>
+  1. container variables 
+  2. files in /persistentdata 
+  3. files in /server. 
+  
+  If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.<br>
+  Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.
 
 
 - If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible, even if  `"ListOnMasterServer=true"`
@@ -141,7 +133,6 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
      -p 27015:27015/udp
      -p 27016:27016/udp
     ```
-
 
 - If you want to continue from your local game, stop the container, overwrite the persistentdata
 contents with your local data, and relaunch the server.
