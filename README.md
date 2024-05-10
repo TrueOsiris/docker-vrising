@@ -14,11 +14,6 @@
 ![Github issues](https://img.shields.io/github/issues/TrueOsiris/docker-vrising)
 ![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
 
-Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
-
-
-
-
 ## 1.0 update
 
 - The game is working perfectly with a new run of the container (from scratch). I'm on it with several buddies and <i>tested</i> for 3 hours.
@@ -28,8 +23,9 @@ Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc
 ## Important remarks
 
 - Server config files are in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update. Priority of settings is 
-  1) container variables, 2) files in /persistentdata, 3) files in /server. 
-  If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.
+  1) container variables, 2) files in /persistentdata, 3) files in /server. <br>
+  If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.<br>
+  Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.<br>
 - If using docker-compose, you may need to alter the volume paths on your host. There are a few open issues reported on this. 
 - Please change that server name in the environment variables. I'm seeing 15 servers named TrueOsiris.
 
