@@ -113,7 +113,9 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
   Priority of settings is
 
   a. container variables
+
   b. files in /persistentdata
+  
   c. files in /server. (and these are reset to defaults each new patch)
 
   If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.<br>
