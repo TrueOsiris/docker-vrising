@@ -25,10 +25,10 @@ fi
 if [ ! -z $GID ]; then
 	groupmod -g $GID docker 2>&1
 fi
-if [ -z $SERVERNAME ]; then
+if [ -z "$SERVERNAME" ]; then
 	SERVERNAME="trueosiris-V"
 fi
-if [ -z $WORLDNAME ]; then
+if [ -z "$WORLDNAME" ]; then
 	WORLDNAME="world1"
 fi
 game_port=""
