@@ -15,10 +15,6 @@ term_handler() {
 
 trap 'term_handler' SIGTERM
 
-echo "Setting timezone to $TZ"
-echo $TZ > /etc/timezone 2>&1
-ln -snf /usr/share/zoneinfo/$TZ /etc/localtime 2>&1
-dpkg-reconfigure -f noninteractive tzdata 2>&1
 if [ ! -z $UID ]; then
 	usermod -u $UID docker 2>&1
 fi 
