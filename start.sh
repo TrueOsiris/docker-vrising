@@ -1,6 +1,20 @@
 #!/bin/bash
 s=/mnt/vrising/server
 p=/mnt/vrising/persistentdata
+
+term_handler() {
+    echo "Shutting down Server"
+
+    PID=$(pgrep -f "^${s}/VRisingServer.exe")
+    kill -n 15 $PID
+    wait $PID
+    wineserver -k
+    sleep 1
+    exit
+}
+
+trap 'term_handler' SIGTERM
+
 echo "Setting timezone to $TZ"
 echo $TZ > /etc/timezone 2>&1
 ln -snf /usr/share/zoneinfo/$TZ /etc/localtime 2>&1
@@ -73,4 +87,3 @@ touch $p/VRisingServer.log
 
 # Waits for the Server PID to exit
 wait $ServerPID
-
