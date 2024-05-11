@@ -62,6 +62,15 @@ echo "Starting Xvfb"
 Xvfb :0 -screen 0 1024x768x16 &
 echo "Launching wine64 V Rising"
 echo " "
-DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" "$game_port" "$query_port" 2>&1
-/usr/bin/tail -f /mnt/vrising/persistentdata/VRisingServer.log
+DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" "$game_port" "$query_port" 2>&1 &
+
+# Gets the PID of the last command
+ServerPID=$!
+
+# Create file in case of an new install and tail it
+touch $p/VRisingServer.log
+/usr/bin/tail -f $p/VRisingServer.log &
+
+# Waits for the Server PID to exit
+wait $ServerPID
 
