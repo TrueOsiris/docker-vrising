@@ -67,6 +67,14 @@ if [ ! -f "$p/Settings/ServerHostSettings.json" ]; then
         echo "$p/Settings/ServerHostSettings.json not found. Copying default file."
         cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json" "$p/Settings/" 2>&1
 fi
+
+# Checks if log file exists, if not creates it
+# Needed for fresh install
+if ! [ -f "${p}/VRisingServer.log" ]; then
+        echo "Creating ${p}/VRisingServer.log"
+        touch $p/VRisingServer.log
+fi
+
 cd "$s"
 echo "Starting V Rising Dedicated Server with name $SERVERNAME"
 echo "Trying to remove /tmp/.X0-lock"
@@ -81,9 +89,6 @@ DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p
 # Gets the PID of the last command
 ServerPID=$!
 
-# Create file in case of an new install and tail it
-touch $p/VRisingServer.log
+# Tail log file and waits for Server PID to exit
 /usr/bin/tail -f $p/VRisingServer.log &
-
-# Waits for the Server PID to exit
 wait $ServerPID
