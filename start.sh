@@ -86,5 +86,5 @@ DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p
 ServerPID=$!
 
 # Tail log file and waits for Server PID to exit
-/usr/bin/tail -f $p/VRisingServer.log &
+/usr/bin/tail -n 0 -f $p/VRisingServer.log &
 wait $ServerPID
