@@ -1,20 +1,30 @@
 #!/bin/bash
 s=/mnt/vrising/server
 p=/mnt/vrising/persistentdata
-echo "Setting timezone to $TZ"
-echo $TZ > /etc/timezone 2>&1
-ln -snf /usr/share/zoneinfo/$TZ /etc/localtime 2>&1
-dpkg-reconfigure -f noninteractive tzdata 2>&1
+
+term_handler() {
+    echo "Shutting down Server"
+
+    PID=$(pgrep -f "^${s}/VRisingServer.exe")
+    kill -n 15 $PID
+    wait $PID
+    wineserver -k
+    sleep 1
+    exit
+}
+
+trap 'term_handler' SIGTERM
+
 if [ ! -z $UID ]; then
 	usermod -u $UID docker 2>&1
 fi 
 if [ ! -z $GID ]; then
 	groupmod -g $GID docker 2>&1
 fi
-if [ -z $SERVERNAME ]; then
+if [ -z "$SERVERNAME" ]; then
 	SERVERNAME="trueosiris-V"
 fi
-if [ -z $WORLDNAME ]; then
+if [ -z "$WORLDNAME" ]; then
 	WORLDNAME="world1"
 fi
 game_port=""
@@ -34,7 +44,7 @@ echo " "
 echo "steam_appid: "`cat $s/steam_appid.txt`
 
 echo " "
-if ! grep -o 'avx[^ ]*' /proc/cpuinfo; then
+if ! grep -q -o 'avx[^ ]*' /proc/cpuinfo; then
 	unsupported_file="VRisingServer_Data/Plugins/x86_64/lib_burst_generated.dll"
 	echo "AVX or AVX2 not supported; Check if unsupported ${unsupported_file} exists"
 	if [ -f "${s}/${unsupported_file}" ]; then
@@ -53,6 +63,14 @@ if [ ! -f "$p/Settings/ServerHostSettings.json" ]; then
         echo "$p/Settings/ServerHostSettings.json not found. Copying default file."
         cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json" "$p/Settings/" 2>&1
 fi
+
+# Checks if log file exists, if not creates it
+# Needed for fresh install
+if ! [ -f "${p}/VRisingServer.log" ]; then
+        echo "Creating ${p}/VRisingServer.log"
+        touch $p/VRisingServer.log
+fi
+
 cd "$s"
 echo "Starting V Rising Dedicated Server with name $SERVERNAME"
 echo "Trying to remove /tmp/.X0-lock"
@@ -62,7 +80,17 @@ echo "Starting Xvfb"
 Xvfb :0 -screen 0 1024x768x16 &
 echo "Launching wine64 V Rising"
 echo " "
+<<<<<<< fixes
+DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" "$game_port" "$query_port" 2>&1 &
+
+# Gets the PID of the last command
+ServerPID=$!
+=======
 DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" "$game_port" "$query_port" 2>&1
 
 /usr/bin/tail -f /mnt/vrising/persistentdata/VRisingServer.log
+>>>>>>> main
 
+# Tail log file and waits for Server PID to exit
+/usr/bin/tail -n 0 -f $p/VRisingServer.log &
+wait $ServerPID
