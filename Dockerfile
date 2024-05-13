@@ -12,6 +12,7 @@ RUN apt update -y && \
     dpkg --add-architecture i386 && \
     apt update -y && \
     apt-get upgrade -y 
+    
 RUN useradd -m steam && cd /home/steam && \
     echo steam steam/question select "I AGREE" | debconf-set-selections && \
     echo steam steam/license note '' | debconf-set-selections && \
@@ -22,6 +23,7 @@ RUN useradd -m steam && cd /home/steam && \
     apt install -y steam \
                    steamcmd && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd
+
 #RUN apt install -y mono-complete
 RUN apt install -y wine \
                    winbind
@@ -31,6 +33,17 @@ RUN rm -rf /var/lib/apt/lists/* && \
     apt clean && \
     apt autoremove -y
 
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
-CMD ["/start.sh"]
+ENV STEAMAPP vrising
+ENV STEAMAPPDIR "/mnt/${STEAMAPP}"
+ENV STEAMAPPSERVER "${STEAMAPPDIR}/server"
+ENV STEAMAPPDATA "${STEAMAPPDIR}/persistentdata"
+ENV LOGSDIR "${STEAMAPPDATA}/logs"
+ENV SCRIPTSDIR "${STEAMAPPDIR}/scripts"
+
+RUN mkdir ${STEAMAPPDIR} ${STEAMAPPSERVER} ${STEAMAPPDATA} ${SCRIPTSDIR}
+
+COPY ./scripts ${SCRIPTSDIR}
+
+RUN chmod +x ${SCRIPTSDIR}/*.sh
+
+CMD ["/mnt/vrising/scripts/init.sh"]
