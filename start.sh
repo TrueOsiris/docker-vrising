@@ -80,16 +80,10 @@ echo "Starting Xvfb"
 Xvfb :0 -screen 0 1024x768x16 &
 echo "Launching wine64 V Rising"
 echo " "
-<<<<<<< fixes
 DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" "$game_port" "$query_port" 2>&1 &
 
 # Gets the PID of the last command
 ServerPID=$!
-=======
-DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" "$game_port" "$query_port" 2>&1
-
-/usr/bin/tail -f /mnt/vrising/persistentdata/VRisingServer.log
->>>>>>> main
 
 # Tail log file and waits for Server PID to exit
 /usr/bin/tail -n 0 -f $p/VRisingServer.log &
