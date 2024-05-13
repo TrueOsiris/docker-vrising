@@ -14,7 +14,16 @@
 ![Github closed issues](https://badgen.net/github/closed-issues/TrueOsiris/docker-vrising)
 ![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
 
-## 1.0 update
+## Updates
+
+### image 2024-05-13 (trueosiris/vrising:2.1)
+
+- Merged with [pull52](https://github.com/TrueOsiris/docker-vrising/pull/52) from @Diyagi after testing the image.<br>
+  Previous container version can still be grabbed via trueosiris/vrising:2.0<br>
+  main fixes are: clean shutdown & complete log to container log. So kudos to @Diyagi.
+- Added date to the logfile name, so per server launch, a logfile will be created. For now, they will not be automatically cleaned up.
+
+### V-Rising 1.0 update
 
 - The game is working perfectly with a new run of the container (from scratch). I'm on it with several buddies and <i>tested</i> for 3 hours.
 - When the server is passworded, joining via Steam seems <b>not</b> possible. Use the ingame server list to join.
@@ -121,6 +130,7 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 
   If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.<br>
   Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.
+- Description can be changed in `/path/on/host/persistentdata/Settings/ServerHostSettings.json`. The server will have to be restarted after changes.
 - If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible ~~, even if  `"ListOnMasterServer=true"`~~
 - Make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist.
 - If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.
