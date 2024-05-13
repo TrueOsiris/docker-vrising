@@ -42,7 +42,7 @@ binpath=$path/wine-${branch}/bin
 # - these packages are needed for running box86/wine-i386 on a 64-bit RPiOS via multiarch
 dpkg --add-architecture armhf && apt-get update # enable multi-arch
 apt-get install -y libasound2:armhf libc6:armhf libglib2.0-0:armhf libgphoto2-6:armhf libgphoto2-port12:armhf \
-  libgstreamer-plugins-base1.0-0:armhf libgstreamer1.0-0:armhf libldap-2.4-2:armhf libopenal1:armhf libpcap0.8:armhf \
+  libgstreamer-plugins-base1.0-0:armhf libgstreamer1.0-0:armhf libldap-2.5.0:armhf libopenal1:armhf libpcap0.8:armhf \
   libpulse0:armhf libsane1:armhf libudev1:armhf libusb-1.0-0:armhf libvkd3d1:armhf libx11-6:armhf libxext6:armhf \
   libasound2-plugins:armhf ocl-icd-libopencl1:armhf libncurses6:armhf libncurses5:armhf libcap2-bin:armhf libcups2:armhf \
   libdbus-1-3:armhf libfontconfig1:armhf libfreetype6:armhf libglu1-mesa:armhf libglu1:armhf libgnutls30:armhf \
@@ -58,7 +58,7 @@ apt-get install -y libasound2:armhf libc6:armhf libglib2.0-0:armhf libgphoto2-6:
 # Download wine dependencies
 # - these packages are needed for running box64/wine-amd64 on RPiOS (box64 only runs on 64-bit OS's)
 apt-get install -y libasound2:arm64 libc6:arm64 libglib2.0-0:arm64 libgphoto2-6:arm64 libgphoto2-port12:arm64 \
-  libgstreamer-plugins-base1.0-0:arm64 libgstreamer1.0-0:arm64 libldap-2.4-2:arm64 libopenal1:arm64 libpcap0.8:arm64 \
+  libgstreamer-plugins-base1.0-0:arm64 libgstreamer1.0-0:arm64 libldap-2.5.0:arm64 libopenal1:arm64 libpcap0.8:arm64 \
   libpulse0:arm64 libsane1:arm64 libudev1:arm64 libunwind8:arm64 libusb-1.0-0:arm64 libvkd3d1:arm64 libx11-6:arm64 libxext6:arm64 \
   ocl-icd-libopencl1:arm64 libasound2-plugins:arm64 libncurses6:arm64 libncurses5:arm64 libcups2:arm64 \
   libdbus-1-3:arm64 libfontconfig1:arm64 libfreetype6:arm64 libglu1-mesa:arm64 libgnutls30:arm64 \

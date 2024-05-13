@@ -97,6 +97,8 @@ STARTCOMMAND+=("-logFile" "$p/VRisingServer.log")
 #  STARTCOMMAND+=("-queryPort $QUERYPORT")
 #fi
 
+rm -f /tmp/.X99-lock
+
 echo "${STARTCOMMAND[*]}"
 "${STARTCOMMAND[@]}" &
 
