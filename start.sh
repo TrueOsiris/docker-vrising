@@ -81,8 +81,8 @@ echo "Starting Xvfb"
 Xvfb :0 -screen 0 1024x768x16 &
 echo "Launching wine64 V Rising"
 echo " "
-DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
-
+#DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
+xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
 # Gets the PID of the last command
 ServerPID=$!
 
