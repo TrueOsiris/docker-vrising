@@ -18,8 +18,8 @@
 
 ### image 2024-05-13 ([trueosiris/vrising:2.1](https://hub.docker.com/layers/trueosiris/vrising/2.1/images/sha256-00639c82158711d868f41750aa43f605bd35f5b775725137ef3b0b10ba80b52e?context=repo) or [latest](https://hub.docker.com/layers/trueosiris/vrising/latest/images/sha256-00639c82158711d868f41750aa43f605bd35f5b775725137ef3b0b10ba80b52e?context=repo)) 
 
-- Merged with [pull52](https://github.com/TrueOsiris/docker-vrising/pull/52) from [Diyagi](https://github.com/diyagi) after testing the image.<br>
-  Previous container version can still be grabbed via trueosiris/vrising:2.0<br>
+- Merged with [pull52](https://github.com/TrueOsiris/docker-vrising/pull/52) from [Diyagi](https://github.com/diyagi).<br>
+  Previous container version can still be grabbed via [trueosiris/vrising:2.0](https://hub.docker.com/layers/trueosiris/vrising/2.0/images/sha256-b9142d6f653685c92e25745f48cd205a1ffc7ed4aedef19011b03ab2a03a33c6?context=repo)<br>
   Main fixes are: clean shutdown & complete log to container log. Kudos!
 - Added date to the logfile name, so per server launch, a logfile will be created. For now, they will not be automatically cleaned up.
 - If you're experiencing [this issue](https://github.com/TrueOsiris/docker-vrising/issues/51) with "[476:488:20240511,134828.926:ERROR http_transport_win.cc:388] HTTP status 403" in the log, pull [trueosiris/vrising:display](https://hub.docker.com/layers/trueosiris/vrising/display/images/sha256-592b9ace78b7228c08134804fa94b0f47766bb9202d86048a0a4ded81f765cda?context=repo) which uses xvfb.
@@ -157,3 +157,7 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 The log of a functional server in 1.0 should look like this:
 
 ![docker-log](https://timmer.ninja/images/vrising-dockerlog.png)
+
+## Credits
+
+- All credits go to the awesome designers of [V-Rising](https://playvrising.com/)!
