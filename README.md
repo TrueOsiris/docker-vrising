@@ -18,9 +18,9 @@
 
 ### image 2024-05-13 (trueosiris/vrising:2.1)
 
-- Merged with [pull52](https://github.com/TrueOsiris/docker-vrising/pull/52) from @Diyagi after testing the image.<br>
+- Merged with [pull52](https://github.com/TrueOsiris/docker-vrising/pull/52) from [Diyagi](https://github.com/diyagi) after testing the image.<br>
   Previous container version can still be grabbed via trueosiris/vrising:2.0<br>
-  main fixes are: clean shutdown & complete log to container log. So kudos to @Diyagi.
+  main fixes are: clean shutdown & complete log to container log. Kudos!
 - Added date to the logfile name, so per server launch, a logfile will be created. For now, they will not be automatically cleaned up.
 
 ### V-Rising 1.0 update
