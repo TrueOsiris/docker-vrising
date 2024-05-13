@@ -23,8 +23,13 @@ RUN useradd -m steam && cd /home/steam && \
                    steamcmd && \
     ln -s /usr/games/steamcmd /usr/bin/steamcmd
 #RUN apt install -y mono-complete
-RUN apt install -y wine \
-                   winbind
+#RUN apt install -y wine \
+#                   winbind
+RUN mkdir -pm755 /etc/apt/keyrings \
+    && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
+    && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources \
+    && apt update \
+    && apt install -y --install-recommends winehq-stable winbind libwine
 RUN apt install -y xserver-xorg \
                    xvfb
 RUN rm -rf /var/lib/apt/lists/* && \
