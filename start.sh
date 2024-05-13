@@ -65,10 +65,11 @@ if [ ! -f "$p/Settings/ServerHostSettings.json" ]; then
 fi
 
 # Checks if log file exists, if not creates it
-# Needed for fresh install
-if ! [ -f "${p}/VRisingServer.log" ]; then
-        echo "Creating ${p}/VRisingServer.log"
-        touch $p/VRisingServer.log
+current_date=$(date +"%Y%m%d-%H%M")
+logfile="$current_date-VRisingServer.log"
+if ! [ -f "${p}/$logfile" ]; then
+        echo "Creating ${p}/$logfile"
+        touch $p/$logfile
 fi
 
 cd "$s"
@@ -80,11 +81,11 @@ echo "Starting Xvfb"
 Xvfb :0 -screen 0 1024x768x16 &
 echo "Launching wine64 V Rising"
 echo " "
-DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/VRisingServer.log" "$game_port" "$query_port" 2>&1 &
+DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
 
 # Gets the PID of the last command
 ServerPID=$!
 
 # Tail log file and waits for Server PID to exit
-/usr/bin/tail -n 0 -f $p/VRisingServer.log &
+/usr/bin/tail -n 0 -f $p/$logfile &
 wait $ServerPID
