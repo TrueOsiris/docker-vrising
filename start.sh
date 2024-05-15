@@ -13,8 +13,16 @@ term_handler() {
     exit
 }
 
+cleanup_logs() {
+    echo "Cleaning up logs older than $LOGDAYS days"
+    find "$p" -name "*.log" -type f -mtime +$LOGDAYS -exec rm {} \;
+}
+
 trap 'term_handler' SIGTERM
 
+if [ -z "$LOGDAYS" ]; then
+    LOGDAYS=3
+fi
 if [ ! -z $UID ]; then
 	usermod -u $UID docker 2>&1
 fi 
@@ -36,6 +44,9 @@ query_port=""
 if [ ! -z $QUERYPORT ]; then
 	query_port=" -queryPort $QUERYPORT"
 fi
+
+cleanup_logs
+
 mkdir -p /root/.steam 2>/dev/null
 chmod -R 777 /root/.steam 2>/dev/null
 echo " "
