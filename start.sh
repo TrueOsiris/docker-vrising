@@ -24,8 +24,9 @@ fi
 if [ -z "$SERVERNAME" ]; then
 	SERVERNAME="trueosiris-V"
 fi
-if [ -z "$WORLDNAME" ]; then
-	WORLDNAME="world1"
+override_savename=""
+if [ ! -z "$WORLDNAME" ]; then
+	override_savename="-saveName $WORLDNAME"
 fi
 game_port=""
 if [ ! -z $GAMEPORT ]; then
@@ -81,8 +82,10 @@ echo "Starting Xvfb"
 Xvfb :0 -screen 0 1024x768x16 &
 echo "Launching wine64 V Rising"
 echo " "
-DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" -saveName "$WORLDNAME" -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
-
+v() {
+	DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" $override_savename -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
+}
+v
 # Gets the PID of the last command
 ServerPID=$!
 
