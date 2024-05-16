@@ -1,0 +1,4 @@
+assets/
+kubernetes/
+.gitignore
+docker-compose.yml
