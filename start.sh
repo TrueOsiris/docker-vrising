@@ -21,7 +21,7 @@ cleanup_logs() {
 trap 'term_handler' SIGTERM
 
 if [ -z "$LOGDAYS" ]; then
-    LOGDAYS=3
+    LOGDAYS=30
 fi
 if [ ! -z $UID ]; then
 	usermod -u $UID docker 2>&1

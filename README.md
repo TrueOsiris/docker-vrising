@@ -42,6 +42,7 @@
 | WORLDNAME  | optional worldname     | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
 | GAMEPORT   | optional game udp port | to overrule Port in ServerHostSettings.json config                                |
 | QUERYPORT  | optional query port    | to overrule QueryPort in ServerHostSettings.json config                           |
+| LOGDAYS | optional lifetime of logfiles | overrule default of 30 days |
 
 ## Ports
 
