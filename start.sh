@@ -29,12 +29,14 @@ fi
 if [ ! -z $GID ]; then
 	groupmod -g $GID docker 2>&1
 fi
-if [ -z "$SERVERNAME" ]; then
-	SERVERNAME="trueosiris-V"
+override_servername=""
+if [ ! -z "$SERVERNAME" ]; then
+#	SERVERNAME="trueosiris-V"
+	override_servername=" -serverName $SERVERNAME"
 fi
 override_savename=""
 if [ ! -z "$WORLDNAME" ]; then
-	override_savename="-saveName $WORLDNAME"
+	override_savename=" -saveName $WORLDNAME"
 fi
 game_port=""
 if [ ! -z $GAMEPORT ]; then
@@ -94,7 +96,7 @@ Xvfb :0 -screen 0 1024x768x16 &
 echo "Launching wine64 V Rising"
 echo " "
 v() {
-	DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" $override_savename -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
+	DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p $override_servername $override_savename -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
 }
 v
 # Gets the PID of the last command
