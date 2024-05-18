@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vRisingServerDeployment
+  name: vrisingserverdeployment
 spec:
   template:
     spec:
