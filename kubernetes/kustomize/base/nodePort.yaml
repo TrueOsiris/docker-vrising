@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vrisingnodeport
+spec:
+  selector:
+    app: vRisingServer
+  ports:
+  - port: 9876
+    protocol: UDP
+    nodeport: 30876
+    targetPort: 9876
+  - port: 9876
+    protocol: TCP
+    nodeport: 30876
+    targetPort: 9876
+  - port: 9877
+    protocol: UDP
+    nodeport: 30877
+    targetPort: 9877

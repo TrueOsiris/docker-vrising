@@ -16,7 +16,13 @@
 
   for persistence.
 
+### Kubernetes
+
+You can use the provided example in `kubernetes/kustomize/overlays/exampleorg` to see the ways the base template could be adjusted to your requirements.
+It's important to *at least* change the following:
+- secret.yaml - Your RCON Secret, if you need one
+- pvc.yaml - Adjust `storageClassname` and requsted storage according to your needs
+- deployment.yaml - Set Image path to your registry. This image is not pushed to dockerhub by default
 
 
-TODO: Adding K8s deployment configs.
 TODO: Finish README

@@ -72,8 +72,8 @@ echo " "
 
 mkdir -p "$PERSISTENT_DATA_PATH/Settings"
 
-envsubst < /home/steam/files/config_templates/ServerGameSettings.json.es > "$PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json" 
-envsubst < /home/steam/files/config_templates/ServerHostSettings.json.es > "$PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json" 
+envsubst < /home/steam/files/config_templates/ServerGameSettings.json.template > "$PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json" 
+envsubst < /home/steam/files/config_templates/ServerHostSettings.json.template > "$PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json" 
 
 # Checks if log file exists, if not creates it
 echo " "

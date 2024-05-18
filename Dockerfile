@@ -1,10 +1,10 @@
 FROM cm2network/steamcmd:root-bookworm
 LABEL maintainer="Panromir <panromir@gmail.com>"
 #VOLUME ["/home/steam/vrising/server", "/home/steam/vrising/persistentdata"]
-EXPOSE 27015/udp
-# Expose 27015/tcp if using RCON. See RCON_PORT Env variable
-EXPOSE 27015
-EXPOSE 27016/udp
+EXPOSE 9876/udp
+# Expose 9876/tcp if using RCON. See RCON_PORT Env variable
+EXPOSE 9876
+EXPOSE 9877/udp
 
 ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     PERSISTENT_DATA_PATH="/home/steam/vrising/persistentdata" \
@@ -17,7 +17,7 @@ ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     HOST_SETTINGS_SERVER_FPS="30" \
     HOST_SETTINGS_RCON_ENABLE="true" \
     HOST_SETTINGS_RCON_PASSWORD="Ch8ng3m3Pl3@s3!" \
-    HOST_SETTINGS_RCON_PORT="27015" \
+    HOST_SETTINGS_RCON_PORT="9876" \
     HOST_SETTINGS_AUTOSAVE_COUNT="40" \
     HOST_SETTINGS_AUTOSAVE_INTERVAL="120" \
     HOST_SETTINGS_LISTEN_ON_STEAM="false" \ 
@@ -27,8 +27,8 @@ ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     LIST_ON_MASTER_SERVER="true" \
     SERVER_IP="127.0.0.1" \
     SAVE_NAME="default_world" \
-    GAME_PORT="27015" \
-    QUERY_PORT="27016" \
+    GAME_PORT="9876" \
+    QUERY_PORT="9877" \
     STEAM_USER_UID="1000" \
     STEAM_USER_GID="1000" \
     DEBUG_ENV="true"

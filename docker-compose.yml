@@ -1,0 +1,24 @@
+services:
+  vrising:
+    build: .
+    environment:
+      - HOST_SETTINGS_NAME="My Docker-Compose V-Rising Server"
+      - HOST_SETTINGS_DESCRIPTION="V Rising Server hosted by Docker"
+      - HOST_SETTINGS_PASSWORD="supersecret"
+      - HOST_SETTINGS_MAX_CONNECTED_USERS="20" 
+    volumes:
+      - type: bind
+        source: /your/host/vrising/server
+        target: /home/steam/vrising/server
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /your/host/vrising/persistentdata
+        target: /home/steam/vrising/persistentdata
+        bind:
+          create_host_path: true
+    ports:
+      - '9876:9876/udp'
+      - '9877:9877/udp'
+    restart: unless-stopped
+    network_mode: bridge
