@@ -52,7 +52,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
     mingw-w64 \
     screen && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* &&\
+    chmod +x /home/steam/files/scripts/* 
 
 USER steam
 
