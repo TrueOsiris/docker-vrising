@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vRisingServerDeployment
+  name: vrisingserverdeployment
 spec:
   selector:
     matchLabels:
@@ -12,9 +12,9 @@ spec:
         app: vRisingServer
     spec:
       volumes:
-        - name: persistendata
+        - name: persistentdata
           persistentVolumeClaim:
-            claimName: vrisingpersistendata
+            claimName: vrisingpersistentdata
         - name: serverdata
           persistentVolumeClaim:
             claimName: vrisingserverdata
@@ -22,9 +22,9 @@ spec:
       - name: vrisingservercontainer
         image: example.com/path/to/image:tag
         volumeMounts:
-          - name: persistentData
+          - name: persistentdata
             mountPath: /home/steam/vrising/persistentdata
-          - name: serverData
+          - name: serverdata
             mountPath: /home/steam/vrising/server
         envFrom:
           - configMapRef:
@@ -33,8 +33,11 @@ spec:
               name: vrisingsecret
         resources:
           limits:
-            memory: "8Gi"
+            memory: "4Gi"
             cpu: "4"
+          requests:
+            memory: "4Gi"
+            cpu: "1"
         livenessProbe:
           exec:
             command:

@@ -3,18 +3,22 @@ kind: Service
 metadata:
   name: vrisingnodeport
 spec:
+  type: NodePort
   selector:
     app: vRisingServer
   ports:
-  - port: 9876
+  - name: gameport
+    port: 9876
     protocol: UDP
-    nodeport: 30876
+    nodePort: 30876
     targetPort: 9876
-  - port: 9876
+  - name: rconport
+    port: 9876
     protocol: TCP
-    nodeport: 30876
+    nodePort: 30876
     targetPort: 9876
-  - port: 9877
+  - name: queryport
+    port: 9877
     protocol: UDP
-    nodeport: 30877
+    nodePort: 30877
     targetPort: 9877
