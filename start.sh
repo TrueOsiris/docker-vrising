@@ -3,33 +3,33 @@ s=/mnt/vrising/server
 p=/mnt/vrising/persistentdata
 
 term_handler() {
-    echo "Shutting down Server"
+	echo "Shutting down Server"
 
-    PID=$(pgrep -f "^${s}/VRisingServer.exe")
-    if [[ -z $PID ]]; then
-    	echo "Could not find VRisingServer.exe pid. Assuming server is dead..."
-  	else
-	    kill -n 15 "$PID"
-	    wait "$PID"
-    fi
-    wineserver -k
-    sleep 1
-    exit
+	PID=$(pgrep -f "^${s}/VRisingServer.exe")
+	if [[ -z $PID ]]; then
+		echo "Could not find VRisingServer.exe pid. Assuming server is dead..."
+	else
+		kill -n 15 "$PID"
+		wait "$PID"
+	fi
+	wineserver -k
+	sleep 1
+	exit
 }
 
 cleanup_logs() {
-    echo "Cleaning up logs older than $LOGDAYS days"
-    find "$p" -name "*.log" -type f -mtime +$LOGDAYS -exec rm {} \;
+	echo "Cleaning up logs older than $LOGDAYS days"
+	find "$p" -name "*.log" -type f -mtime +$LOGDAYS -exec rm {} \;
 }
 
 trap 'term_handler' SIGTERM
 
 if [ -z "$LOGDAYS" ]; then
-    LOGDAYS=30
+	LOGDAYS=30
 fi
 if [[ -n $UID ]]; then
 	usermod -u "$UID" docker 2>&1
-fi 
+fi
 if [[ -n $GID ]]; then
 	groupmod -g "$GID" docker 2>&1
 fi
@@ -73,23 +73,26 @@ fi
 echo " "
 mkdir "$p/Settings" 2>/dev/null
 if [ ! -f "$p/Settings/ServerGameSettings.json" ]; then
-        echo "$p/Settings/ServerGameSettings.json not found. Copying default file."
-        cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerGameSettings.json" "$p/Settings/" 2>&1
+	echo "$p/Settings/ServerGameSettings.json not found. Copying default file."
+	cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerGameSettings.json" "$p/Settings/" 2>&1
 fi
 if [ ! -f "$p/Settings/ServerHostSettings.json" ]; then
-        echo "$p/Settings/ServerHostSettings.json not found. Copying default file."
-        cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json" "$p/Settings/" 2>&1
+	echo "$p/Settings/ServerHostSettings.json not found. Copying default file."
+	cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json" "$p/Settings/" 2>&1
 fi
 
 # Checks if log file exists, if not creates it
 current_date=$(date +"%Y%m%d-%H%M")
 logfile="$current_date-VRisingServer.log"
 if ! [ -f "${p}/$logfile" ]; then
-        echo "Creating ${p}/$logfile"
-        touch "$p/$logfile"
+	echo "Creating ${p}/$logfile"
+	touch "$p/$logfile"
 fi
 
-cd "$s" || { echo "Failed to cd to $s"; exit 1; }
+cd "$s" || {
+	echo "Failed to cd to $s"
+	exit 1
+}
 echo "Starting V Rising Dedicated Server with name $SERVERNAME"
 echo "Trying to remove /tmp/.X0-lock"
 rm /tmp/.X0-lock 2>&1
