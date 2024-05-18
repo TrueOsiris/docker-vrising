@@ -6,8 +6,12 @@ term_handler() {
     echo "Shutting down Server"
 
     PID=$(pgrep -f "^${s}/VRisingServer.exe")
-    kill -n 15 $PID
-    wait $PID
+    if [[ -z $PID ]]; then
+    	echo "Could not find VRisingServer.exe pid. Assuming server is dead..."
+  	else
+	    kill -n 15 "$PID"
+	    wait "$PID"
+    fi
     wineserver -k
     sleep 1
     exit
@@ -26,22 +30,22 @@ fi
 if [ ! -z $UID ]; then
 	usermod -u $UID docker 2>&1
 fi 
-if [ ! -z $GID ]; then
-	groupmod -g $GID docker 2>&1
+if [[ -n $GID ]]; then
+	groupmod -g "$GID" docker 2>&1
 fi
 if [ -z "$SERVERNAME" ]; then
 	SERVERNAME="trueosiris-V"
 fi
 override_savename=""
-if [ ! -z "$WORLDNAME" ]; then
+if [[ -n "$WORLDNAME" ]]; then
 	override_savename="-saveName $WORLDNAME"
 fi
 game_port=""
-if [ ! -z $GAMEPORT ]; then
+if [[ -n $GAMEPORT ]]; then
 	game_port=" -gamePort $GAMEPORT"
 fi
 query_port=""
-if [ ! -z $QUERYPORT ]; then
+if [[ -n $QUERYPORT ]]; then
 	query_port=" -queryPort $QUERYPORT"
 fi
 
@@ -53,7 +57,8 @@ echo " "
 echo "Updating V-Rising Dedicated Server files..."
 echo " "
 /usr/bin/steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir "$s" +login anonymous +app_update 1829350 validate +quit
-echo "steam_appid: "`cat $s/steam_appid.txt`
+printf "steam_appid: "
+cat "$s/steam_appid.txt"
 
 echo " "
 if ! grep -q -o 'avx[^ ]*' /proc/cpuinfo; then
@@ -81,10 +86,10 @@ current_date=$(date +"%Y%m%d-%H%M")
 logfile="$current_date-VRisingServer.log"
 if ! [ -f "${p}/$logfile" ]; then
         echo "Creating ${p}/$logfile"
-        touch $p/$logfile
+        touch "$p/$logfile"
 fi
 
-cd "$s"
+cd "$s" || { echo "Failed to cd to $s"; exit 1; }
 echo "Starting V Rising Dedicated Server with name $SERVERNAME"
 echo "Trying to remove /tmp/.X0-lock"
 rm /tmp/.X0-lock 2>&1
@@ -94,12 +99,12 @@ Xvfb :0 -screen 0 1024x768x16 &
 echo "Launching wine64 V Rising"
 echo " "
 v() {
-	DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" $override_savename -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
+	DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" "$override_savename" -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
 }
 v
 # Gets the PID of the last command
 ServerPID=$!
 
 # Tail log file and waits for Server PID to exit
-/usr/bin/tail -n 0 -f $p/$logfile &
+/usr/bin/tail -n 0 -f "$p/$logfile" &
 wait $ServerPID
