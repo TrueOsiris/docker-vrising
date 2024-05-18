@@ -27,8 +27,8 @@ trap 'term_handler' SIGTERM
 if [ -z "$LOGDAYS" ]; then
     LOGDAYS=30
 fi
-if [ ! -z $UID ]; then
-	usermod -u $UID docker 2>&1
+if [[ -n $UID ]]; then
+	usermod -u "$UID" docker 2>&1
 fi 
 if [[ -n $GID ]]; then
 	groupmod -g "$GID" docker 2>&1
