@@ -2,7 +2,7 @@
   <a href="https://github.com/TrueOsiris/docker-vrising">
     <img alt="Iroh" src="https://github.com/TrueOsiris/docker-vrising/blob/main/assets/docker-virising.png?raw=true" height="250">
   </a>
-  <p  align="center">Dockerized V Rising dedicated server in an Ubuntu 22.04 container with Wine.</p>
+  <p  align="center">Dockerized V Rising dedicated server in an Debian 12 container with Wine.</p>
 </p>
 
 [![Docker Pulls](https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising/)
