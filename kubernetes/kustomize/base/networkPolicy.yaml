@@ -1,0 +1,63 @@
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: vrisingdenyall
+spec:
+  podSelector:
+    matchLabels:
+      app: vRisingServer
+  policyTypes:
+    - Ingress
+    - Egress
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: vrisinginternetegress
+spec:
+  podSelector:
+    matchLabels:
+      app: vRisingServer
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+    - podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 192.168.0.0/16
+        - 172.16.0.0/12
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: vrisinginternetingress
+spec:
+  podSelector:
+    matchLabels:
+      app: vRisingServer
+  policyTypes:
+  - Ingress
+  ingress:
+  - ports:
+    - port: 9876
+      protocol: UDP
+    - port: 9876
+    - port: 9877
+      protocol: UDP
+

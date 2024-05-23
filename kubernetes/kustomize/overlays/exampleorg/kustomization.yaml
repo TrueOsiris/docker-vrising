@@ -1,0 +1,17 @@
+--- 
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: vRisingServerExampleOrg
+commonLabels:
+  variant: exampleorg
+  app: vRisingServer
+resources: 
+  - ../../base
+patches:
+  - path: configMap.yaml
+  - path: secret.yaml
+  - path: deployment.yaml
+patchesStrategicMerge: # This might be deprecated, but there is no actual fix for multi-part yaml files like the pvc.yml https://github.com/kubernetes-sigs/kustomize/issues/5052
+  - pvc.yaml           # I don't want to split this into two files...
+                       # Kustomize should support this in the future: https://github.com/kubernetes-sigs/kustomize/issues/5049
+                       # This can then be moved back to patches: - path: pvc.yaml
