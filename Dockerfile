@@ -1,5 +1,5 @@
 FROM cm2network/steamcmd:root-bookworm
-LABEL maintainer="Panromir <panromir@gmail.com>"
+LABEL maintainer="Tim Chaubet"
 #VOLUME ["/home/steam/vrising/server", "/home/steam/vrising/persistentdata"]
 EXPOSE 9876/udp
 # Expose 9876/tcp if using RCON. See RCON_PORT Env variable
