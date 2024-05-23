@@ -25,12 +25,17 @@ term_handler() {
         echo " Shutting Down Server due to Termination Signal                   "
         echo " ================================================================ " 
         echo " "
-        PID=$(pgrep -f "^$SERVER_DATA_PATH/VRisingServer.exe")
-        kill -n 15 "$PID"
-        wait "$PID"
-        wineserver -k
-        sleep 1
-        exit
+        
+	if ! ps -q "$(cat /home/steam/server.pid)" -o state --no-headers | grep -q -v "D|R|S"; then
+		echo "Could not find VRisingServer.exe pid. Assuming server is dead..."
+	else
+                echo "Shutting server down gracefully..."
+		kill -n 15 "$(cat /home/steam/server.pid)"
+		wait "$(cat /home/steam/server.pid)"
+	fi
+	wineserver -k
+	sleep 1
+	exit
 }
 
 trap 'term_handler' SIGTERM SIGINT
@@ -75,6 +80,15 @@ mkdir -p "$PERSISTENT_DATA_PATH/Settings"
 envsubst < /home/steam/files/config_templates/ServerGameSettings.json.template > "$PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json" 
 envsubst < /home/steam/files/config_templates/ServerHostSettings.json.template > "$PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json" 
 
+echo " "
+echo " ================================================================ " 
+echo " Creating Cron Files                                            "
+echo " ================================================================ " 
+echo " "
+
+envsubst < /home/steam/files/scripts/cleanlogs.sh.template > /home/steam/files/scripts/cleanlogs.sh 
+chmod +x /home/steam/files/scripts/cleanlogs.sh 
+
 # Checks if log file exists, if not creates it
 echo " "
 echo " ================================================================ " 
@@ -87,6 +101,7 @@ logfile="$current_date-VRisingServer.log"
 if ! [ -f "$PERSISTENT_DATA_PATH/$logfile" ]; then
         echo "Creating $PERSISTENT_DATA_PATH/$logfile"
         touch "$PERSISTENT_DATA_PATH"/"$logfile"
+        echo "$PERSISTENT_DATA_PATH/$logfile" > /home/steam/currentlog_path.txt 
 fi
 
 cd "$SERVER_DATA_PATH"

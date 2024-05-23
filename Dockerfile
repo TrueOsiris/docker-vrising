@@ -13,15 +13,15 @@ ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     HOST_SETTINGS_PASSWORD="" \
     HOST_SETTINGS_MAX_CONNECTED_USERS="10" \
     HOST_SETTINGS_MAX_CONNECTED_ADMINS="4" \
-    HOST_SETTINGS_SERVER_ADMIN_LIST="12345678,234567891" \
+    HOST_SETTINGS_SERVER_ADMIN_LIST="" \
     HOST_SETTINGS_SERVER_FPS="30" \
-    HOST_SETTINGS_RCON_ENABLE="true" \
+    HOST_SETTINGS_RCON_ENABLE="false" \
     HOST_SETTINGS_RCON_PASSWORD="Ch8ng3m3Pl3@s3!" \
     HOST_SETTINGS_RCON_PORT="9876" \
     HOST_SETTINGS_AUTOSAVE_COUNT="40" \
     HOST_SETTINGS_AUTOSAVE_INTERVAL="120" \
-    HOST_SETTINGS_LISTEN_ON_STEAM="false" \ 
-    HOST_SETTINGS_LISTEN_ON_EOS="false" \
+    HOST_SETTINGS_LISTEN_ON_STEAM="true" \ 
+    HOST_SETTINGS_LISTEN_ON_EOS="true" \
     GAME_SETTINGS_PRESET="StandardPvP" \
     GAME_SETTINGS_DIFFICULTY="Normal" \
     LIST_ON_MASTER_SERVER="true" \
@@ -31,7 +31,9 @@ ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     QUERY_PORT="9877" \
     STEAM_USER_UID="1000" \
     STEAM_USER_GID="1000" \
-    DEBUG_ENV="true"
+    DEBUG_ENV="true" \
+    LOGDAYS="30" \
+    TZ="Europe/Brussels"
 
 COPY --chown=steam:steam --chmod=744 files /home/steam/files/
 COPY src/debian.sources /etc/apt/sources.list.d/debian.sources
@@ -41,6 +43,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     dpkg --add-architecture i386 && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
+    cron \
     gettext-base \
     procps \
     wine \
@@ -52,8 +55,11 @@ RUN DEBIAN_FRONTEND=noninteractive \
     mingw-w64 \
     screen && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* &&\
-    chmod +x /home/steam/files/scripts/* 
+    rm -rf /var/lib/apt/lists/* && \
+    chmod +x /home/steam/files/scripts/* && \
+    echo "0 * * * * /bin/bash -c /home/steam/files/scripts/cleanlogs.sh > /proc/1/fd/1 2>&1" >> /etc/cron.d/logrotation && \
+    crontab -u steam /etc/cron.d/logrotation && \
+    chmod u+s /usr/sbin/cron
 
 USER steam
 
