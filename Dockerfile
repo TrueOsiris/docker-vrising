@@ -6,6 +6,10 @@ EXPOSE 9876/udp
 EXPOSE 9876
 EXPOSE 9877/udp
 
+# Let the user change the user and group ID
+ARG STEAM_USER_UID="1000" \
+    STEAM_USER_GID="1000"
+
 ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     PERSISTENT_DATA_PATH="/home/steam/vrising/persistentdata" \
     HOST_SETTINGS_NAME="My Docker V-Rising Server" \
@@ -33,6 +37,9 @@ ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     LOGDAYS="30" \
     OVERRIDE_CONFIG="true" \
     TZ="Europe/Brussels"
+
+# Set the user and group ID
+RUN usermod -u $STEAM_USER_UID steam && groupmod -g $STEAM_USER_GID steam
 
 COPY --chown=steam:steam --chmod=744 files /home/steam/files/
 COPY src/debian.sources /etc/apt/sources.list.d/debian.sources
