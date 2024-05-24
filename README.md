@@ -103,6 +103,12 @@ docker run -d --name='vrising' \
 See the example docker-compose.yml in this repository.
 Do not put any of your env variables in the "environment:" section in quotes.
 
+**IMPORTANT**: The compose file will create the path you define in `source` if it does not exist. Ensure you're either running with UID/GID 1000 (the steam user in the container) or change owners of these folders accordingly. Otherwise you will get the following error:
+
+```
+mkdir: cannot create directory '/home/steam/vrising/persistentdata/Settings': Permission denied
+```
+
 ## Kubernetes
 
 You can use the provided example in `kubernetes/kustomize/overlays/exampleorg` to see the ways the base template could be adjusted to your requirements.
