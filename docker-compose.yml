@@ -1,7 +1,7 @@
 services:
   vrising:
+    image: trueosiris/vrising
     build:
-      context: .
       args:
         STEAM_USER_UID: 1006
         STEAM_USER_GID: 1006
