@@ -101,6 +101,7 @@ docker run -d --name='vrising' \
 ## docker-compose.yml
 
 See the example docker-compose.yml in this repository.
+Do not put any of your env variables in the "environment:" section in quotes.
 
 ## Kubernetes
 
