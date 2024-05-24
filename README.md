@@ -69,7 +69,7 @@
 
 ## Changing the running UID/GID
 
-If you want to change the UID/GID of the User that's running the container for any reason, you can change the **Build ARGs**. The Image uses UID/GID 1000/1000 by default as defined in `cm2network/steamcmd:root-bookwork`.
+If you want to change the UID/GID of the User that's running the container for any reason, you can change the **Build ARGs**. The Image uses UID/GID 1000/1000 by default as defined in `cm2network/steamcmd:root-bookworm`.
 Please note that changing this also means that you might have to adjust your volume permissions on the host when using docker. When using Kubernetes, you should verify the securityContext.
 
 | Variable                          | Default V(alue)                     | Description                                                                         | Mandatory |
