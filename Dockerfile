@@ -7,8 +7,8 @@ EXPOSE 9876
 EXPOSE 9877/udp
 
 # Let the user change the user and group ID
-ARG STEAM_USER_UID="1000" \
-    STEAM_USER_GID="1000"
+ARG STEAM_USER_UID="1000"
+ARG STEAM_USER_GID="1000"
 
 ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     PERSISTENT_DATA_PATH="/home/steam/vrising/persistentdata" \
@@ -38,10 +38,7 @@ ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     OVERRIDE_CONFIG="true" \
     TZ="Europe/Brussels"
 
-# Set the user and group ID
-RUN usermod -u $STEAM_USER_UID steam && groupmod -g $STEAM_USER_GID steam
-
-COPY --chown=steam:steam --chmod=744 files /home/steam/files/
+COPY --chown=${STEAM_USER_UID}:${STEAM_USER_GID} --chmod=744 files /home/steam/files/
 COPY src/debian.sources /etc/apt/sources.list.d/debian.sources
 
 # hadolint ignore=DL3008
@@ -62,10 +59,12 @@ RUN DEBIAN_FRONTEND=noninteractive \
     screen && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
+    usermod -u "${STEAM_USER_UID}" steam && groupmod -g "${STEAM_USER_GID}" steam && \
     chmod +x /home/steam/files/scripts/* && \
     echo "00 00 * * * /bin/bash -c /home/steam/files/scripts/cleanlogs.sh > /proc/1/fd/1 2>&1" >> /etc/cron.d/logrotation && \
     crontab -u steam /etc/cron.d/logrotation && \
-    chmod u+s /usr/sbin/cron
+    chmod u+s /usr/sbin/cron && \
+    chown -R "${STEAM_USER_UID}:${STEAM_USER_GID}" /home/steam
 
 USER steam
 
