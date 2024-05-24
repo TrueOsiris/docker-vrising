@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "$(date) === Rotating logs"
+mv "$(cat /home/steam/currentlog_path.txt)" "$PERSISTENT_DATA_PATH/$(date +%d-%m-%y)-VRisingServer.log"
 echo "$(date) === Cleaning up logs older than ${LOGDAYS} days"
 find "${PERSISTENT_DATA_PATH}" -name "*.log" -type f -mtime +"${LOGDAYS}" -exec rm {} \;
 echo "$(date) === Cleaned up Logfiles" | tee -a "$(cat /home/steam/currentlog_path.txt)"

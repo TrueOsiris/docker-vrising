@@ -56,7 +56,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     chmod +x /home/steam/files/scripts/* && \
-    echo "0 * * * * /bin/bash -c /home/steam/files/scripts/cleanlogs.sh > /proc/1/fd/1 2>&1" >> /etc/cron.d/logrotation && \
+    echo "00 00 * * * /bin/bash -c /home/steam/files/scripts/cleanlogs.sh > /proc/1/fd/1 2>&1" >> /etc/cron.d/logrotation && \
     crontab -u steam /etc/cron.d/logrotation && \
     chmod u+s /usr/sbin/cron
 

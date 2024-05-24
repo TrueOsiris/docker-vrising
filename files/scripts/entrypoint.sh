@@ -108,8 +108,7 @@ echo " Creating Log File                                                "
 echo " ================================================================ " 
 echo " "
 
-current_date=$(date +"%Y%m%d-%H%M")
-logfile="$current_date-VRisingServer.log"
+logfile="VRisingServer.log"
 if ! [ -f "$PERSISTENT_DATA_PATH/$logfile" ]; then
         echo "Creating $PERSISTENT_DATA_PATH/$logfile"
         touch "$PERSISTENT_DATA_PATH"/"$logfile"
