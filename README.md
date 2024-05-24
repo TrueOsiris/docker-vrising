@@ -67,6 +67,14 @@
 | LOGDAYS                           | 30                                  | Numer of days after which logs are deleted after their last modification            | No |
 | OVERRIDE_CONFIG                   | true                                | Whether to generate new configs at the start of the container.                      | No |
 
+## Argument variables
+
+
+| Variable                          | Default V(alue)                     | Description                                                                         | Mandatory |
+| --------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------- | --------- |
+| STEAM_USER_UID                    | 1000                                | The user ID the server will run on                                                  | No |
+| STEAM_USER_GID                    | 1000                                | The group ID the server will run on                                                 | No |
+
 ## Ports
 
 
@@ -96,6 +104,8 @@ docker run -d --name='vrising' \
 -v '/path/on/host/persistentdata':'/home/steam/vrising/persistentdata':'rw' \
 -p 9876:9876/udp \
 -p 9877:9877/udp \
+--build-arg STEAM_USER_UID=1000 \
+--build-arg STEAM_USER_GID=1000 \
 'trueosiris/vrising'
 ```
 
@@ -104,7 +114,7 @@ docker run -d --name='vrising' \
 See the example docker-compose.yml in this repository.
 Do not put any of your env variables in the "environment:" section in quotes.
 
-**IMPORTANT**: The compose file will create the path you define in `source` if it does not exist. Ensure you're either running with UID/GID 1000 (the steam user in the container) or change owners of these folders accordingly. Otherwise you will get the following error:
+**IMPORTANT**: The compose file will create the path you define in `source` if it does not exist. Ensure you're either running with UID/GID 1000 (the steam user in the container), change owners of these folders accordingly, or setup the `STEAM_USER_UID` and `STEAM_USER_GID` arguments correctly. Otherwise you will get the following error:
 
 ```
 mkdir: cannot create directory '/home/steam/vrising/persistentdata/Settings': Permission denied
