@@ -31,6 +31,7 @@ ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     QUERY_PORT="9877" \
     DEBUG_ENV="true" \
     LOGDAYS="30" \
+    OVERRIDE_CONFIG="true" \
     TZ="Europe/Brussels"
 
 COPY --chown=steam:steam --chmod=744 files /home/steam/files/

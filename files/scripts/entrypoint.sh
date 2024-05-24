@@ -77,8 +77,20 @@ echo " "
 
 mkdir -p "$PERSISTENT_DATA_PATH/Settings"
 
-envsubst < /home/steam/files/config_templates/ServerGameSettings.json.template > "$PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json" 
-envsubst < /home/steam/files/config_templates/ServerHostSettings.json.template > "$PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json" 
+if [[ "${OVERRIDE_CONFIG}" == "true" ]]; then
+	echo "Replacing config files. If you want to change this behaviour, set OVERRIDE_CONFIG to false"
+	envsubst < /home/steam/files/config_templates/ServerGameSettings.json.template > "$PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json" 
+	envsubst < /home/steam/files/config_templates/ServerHostSettings.json.template > "$PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json" 
+elif [[ "${OVERRIDE_CONFIG}" == "false" ]]; then
+	if [[ ! -f "$PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json" ]]; then
+		echo "Couldn't find $PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json, creating..."
+		envsubst < /home/steam/files/config_templates/ServerGameSettings.json.template > "$PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json"
+	fi
+	if [[ ! -f "$PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json" ]]; then
+		echo "Couldn't find $PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json, creating..."
+		envsubst < /home/steam/files/config_templates/ServerHostSettings.json.template > "$PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json"
+	fi
+fi
 
 echo " "
 echo " ================================================================ " 

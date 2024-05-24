@@ -65,6 +65,7 @@
 | QUERY_PORT                        | "9877"                              | UDP Port to query the server on                                                     | No |
 | DEBUG_ENV                         | "true"                              | Return all variables to the stdout on container start                               | No |
 | LOGDAYS                           | 30                                  | Numer of days after which logs are deleted after their last modification            | No |
+| OVERRIDE_CONFIG                   | true                                | Whether to generate new configs at the start of the container.                      | No |
 
 ## Ports
 
@@ -139,7 +140,8 @@ To enable RCON set the `HOST_SETTINGS_RCON_ENABLE`, `HOST_SETTINGS_RCON_PASSWORD
     - container variables
     - files in /server. (and these are reset to defaults each new patch)
 
-    Please note that you cannot edit your config files in `$PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json` or `$PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json`, these will be overwritten by your ENV every time the container is restarted. In case you want to adjust any setting that isn't covered by the current config options, please create an issue or a PR.
+    Please note that you cannot edit your config files in `$PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json` or `$PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json`, these will be overwritten by your ENV every time the container is restarted by default. In case you want to adjust any setting that isn't covered by the current config options, please create an issue or a PR.
+    If you want to manually adjust your configs and keep your changes, move your config files (with proper access rights) to your mounted folder and set `OVERRIDE_CONFIG="false"`
 - If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible ~~, even if  `"ListOnMasterServer=true"`~~
 - If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.
 
