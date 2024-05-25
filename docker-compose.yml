@@ -1,6 +1,11 @@
 services:
   vrising:
-    build: .
+    image: trueosiris/vrising
+    build:
+      args:
+        STEAM_USER_UID: 1006
+        STEAM_USER_GID: 1006
+
     environment:
       - HOST_SETTINGS_NAME=My Docker-Compose V-Rising Server
       - HOST_SETTINGS_DESCRIPTION=V Rising Server hosted by Docker
