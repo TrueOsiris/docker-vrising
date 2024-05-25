@@ -44,10 +44,10 @@
 | PERSISTENT_DATA_PATH              | /home/steam/vrising/persistentdata  | Path inside the container to save world/configs/logs/etc. to                        | No |
 | HOST_SETTINGS_NAME                | My Docker V-Rising Server           | The name of your server as visible in the server list                               | No |
 | HOST_SETTINGS_DESCRIPTION         | V Rising Server hosted by Docker    | Description of your server                                                          | No |
-| HOST_SETTINGS_PASSWORD            | ""                                  | Optional Server password                                                            | No |
+| HOST_SETTINGS_PASSWORD            | ""                                  | Optional server password                                                            | No |
 | HOST_SETTINGS_MAX_CONNECTED_USERS | 10                                  | Maximum connected users                                                             | No |
 | HOST_SETTINGS_MAX_CONNECTED_ADMINS| 4                                   | Maximum connected admins                                                            | No |
-| HOST_SETTINGS_SERVER_ADMIN_LIST   | ""                                  | Comma separated list of Admin Steam IDs (e.g. "123456789,0987654321")               | No |
+| HOST_SETTINGS_SERVER_ADMIN_LIST   | ""                                  | Comma separated list of Admin Steam ID64s (e.g. "123456789,0987654321")             | No |
 | HOST_SETTINGS_SERVER_FPS          | 30                                  | Server FPS                                                                          | No |
 | HOST_SETTINGS_RCON_ENABLE         | "false"                             | Whether to enable RCON                                                              | No |
 | HOST_SETTINGS_RCON_PASSWORD       | "Ch8ng3m3Pl3@s3!"                   | RCON Password [Requires: HOST_SETTINGS_RCON_ENABLE=true]                            | No |
@@ -56,15 +56,15 @@
 | HOST_SETTINGS_AUTOSAVE_INTERVAL   | 120                                 | Interval in seconds for the server to autosave                                      | No |
 | HOST_SETTINGS_LISTEN_ON_STEAM     | "true"                              | Whether to listen on steam                                                          | No |
 | HOST_SETTINGS_LISTEN_ON_EOS       | "true"                              | Whether to listen on EOS                                                            | No |
-| GAME_SETTINGS_PRESET              | "StandardPvP"                       | Game Settings Preset to start the server with                                       | No |
+| GAME_SETTINGS_PRESET              | "StandardPvP"                       | Game Settings preset to start the server with                                       | No |
 | GAME_SETTINGS_DIFFICULTY          | "Normal"                            | Server default difficulty setting                                                   | No |
 | LIST_ON_MASTER_SERVER             | "true"                              | Whether to list the Server on Master Servers                                        | No |
 | SERVER_IP                         | "127.0.0.1"                         | Public facing Server IP - **You might have to experiment with this**                | Maybe |
 | SAVE_NAME                         | "default_world"                     | The name of your map                                                                | No |
-| GAME_PORT                         | "9876"                              | UDP Port for Game connections                                                       | No |
+| GAME_PORT                         | "9876"                              | UDP Port for game connections                                                       | No |
 | QUERY_PORT                        | "9877"                              | UDP Port to query the server on                                                     | No |
 | DEBUG_ENV                         | "true"                              | Return all variables to the stdout on container start                               | No |
-| LOGDAYS                           | 30                                  | Numer of days after which logs are deleted after their last modification            | No |
+| LOGDAYS                           | 30                                  | Number of days after which logs are deleted after their last modification           | No |
 | OVERRIDE_CONFIG                   | true                                | Whether to generate new configs at the start of the container.                      | No |
 
 ## Changing the running UID/GID
