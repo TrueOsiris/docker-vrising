@@ -114,6 +114,8 @@ if ! [ -f "$PERSISTENT_DATA_PATH/$logfile" ]; then
         touch "$PERSISTENT_DATA_PATH"/"$logfile"
         echo "$PERSISTENT_DATA_PATH/$logfile" > /home/steam/currentlog_path.txt 
 fi
+echo "$PERSISTENT_DATA_PATH/$logfile" > /home/steam/currentlog_path.txt 
+
 
 cd "$SERVER_DATA_PATH"
 
