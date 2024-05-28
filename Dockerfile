@@ -9,6 +9,9 @@ EXPOSE 9877/udp
 # Let the user change the user and group ID
 ARG STEAM_USER_UID="1000"
 ARG STEAM_USER_GID="1000"
+ARG SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.29/supercronic-linux-amd64
+ARG SUPERCRONIC=supercronic-linux-amd64
+ARG SUPERCRONIC_SHA1SUM=cd48d45c4b10f3f0bfdd3a57d054cd05ac96812b
 
 ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     PERSISTENT_DATA_PATH="/home/steam/vrising/persistentdata" \
@@ -41,11 +44,13 @@ ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
 COPY --chown=${STEAM_USER_UID}:${STEAM_USER_GID} --chmod=744 files /home/steam/files/
 COPY src/debian.sources /etc/apt/sources.list.d/debian.sources
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3008
 RUN DEBIAN_FRONTEND=noninteractive \
     dpkg --add-architecture i386 && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
+    supervisor \
     cron \
     gettext-base \
     procps \
@@ -61,9 +66,11 @@ RUN DEBIAN_FRONTEND=noninteractive \
     rm -rf /var/lib/apt/lists/* && \
     usermod -u "${STEAM_USER_UID}" steam && groupmod -g "${STEAM_USER_GID}" steam && \
     chmod +x /home/steam/files/scripts/* && \
-    echo "00 00 * * * /bin/bash -c /home/steam/files/scripts/cleanlogs.sh > /proc/1/fd/1 2>&1" >> /etc/cron.d/logrotation && \
-    crontab -u steam /etc/cron.d/logrotation && \
-    chmod u+s /usr/sbin/cron && \
+    curl -fsSLO "$SUPERCRONIC_URL" && \
+    echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - && \
+    chmod +x "$SUPERCRONIC" && \
+    mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" && \
+    ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic && \
     chown -R "${STEAM_USER_UID}:${STEAM_USER_GID}" /home/steam
 
 USER steam

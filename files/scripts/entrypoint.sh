@@ -19,27 +19,6 @@ if [[ "$DEBUG_ENV" == "true" ]]; then
         env
 fi
 
-term_handler() {
-        echo " "
-        echo " ================================================================ " 
-        echo " Shutting Down Server due to Termination Signal                   "
-        echo " ================================================================ " 
-        echo " "
-        
-	if ! ps -q "$(cat /home/steam/server.pid)" -o state --no-headers | grep -q -v "D|R|S"; then
-		echo "Could not find VRisingServer.exe pid. Assuming server is dead..."
-	else
-                echo "Shutting server down gracefully..."
-		kill -n 15 "$(cat /home/steam/server.pid)"
-		wait "$(cat /home/steam/server.pid)"
-	fi
-	wineserver -k
-	sleep 1
-	exit
-}
-
-trap 'term_handler' SIGTERM SIGINT
-
 echo " "
 echo " ================================================================ " 
 echo " Creating folders and installing Gameserver                       "
@@ -94,7 +73,7 @@ fi
 
 echo " "
 echo " ================================================================ " 
-echo " Creating Cron Files                                            "
+echo " Creating Cron Scripts                                            "
 echo " ================================================================ " 
 echo " "
 
@@ -108,7 +87,7 @@ echo " Creating Log File                                                "
 echo " ================================================================ " 
 echo " "
 
-logfile="VRisingServer.log"
+export logfile="VRisingServer.log"
 if ! [ -f "$PERSISTENT_DATA_PATH/$logfile" ]; then
         echo "Creating $PERSISTENT_DATA_PATH/$logfile"
         touch "$PERSISTENT_DATA_PATH"/"$logfile"
@@ -119,24 +98,11 @@ echo "$PERSISTENT_DATA_PATH/$logfile" > /home/steam/currentlog_path.txt
 
 cd "$SERVER_DATA_PATH"
 
+
 echo " "
 echo " ================================================================ " 
 echo " Starting Server via Wine                                         "
 echo " ================================================================ " 
 echo " "
 
-v() {
-        xvfb-run \
-	--auto-servernum \
-	--server-args='-screen 0 640x480x24:32' \
-	wine "$SERVER_DATA_PATH"/VRisingServer.exe -persistentDataPath "$PERSISTENT_DATA_PATH" -serverName "$HOST_SETTINGS_NAME" -saveName "$SAVE_NAME" -logFile "$PERSISTENT_DATA_PATH"/"$logfile" "$GAME_PORT" "$QUERY_PORT" 2>&1 &
-}
-v
-# Gets the PID of the last command
-ServerPID=$!
-echo "Server PID is $ServerPID"
-echo "$ServerPID" > /home/steam/server.pid
-
-# Tail log file and waits for Server PID to exit
-/usr/bin/tail -n 0 -f "$PERSISTENT_DATA_PATH"/"$logfile" &
-wait $ServerPID
+/usr/bin/supervisord -c /home/steam/files/configs/supervisord.conf
