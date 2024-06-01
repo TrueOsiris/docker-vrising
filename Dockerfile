@@ -29,7 +29,7 @@ ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     HOST_SETTINGS_AUTOSAVE_INTERVAL="120" \
     HOST_SETTINGS_LISTEN_ON_STEAM="true" \ 
     HOST_SETTINGS_LISTEN_ON_EOS="true" \
-    GAME_SETTINGS_PRESET="" \
+    GAME_SETTINGS_PRESET="StandardPvP" \
     GAME_SETTINGS_DIFFICULTY="Normal" \
     LIST_ON_MASTER_SERVER="true" \
     SERVER_IP="127.0.0.1" \
@@ -38,7 +38,7 @@ ENV SERVER_DATA_PATH="/home/steam/vrising/server" \
     QUERY_PORT="9877" \
     DEBUG_ENV="true" \
     LOGDAYS="30" \
-    OVERRIDE_CONFIG="false" \
+    OVERRIDE_CONFIG="true" \
     TZ="Europe/Brussels"
 
 COPY --chown=${STEAM_USER_UID}:${STEAM_USER_GID} --chmod=744 files /home/steam/files/
