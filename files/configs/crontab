@@ -1,0 +1,1 @@
+00 00 * * * /bin/bash -c /home/steam/files/scripts/cleanlogs.sh

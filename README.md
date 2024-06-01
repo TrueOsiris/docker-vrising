@@ -2,7 +2,7 @@
   <a href="https://github.com/TrueOsiris/docker-vrising">
     <img alt="Iroh" src="https://github.com/TrueOsiris/docker-vrising/blob/main/assets/docker-virising.png?raw=true" height="250">
   </a>
-  <p  align="center">Dockerized V Rising dedicated server in an Ubuntu 22.04 container with Wine.</p>
+  <p  align="center">Dockerized V Rising dedicated server in an Debian 12 container with Wine.</p>
 </p>
 
 [![Docker Pulls](https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising/)
@@ -31,20 +31,58 @@
 
 - The game is working perfectly with a new run of the container (from scratch). I'm on it with several buddies and <i>tested</i> for 3 hours.
 - When the server is passworded, joining via Steam seems <b>not</b> possible. Use the ingame server list to join.
-- Make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist
+- Make sure `HOST_SETTINGS_LISTEN_ON_STEAM: "true"` and `HOST_SETTINGS_LISTEN_ON_EOS: "true"` are set in your Environment
 - Launching the server can take up to 10 minutes, even on a fast system, certainly with an existing save. Below is a screenshot of the end of the docker log of a functioning server, at the time we are able to connect to it.
 
 ## Environment variables
 
 
-| Variable   | Key                    | Description                                                                       |
-| ------------ | ------------------------ | ----------------------------------------------------------------------------------- |
-| TZ         | Europe/Brussels        | timezone for ntpdate                                                              |
-| SERVERNAME | published servername   | mandatory setting that overrules the ServerHostSettings.json entry                |
-| WORLDNAME  | optional worldname     | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
-| GAMEPORT   | optional game udp port | to overrule Port in ServerHostSettings.json config                                |
-| QUERYPORT  | optional query port    | to overrule QueryPort in ServerHostSettings.json config                           |
-| LOGDAYS | optional lifetime of logfiles | overrule default of 30 days |
+| Variable                          | Default V(alue)                     | Description                                                                         | Mandatory |
+| --------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------- | --------- |
+| TZ                                | Europe/Brussels                     | timezone for ntpdate                                                                | No |
+| SERVER_DATA_PATH                  | /home/steam/vrising/server          | Path inside the container to save server files to                                   | No |
+| PERSISTENT_DATA_PATH              | /home/steam/vrising/persistentdata  | Path inside the container to save world/configs/logs/etc. to                        | No |
+| HOST_SETTINGS_NAME                | My Docker V-Rising Server           | The name of your server as visible in the server list                               | No |
+| HOST_SETTINGS_DESCRIPTION         | V Rising Server hosted by Docker    | Description of your server                                                          | No |
+| HOST_SETTINGS_PASSWORD            | ""                                  | Optional server password                                                            | No |
+| HOST_SETTINGS_MAX_CONNECTED_USERS | 10                                  | Maximum connected users                                                             | No |
+| HOST_SETTINGS_MAX_CONNECTED_ADMINS| 4                                   | Maximum connected admins                                                            | No |
+| HOST_SETTINGS_SERVER_ADMIN_LIST   | ""                                  | Comma separated list of Admin Steam ID64s (e.g. "123456789,0987654321")             | No |
+| HOST_SETTINGS_SERVER_FPS          | 30                                  | Server FPS                                                                          | No |
+| HOST_SETTINGS_RCON_ENABLE         | "false"                             | Whether to enable RCON                                                              | No |
+| HOST_SETTINGS_RCON_PASSWORD       | "Ch8ng3m3Pl3@s3!"                   | RCON Password [Requires: HOST_SETTINGS_RCON_ENABLE=true]                            | No |
+| HOST_SETTINGS_RCON_PORT           | "9876"                              | RCON TCP Port to listen on                                                          | No |
+| HOST_SETTINGS_AUTOSAVE_COUNT      | 40                                  | How many autosaves to keep                                                          | No |
+| HOST_SETTINGS_AUTOSAVE_INTERVAL   | 120                                 | Interval in seconds for the server to autosave                                      | No |
+| HOST_SETTINGS_LISTEN_ON_STEAM     | "true"                              | Whether to listen on steam                                                          | No |
+| HOST_SETTINGS_LISTEN_ON_EOS       | "true"                              | Whether to listen on EOS                                                            | No |
+| GAME_SETTINGS_PRESET              | "StandardPvP"                       | Game Settings preset to start the server with                                       | No |
+| GAME_SETTINGS_DIFFICULTY          | "Normal"                            | Server default difficulty setting                                                   | No |
+| LIST_ON_MASTER_SERVER             | "true"                              | Whether to list the Server on Master Servers                                        | No |
+| SERVER_IP                         | "127.0.0.1"                         | Public facing Server IP - **You might have to experiment with this**                | Maybe |
+| SAVE_NAME                         | "default_world"                     | The name of your map                                                                | No |
+| GAME_PORT                         | "9876"                              | UDP Port for game connections                                                       | No |
+| QUERY_PORT                        | "9877"                              | UDP Port to query the server on                                                     | No |
+| DEBUG_ENV                         | "true"                              | Return all variables to the stdout on container start                               | No |
+| LOGDAYS                           | 30                                  | Number of days after which logs are deleted after their last modification           | No |
+| OVERRIDE_CONFIG                   | true                                | Whether to generate new configs at the start of the container.                      | No |
+
+
+## A note on `OVERRIDE_CONFIG`
+By default, this parameter is set to true. Any configuration should be done using the Environment Variables, changing your configs by going into your container or editing the files on your mounted file system path will be **overwritten every time the container starts**.
+If you set this to `false`, the following will happen:
+- When configs already exist, they are **not** overwritten
+- When no configs exist, a default config is written **once** with any Environment variables you set, otherwise the defaults are used.
+
+## Changing the running UID/GID
+
+If you want to change the UID/GID of the User that's running the container for any reason, you can change the **Build ARGs**. The Image uses UID/GID 1000/1000 by default as defined in `cm2network/steamcmd:root-bookworm`.
+Please note that changing this also means that you might have to adjust your volume permissions on the host when using docker. When using Kubernetes, you should verify the securityContext.
+
+| Variable                          | Default V(alue)                     | Description                                                                         | Mandatory |
+| --------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------- | --------- |
+| STEAM_USER_UID                    | 1000                                | The user ID the server will run on                                                  | No |
+| STEAM_USER_GID                    | 1000                                | The group ID the server will run on                                                 | No |
 
 ## Ports
 
@@ -52,6 +90,7 @@
 | Exposed Container port | Type | Default |
 | ------------------------ | ------ | --------- |
 | 9876                   | UDP  | ✔️    |
+| 9876                   | TCP  | ❌    |
 | 9877                   | UDP  | ✔️    |
 
 ## Volumes
@@ -59,8 +98,8 @@
 
 | Volume             | Container path              | Description                             |
 | -------------------- | ----------------------------- | ----------------------------------------- |
-| steam install path | /mnt/vrising/server         | path to hold the dedicated server files |
-| world              | /mnt/vrising/persistentdata | path that holds the world files         |
+| steam install path | /home/steam/vrising/server      | path to hold the dedicated server files |
+| world              | /home/steam/vrising/persistentdata  | path that holds the world files         |
 
 ## Docker cli
 
@@ -69,9 +108,9 @@ docker run -d --name='vrising' \
 --net='bridge' \
 --restart=unless-stopped \
 -e TZ="Europe/Paris" \
--e SERVERNAME="trueosiris-V" \
--v '/path/on/host/server':'/mnt/vrising/server':'rw' \
--v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
+-e HOST_SETTINGS_NAME="trueosiris-V" \
+-v '/path/on/host/server':'/home/steam/vrising/server':'rw' \
+-v '/path/on/host/persistentdata':'/home/steam/vrising/persistentdata':'rw' \
 -p 9876:9876/udp \
 -p 9877:9877/udp \
 'trueosiris/vrising'
@@ -79,30 +118,24 @@ docker run -d --name='vrising' \
 
 ## docker-compose.yml
 
-```yaml
-services:
-  vrising:
-    image: trueosiris/vrising
-    environment:
-      - TZ=Europe/Paris
-      - SERVERNAME=vrising-TrueOsiris
-    volumes:
-      - type: bind
-        source: /your/host/vrising/server
-        target: /mnt/vrising/server
-        bind:
-          create_host_path: true
-      - type: bind
-        source: /your/host/vrising/persistentdata
-        target: /mnt/vrising/persistentdata
-        bind:
-          create_host_path: true
-    ports:
-      - '9876:9876/udp'
-      - '9877:9877/udp'
-    restart: unless-stopped
-    network_mode: bridge
+See the example docker-compose.yml in this repository.
+Do not put any of your env variables in the "environment:" section in quotes.
+
+**IMPORTANT**: The compose file will create the path you define in `source` if it does not exist. Ensure you're either running with UID/GID 1000 (the default steam user in the container), change owners of these folders accordingly, or setup the `STEAM_USER_UID` and `STEAM_USER_GID` arguments correctly and rebuild the image. Otherwise you will get the following error:
+
 ```
+mkdir: cannot create directory '/home/steam/vrising/persistentdata/Settings': Permission denied
+```
+
+## Kubernetes
+
+You can use the provided example in `kubernetes/kustomize/overlays/exampleorg` to see the ways the base template could be adjusted to your requirements.
+It's important to *at least* change the following:
+- secret.yaml - Your RCON Secret, if you need one
+- pvc.yaml - Adjust `storageClassname` and requsted storage according to your needs
+- deployment.yaml - Set Image path to your registry. This image is not pushed to dockerhub by default
+
+To update your Pod, just delete it and wait for it to restart.
 
 ## Links
 
@@ -112,40 +145,29 @@ services:
 
 ## RCON <small>- Optional</small>
 
-To enable RCON edit `ServerHostSettings.json` and paste following lines after `QueryPort`. To communicate using RCON protocal use the [RCON CLI](https://github.com/gorcon/rcon-cli) by gorcon.
+To enable RCON set the `HOST_SETTINGS_RCON_ENABLE`, `HOST_SETTINGS_RCON_PASSWORD`, `HOST_SETTINGS_RCON_PORT` variables. To communicate using RCON protocal use the [RCON CLI](https://github.com/gorcon/rcon-cli) by gorcon.
 
-```json
-"Rcon": {
-  "Enabled": true,
-  "Password": "docker",
-  "Port": 25575
-},
-```
 
 ## Remarks
 
-- Server config files are in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update. <br>
-  Priority of settings is
+-   Server config files are in `/path/on/host/persistentdata/Settings`. 
+    Files in `/path/on/host/server/` are overwritten on Steam update. <br>
+    Priority of settings is
 
-  a. container variables
+    - container variables
+    - files in /server. (and these are reset to defaults each new patch)
 
-  b. files in /persistentdata
-
-  c. files in /server. (and these are reset to defaults each new patch)
-
-  If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.<br>
-  Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.
-- Description can be changed in `/path/on/host/persistentdata/Settings/ServerHostSettings.json`. The server will have to be restarted after changes.
+    Please note that you cannot edit your config files in `$PERSISTENT_DATA_PATH/Settings/ServerGameSettings.json` or `$PERSISTENT_DATA_PATH/Settings/ServerHostSettings.json`, these will be overwritten by your ENV every time the container is restarted by default. In case you want to adjust any setting that isn't covered by the current config options, please create an issue or a PR.
+    If you want to manually adjust your configs and keep your changes, move your config files (with proper access rights) to your mounted folder and set `OVERRIDE_CONFIG="false"`
 - If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible ~~, even if  `"ListOnMasterServer=true"`~~
-- Make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist.
-- If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.
+- If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.
 
   - Start the container & let the server install.
   - Stop the container.
-  - Alter the ports in `/path/on/host/persistentdata/Settings/ServerHostSettings.json` to
+  - Alter the ports to
     ```
-     "Port": 27015,
-     "QueryPort": 27016,
+     GAME_PORT: "27015"
+     QUERY_PORT: "27016"
     ```
   - On your firewall, port forward incoming wan udp ports 27015 and 27016 to the same udp ports on your dockerhost ip.
   - Restart the container with these ports:

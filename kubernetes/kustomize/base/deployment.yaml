@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vrisingserverdeployment
+spec:
+  selector:
+    matchLabels:
+      app: vRisingServer
+  template:
+    metadata:
+      labels:
+        app: vRisingServer
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      volumes:
+        - name: persistentdata
+          persistentVolumeClaim:
+            claimName: vrisingpersistentdata
+        - name: serverdata
+          persistentVolumeClaim:
+            claimName: vrisingserverdata
+      containers:
+      - name: vrisingservercontainer
+        image: example.com/path/to/image:tag
+        volumeMounts:
+          - name: persistentdata
+            mountPath: /home/steam/vrising/persistentdata
+          - name: serverdata
+            mountPath: /home/steam/vrising/server
+        envFrom:
+          - configMapRef:
+              name: vrisingcm
+          - secretRef:
+              name: vrisingsecret
+        resources:
+          limits:
+            memory: "4Gi"
+            cpu: "4"
+          requests:
+            memory: "4Gi"
+            cpu: "1"
+        livenessProbe:
+          exec:
+            command:
+              - /bin/bash
+              - -c
+              - /home/steam/files/scripts/healthcheck.sh
+          initialDelaySeconds: 360
+          periodSeconds: 20
+        ports:
+        - protocol: UDP
+          containerPort: 9876
+        - protocol: TCP
+          containerPort: 9876
+        - protocol: UDP
+          containerPort: 9877

@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vrisingserverdeployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: vrisingservercontainer
+        image: example.org/path/to/image:tag
