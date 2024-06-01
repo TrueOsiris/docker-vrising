@@ -67,6 +67,13 @@
 | LOGDAYS                           | 30                                  | Number of days after which logs are deleted after their last modification           | No |
 | OVERRIDE_CONFIG                   | true                                | Whether to generate new configs at the start of the container.                      | No |
 
+
+## A note on `OVERRIDE_CONFIG`
+By default, this parameter is set to true. Any configuration should be done using the Environment Variables, changing your configs by going into your container or editing the files on your mounted file system path will be **overwritten every time the container starts**.
+If you set this to `false`, the following will happen:
+- When configs already exist, they are **not** overwritten
+- When no configs exist, a default config is written **once** with any Environment variables you set, otherwise the defaults are used.
+
 ## Changing the running UID/GID
 
 If you want to change the UID/GID of the User that's running the container for any reason, you can change the **Build ARGs**. The Image uses UID/GID 1000/1000 by default as defined in `cm2network/steamcmd:root-bookworm`.
