@@ -8,13 +8,21 @@
 [![Docker Pulls](https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising/)
 [![Docker Stars](https://badgen.net/docker/stars/trueosiris/vrising?icon=docker&label=stars)](https://hub.docker.com/r/trueosiris/vrising/)
 [![Docker Image Size](https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/vrising/)
-![Github stars](https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars)
-![Github forks](https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=forks)
-![Github open issues](https://badgen.net/github/open-issues/TrueOsiris/docker-vrising)
-![Github closed issues](https://badgen.net/github/closed-issues/TrueOsiris/docker-vrising)
-![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising)
+![Github stars](https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars&cache=600)
+![Github forks](https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=fork&cache=600s)
+![Github open issues](https://badgen.net/github/open-issues/TrueOsiris/docker-vrising&cache=600)
+![Github closed issues](https://badgen.net/github/closed-issues/TrueOsiris/docker-vrising&cache=600)
+![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising&cache=600)
 
 ## Updates
+
+### 1.1 and latest image
+
+- Just tested the latest image for V-Rising 1.1 & all works fine. 
+- Log will be spammed with these messages. Feel free to give me a solution here.<br>
+  01b4:fixme:winsock:server_ioctl_sock Unsupported ioctl 4004747b (device=4004 access=1 func=d1e method=3)<br>
+  vrising-1  | 01b4:fixme:winsock:WSAIoctl unsupported WS_IOCTL cmd (SIO_IDEAL_SEND_BACKLOG_QUERY)
+- There is no way to continue a game from 1.0. I just checked with the discord community.
 
 ### image 2024-05-16 ([trueosiris/vrising:2.1](https://hub.docker.com/layers/trueosiris/vrising/2.1/images/sha256-00639c82158711d868f41750aa43f605bd35f5b775725137ef3b0b10ba80b52e?context=repo) or [latest](https://hub.docker.com/layers/trueosiris/vrising/latest/images/sha256-00639c82158711d868f41750aa43f605bd35f5b775725137ef3b0b10ba80b52e?context=repo)) 
 
