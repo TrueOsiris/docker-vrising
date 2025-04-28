@@ -23,6 +23,7 @@
   01b4:fixme:winsock:server_ioctl_sock Unsupported ioctl 4004747b (device=4004 access=1 func=d1e method=3)<br>
   vrising-1  | 01b4:fixme:winsock:WSAIoctl unsupported WS_IOCTL cmd (SIO_IDEAL_SEND_BACKLOG_QUERY)
 - There is no way to continue a game from 1.0. I just checked with the discord community.
+- Still an issue: when the server is passworded, joining via Steam seems not possible. Use the ingame server list to join.
 
 ### image 2024-05-16 ([trueosiris/vrising:2.1](https://hub.docker.com/layers/trueosiris/vrising/2.1/images/sha256-00639c82158711d868f41750aa43f605bd35f5b775725137ef3b0b10ba80b52e?context=repo) or [latest](https://hub.docker.com/layers/trueosiris/vrising/latest/images/sha256-00639c82158711d868f41750aa43f605bd35f5b775725137ef3b0b10ba80b52e?context=repo)) 
 
@@ -34,13 +35,6 @@
 - Added date to the logfile name, so per server launch, a logfile will be created. For now, they will not be automatically cleaned up.
 - If you're experiencing [this issue](https://github.com/TrueOsiris/docker-vrising/issues/51) with "[476:488:20240511,134828.926:ERROR http_transport_win.cc:388] HTTP status 403" in the log, pull [trueosiris/vrising:display](https://hub.docker.com/layers/trueosiris/vrising/display/images/sha256-592b9ace78b7228c08134804fa94b0f47766bb9202d86048a0a4ded81f765cda?context=repo) which uses xvfb.
 - If you're experiencing [this issue](https://github.com/TrueOsiris/docker-vrising/issues/43) with "wine: Assertion failed at address 00007F79E2C9EA7C (thread 0094)" in the log, u might need the latest wine from winehq, therefore grab [trueosiris/vrising:winehq](https://hub.docker.com/layers/trueosiris/vrising/winehq/images/sha256-f7f662258b30d6250d16718aa008a95b868336c92fdd98e56fd39bbca5626f8c?context=repo)
-
-### V-Rising 1.0 update
-
-- The game is working perfectly with a new run of the container (from scratch). I'm on it with several buddies and <i>tested</i> for 3 hours.
-- When the server is passworded, joining via Steam seems <b>not</b> possible. Use the ingame server list to join.
-- Make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist
-- Launching the server can take up to 10 minutes, even on a fast system, certainly with an existing save. Below is a screenshot of the end of the docker log of a functioning server, at the time we are able to connect to it.
 
 ## Environment variables
 
@@ -144,8 +138,10 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
   If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.<br>
   Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.
 - Description can be changed in `/path/on/host/persistentdata/Settings/ServerHostSettings.json`. The server will have to be restarted after changes.
-- If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible ~~, even if  `"ListOnMasterServer=true"`~~
+- If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible.
 - Make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist.
+- When the server is passworded, joining via Steam seems <b>not</b> possible. Use the ingame server list to join.
+- Launching the server can take up to 10 minutes, even on a fast system, certainly with an existing save.
 - If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.
 
   - Start the container & let the server install.
@@ -166,9 +162,9 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
 
 ## Docker log
 
-The log of a functional server in 1.0 should look like this:
-
-![docker-log](https://timmer.ninja/images/vrising-dockerlog.png)
+Since 1.1 the log will be spamming these messages, but no need to worry:<br>
+vrising-1   | 01b4:fixme:winsock:server_ioctl_sock Unsupported ioctl 4004747b (device=4004 access=1 func=d1e method=3)<br>
+vrising-1   | 01b4:fixme:winsock:WSAIoctl unsupported WS_IOCTL cmd (SIO_IDEAL_SEND_BACKLOG_QUERY)<br>
 
 ## Credits
 
