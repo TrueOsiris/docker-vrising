@@ -49,6 +49,10 @@ if [[ -n $QUERYPORT ]]; then
 	query_port=" -queryPort $QUERYPORT"
 fi
 
+beta_arg=""
+if [ -n "$BRANCH" ]; then
+  beta_arg=" -beta $BRANCH" 
+fi
 cleanup_logs
 
 mkdir -p /root/.steam 2>/dev/null
@@ -56,7 +60,7 @@ chmod -R 777 /root/.steam 2>/dev/null
 echo " "
 echo "Updating V-Rising Dedicated Server files..."
 echo " "
-/usr/bin/steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir "$s" +login anonymous +app_update 1829350 validate +quit
+/usr/bin/steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir "$s" +login anonymous +app_update 1829350 $beta_arg validate +quit
 printf "steam_appid: "
 cat "$s/steam_appid.txt"
 

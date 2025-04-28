@@ -47,6 +47,7 @@
 | GAMEPORT   | optional game udp port | to overrule Port in ServerHostSettings.json config                                |
 | QUERYPORT  | optional query port    | to overrule QueryPort in ServerHostSettings.json config                           |
 | LOGDAYS | optional lifetime of logfiles | overrule default of 30 days |
+| BRANCH | Select the server version | Allows to run the server version legacy-1.0.x-pc |
 
 ## Ports
 
