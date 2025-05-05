@@ -173,6 +173,8 @@ Since 1.1 the log will be spamming these messages, but no need to worry:<br>
 vrising-1   | 01b4:fixme:winsock:server_ioctl_sock Unsupported ioctl 4004747b (device=4004 access=1 func=d1e method=3)<br>
 vrising-1   | 01b4:fixme:winsock:WSAIoctl unsupported WS_IOCTL cmd (SIO_IDEAL_SEND_BACKLOG_QUERY)<br>
 
+Here is a [working 1.1.hotfix3 log](https://github.com/TrueOsiris/docker-vrising/blob/main/logs/1.1.hotfix3.log) as reference.
+
 ## Credits
 
 - All credits go to the awesome designers of [V-Rising](https://playvrising.com/)!
