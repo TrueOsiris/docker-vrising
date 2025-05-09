@@ -10,9 +10,9 @@
 [![Docker Image Size](https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/vrising/)
 ![Github stars](https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars&cache=600)
 ![Github forks](https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=fork&cache=600)
-![Github open issues](https://badgen.net/github/open-issues/TrueOsiris/docker-vrising?cache=600)
-![Github closed issues](https://badgen.net/github/closed-issues/TrueOsiris/docker-vrising?cache=600)
-![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising?cache=600)
+![Github open issues](https://badgen.net/github/open-issues/TrueOsiris/docker-vrising?icon=github&cache=600)
+![Github closed issues](https://badgen.net/github/closed-issues/TrueOsiris/docker-vrising?icon=github&cache=600)
+![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising?icon=github&cache=600)
 
 ## Updates
 
