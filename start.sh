@@ -85,6 +85,12 @@ if [ ! -f "$p/Settings/ServerHostSettings.json" ]; then
 	cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerHostSettings.json" "$p/Settings/" 2>&1
 fi
 
+echo "Installing BepInEx for V Rising..."
+mkdir -p /tmp/BepInEx
+7z x /BepInEx.zip -o/tmp/BepInEx
+cp -rf /tmp/BepInEx/* /mnt/vrising/server
+rm -rf /tmp/BepInEx /BepInEx.zip
+
 # Checks if log file exists, if not creates it
 current_date=$(date +"%Y%m%d-%H%M")
 logfile="$current_date-VRisingServer.log"

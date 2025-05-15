@@ -27,11 +27,14 @@ RUN apt install -y wine \
                    winbind \
                    winetricks
 RUN apt install -y xserver-xorg \
-                   xvfb
+                   xvfb \
+                   p7zip-full
 RUN rm -rf /var/lib/apt/lists/* && \
     apt clean && \
     apt autoremove -y
 
 COPY start.sh /start.sh
+COPY BepInEx.zip /BepInEx.zip
+
 RUN chmod +x /start.sh
 CMD ["/start.sh"]
