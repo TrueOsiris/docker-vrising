@@ -24,9 +24,8 @@
 
 ### Branch selection
 
-Merged pull request of [DzymFardreamer](https://github.com/TrueOsiris/docker-vrising/issues?q=is%3Apr+author%3ADzymFardreamer) that allows to add a version.<br>
-I've rebuilt the image to trueosiris/vrising:latest & trueosiris/vrising:3.0 and I've not yet tested it.<br>
-The previous one, that was perfectly working a few moments ago is still fetchable using trueosiris/vrising:2.1
+Adding changes added by EuroHsu.
+Haven't rebuild the image yet. Trying to fix the erroreous behaviour in issue 100.
 
 ### 1.1 and latest image
 
