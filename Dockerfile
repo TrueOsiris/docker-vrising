@@ -28,6 +28,7 @@ RUN apt install -y wine \
                    winetricks
 RUN apt install -y xserver-xorg \
                    xvfb
+RUN apt update -y && apt install -y jq
 RUN rm -rf /var/lib/apt/lists/* && \
     apt clean && \
     apt autoremove -y
