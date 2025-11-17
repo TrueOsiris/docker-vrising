@@ -5,14 +5,20 @@
   <p  align="center">Dockerized V Rising dedicated server in an Ubuntu 22.04 container with Wine.</p>
 </p>
 
-[![Docker Pulls](https://badgen.net/docker/pulls/trueosiris/vrising?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising/)
-[![Docker Stars](https://badgen.net/docker/stars/trueosiris/vrising?icon=docker&label=stars)](https://hub.docker.com/r/trueosiris/vrising/)
-[![Docker Image Size](https://badgen.net/docker/size/trueosiris/vrising?icon=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/vrising/)
-[![Github stars](https://badgen.net/github/stars/trueosiris/docker-vrising?icon=github&label=stars&cache=600)](https://github.com/TrueOsiris/docker-vrising)
-[![Github forks](https://badgen.net/github/forks/trueosiris/docker-vrising?icon=github&label=fork&cache=600)](https://github.com/TrueOsiris/docker-vrising)
-[![Github open issues](https://badgen.net/github/open-issues/TrueOsiris/docker-vrising?icon=github&cache=600)](https://github.com/TrueOsiris/docker-vrising)
-[![Github closed issues](https://badgen.net/github/closed-issues/TrueOsiris/docker-vrising?icon=github&cache=600)](https://github.com/TrueOsiris/docker-vrising)
-[![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising?icon=github&cache=600)](https://github.com/TrueOsiris/docker-vrising)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/r/trueosiris/vrising)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/TrueOsiris/docker-vrising)
+[![Wine](https://img.shields.io/badge/Wine-800000?logo=wine&logoColor=white)](https://www.winehq.org/)
+[![Steam](https://img.shields.io/badge/Steam-1b2838?logo=steam&logoColor=white)](https://store.steampowered.com/app/1604030/V_Rising/)
+[![V Rising](https://img.shields.io/badge/V%20Rising-1604030-8A0303?logo=steam&logoColor=white)](https://store.steampowered.com/app/1604030/V_Rising/)<br>
+[![Docker Pulls](https://img.shields.io/docker/pulls/trueosiris/vrising?logo=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising)
+[![Docker Stars](https://img.shields.io/docker/stars/trueosiris/vrising?logo=docker&label=stars)](https://hub.docker.com/r/trueosiris/vrising)
+[![Docker Image Size](https://img.shields.io/docker/image-size/trueosiris/vrising/latest?logo=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/vrising)
+[![GitHub stars](https://img.shields.io/github/stars/TrueOsiris/docker-vrising?logo=github&label=stars)](https://github.com/TrueOsiris/docker-vrising)
+[![GitHub forks](https://img.shields.io/github/forks/TrueOsiris/docker-vrising?logo=github&label=forks)](https://github.com/TrueOsiris/docker-vrising)
+[![GitHub open issues](https://img.shields.io/github/issues/TrueOsiris/docker-vrising?logo=github&label=open%20issues)](https://github.com/TrueOsiris/docker-vrising/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/TrueOsiris/docker-vrising?logo=github&label=closed%20issues)](https://github.com/TrueOsiris/docker-vrising/issues?q=is%3Aissue+is%3Aclosed)
+[![GitHub last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising?logo=github&label=last%20commit)](https://github.com/TrueOsiris/docker-vrising/commits)
+
 
 ## Updates
 
@@ -112,6 +118,29 @@ services:
     restart: unless-stopped
     network_mode: bridge
 ```
+
+## Newest modifications:
+
+- **Intuitive parameters** — If you want to modify parameters in `ServerGameSettings.json` and `ServerHostSettings.json`, add environment variables starting with `GAME_SETTINGS_` and `HOST_SETTINGS_` (both must be uppercase) in your docker-compose.yml file. The parameter names that follow are case-insensitive, so `HOST_SETTINGS_LISTONSTEAM` and `HOST_SETTINGS_ListOnSteam` both work.
+```yaml
+environment:
+  - HOST_SETTINGS_ListOnSteam=true
+  - HOST_SETTINGS_LISTONEOS=true
+  - GAME_SETTINGS_GAMEMODETYPE=PvE
+```
+- **Supports dynamic modification of nested JSON parameters** — since some parameter names contain `_`, a double underscore `__` is used to separate levels.
+```yaml
+environment:
+  - HOST_SETTINGS_Rcon__Enabled=true
+  - HOST_SETTINGS_Rcon__Password=powerfulpwd
+  - GAME_SETTINGS_UnitStatModifiers_Global__MaxHealthModifier=2
+  - GAME_SETTINGS_CastleStatModifiers_Global__HeartLimits__Level1__FloorLimit=100
+```
+- **Fail-safe** — entering a non-existent parameter like `HOST_SETTINGS_NotExistKey=1` will not be written to the configuration file.
+- **Parameter type validation** — if the input type differs from the original like `HOST_SETTINGS_Port=abcd`, it will not be written to the configuration file.
+- All modified parameter settings can be viewed in:
+  - `/mnt/vrising/persistentdata/Settings/ServerGameSettings.json`
+  - `/mnt/vrising/persistentdata/Settings/ServerHostSettings.json`
 
 ## Links
 
