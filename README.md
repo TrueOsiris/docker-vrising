@@ -22,12 +22,12 @@
 
 ## Updates
 
-### Branch selection
+### Latest behaviour
 
 Adding changes added by EuroHsu.
 Haven't rebuild the image yet. Trying to fix the erroreous behaviour in issue 100.
 
-### 1.1 and latest image
+### 1.1 image 2025-august
 
 - Just tested the latest image for V-Rising 1.1 & all works fine. 
 - Log will be spammed with these messages. Feel free to give me a solution here.<br>
