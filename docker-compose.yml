@@ -4,6 +4,7 @@ services:
     environment:
       - TZ=Europe/Paris
       - SERVERNAME=vrising-TrueOsiris
+      - WINEDEBUG=fixme-all
     volumes:
       - type: bind
         source: /your/host/vrising/server
