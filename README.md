@@ -82,6 +82,7 @@ Haven't rebuild the image yet. Trying to fix the erroreous behaviour in issue 10
 docker run -d --name='vrising' \
 --net='bridge' \
 --restart=unless-stopped \
+-e WINEDEBUG=fixme-all \
 -e TZ="Europe/Paris" \
 -e SERVERNAME="trueosiris-V" \
 -v '/path/on/host/server':'/mnt/vrising/server':'rw' \
@@ -100,6 +101,7 @@ services:
     environment:
       - TZ=Europe/Paris
       - SERVERNAME=vrising-TrueOsiris
+      - WINEDEBUG=fixme-all
     volumes:
       - type: bind
         source: /your/host/vrising/server
