@@ -4,7 +4,7 @@ services:
     entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]
     environment:
       - TZ=Europe/Paris
-      - SERVERNAME=vrising-TrueOsiris
+      - SERVERNAME=vrising-TrueOsiris2026
       - WINEDEBUG=fixme-all
     volumes:
       - type: bind
