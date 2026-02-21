@@ -26,15 +26,14 @@
 
 ### image 2026-02-21
 
-Docker image rebuild + tested latest version on a linux dockerhost (unraid).<br>
+Docker image rebuild + tested on a linux dockerhost (unraid).<br>
 For now, u need to add this to the compose file:<br>
-`entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]` 
-
-
+`entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]` <br>
+Thx [laerdev](https://github.com/laerdev) for the fix.<br>
 
 ### image 2025-08-01
 
-- Just tested the latest image for V-Rising 1.1 & all works fine. 
+- Just tested the latest image for V-Rising 1.1. 
 - Log will be spammed with these messages. Feel free to give me a solution here.<br>
   01b4:fixme:winsock:server_ioctl_sock Unsupported ioctl 4004747b (device=4004 access=1 func=d1e method=3)<br>
   vrising-1  | 01b4:fixme:winsock:WSAIoctl unsupported WS_IOCTL cmd (SIO_IDEAL_SEND_BACKLOG_QUERY)
