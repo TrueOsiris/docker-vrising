@@ -30,6 +30,8 @@ Docker image rebuild + tested latest version on a linux dockerhost (unraid).<br>
 For now, u need to add this to the compose file:<br>
 `entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]` 
 
+
+
 ### image 2025-08-01
 
 - Just tested the latest image for V-Rising 1.1 & all works fine. 
@@ -106,16 +108,16 @@ services:
     entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]
     environment:
       - TZ=Europe/Paris
-      - SERVERNAME=vrising-TrueOsiris
+      - SERVERNAME=vrising-TrueOsiris2026
       - WINEDEBUG=fixme-all
     volumes:
       - type: bind
-        source: /your/host/vrising/server
+        source: ./server
         target: /mnt/vrising/server
         bind:
           create_host_path: true
       - type: bind
-        source: /your/host/vrising/persistentdata
+        source: ./persistentdata
         target: /mnt/vrising/persistentdata
         bind:
           create_host_path: true
@@ -202,6 +204,17 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
     ```
 - If you want to continue from your local game, stop the container, overwrite the persistentdata
   contents with your local data, and relaunch the server.
+  
+- If you're running windows as a docker host, you'll get this exception:
+  ```
+  vrising-1  | 0024:err:module:LdrInitializeThunk "UnityPlayer.dll" failed to initialize, aborting
+  vrising-1  | 0024:err:module:LdrInitializeThunk Initializing dlls for L"Z:\\mnt\\vrising\\server\\VRisingServer.exe" failed, status c0000005
+  ```
+  Unless you use volumes like this:
+  ```
+  volumes:
+  - E:\something\server:/mnt/vrising/server
+  ```
 
 ## Docker log
 
