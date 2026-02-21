@@ -9,7 +9,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/TrueOsiris/docker-vrising)
 [![Wine](https://img.shields.io/badge/Wine-800000?logo=wine&logoColor=white)](https://www.winehq.org/)
 [![Steam](https://img.shields.io/badge/Steam-1b2838?logo=steam&logoColor=white)](https://store.steampowered.com/app/1604030/V_Rising/)
-[![V Rising](https://img.shields.io/badge/V%20Rising-1604030-8A0303?logo=steam&logoColor=white)](https://store.steampowered.com/app/1604030/V_Rising/)<br>
+[![V Rising](https://img.shields.io/badge/V%20Rising-1604030-8A0303?logo=steam&logoColor=white)](https://store.steampowered.com/app/1604030/V_Rising/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/trueosiris/vrising?logo=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising)
 [![Docker Stars](https://img.shields.io/docker/stars/trueosiris/vrising?logo=docker&label=stars)](https://hub.docker.com/r/trueosiris/vrising)
 [![Docker Image Size](https://img.shields.io/docker/image-size/trueosiris/vrising/latest?logo=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/vrising)
@@ -24,10 +24,12 @@
 
 ### Latest behaviour
 
-Adding changes added by EuroHsu.
-Haven't rebuild the image yet. Trying to fix the erroreous behaviour in issue 100.
+### image 2026-02-21
 
-### 1.1 image 2025-august
+Docker image rebuild + tested latest version on a linux dockerhost (unraid).
+For now, u need to add `entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]` 
+
+### image 2025-08-01
 
 - Just tested the latest image for V-Rising 1.1 & all works fine. 
 - Log will be spammed with these messages. Feel free to give me a solution here.<br>
@@ -64,9 +66,9 @@ Haven't rebuild the image yet. Trying to fix the erroreous behaviour in issue 10
 
 
 | Exposed Container port | Type | Default |
-| ------------------------ | ------ | --------- |
-| 9876                   | UDP  | ✔️    |
-| 9877                   | UDP  | ✔️    |
+| ---------------------- | ---- | ------- |
+| 9876                   | UDP  | ✔️      |
+| 9877                   | UDP  | ✔️      |
 
 ## Volumes
 
