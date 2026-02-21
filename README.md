@@ -89,7 +89,9 @@ docker run -d --name='vrising' \
 -v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
 -p 9876:9876/udp \
 -p 9877:9877/udp \
-'trueosiris/vrising'
+--entrypoint "/bin/bash" \
+trueosiris/vrising \
+-c "sed -i 's/\r//g' /start.sh && exec /bin/bash /start.sh"
 ```
 
 ## docker-compose.yml
@@ -98,6 +100,7 @@ docker run -d --name='vrising' \
 services:
   vrising:
     image: trueosiris/vrising
+    entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]
     environment:
       - TZ=Europe/Paris
       - SERVERNAME=vrising-TrueOsiris
