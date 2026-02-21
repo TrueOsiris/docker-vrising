@@ -26,8 +26,9 @@
 
 ### image 2026-02-21
 
-Docker image rebuild + tested latest version on a linux dockerhost (unraid).
-For now, u need to add `entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]` 
+Docker image rebuild + tested latest version on a linux dockerhost (unraid).<br>
+For now, u need to add this to the compose file:<br>
+`entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]` 
 
 ### image 2025-08-01
 
