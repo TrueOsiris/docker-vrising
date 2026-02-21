@@ -22,8 +22,6 @@
 
 ## Updates
 
-### Latest behaviour
-
 ### image 2026-02-21
 
 Docker image rebuild + tested on a linux dockerhost (unraid).<br>
