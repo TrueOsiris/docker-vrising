@@ -212,6 +212,12 @@ To enable RCON edit `ServerHostSettings.json` and paste following lines after `Q
   volumes:
   - E:\something\server:/mnt/vrising/server
   ```
+- You might want to add a separate custom settings file (Custom.json) in persistentdata.
+  - start the server to have the files created
+  - shut down the server
+  - add custom.json to the persistentdata folder (see volumes)
+  - Then point your ServerHostSettings in persistentdata/Settings to that file by adding `"GameSettingsPreset": "Custom"`
+  - start the server again.
 
 ## Docker log
 
