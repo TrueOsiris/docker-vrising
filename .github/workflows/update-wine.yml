@@ -1,0 +1,42 @@
+name: Check for Wine Updates
+
+on:
+  schedule:
+    - cron: '0 0 1 * *' # 1st of every month
+  workflow_dispatch:
+
+jobs:
+  check-wine-update:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Add WineHQ Repository
+        run: |
+          sudo mkdir -pm755 /etc/apt/keyrings
+          sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+          sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+
+      - name: Get latest Wine version
+        id: wine_version
+        run: |
+          LATEST_WINE=$(apt-cache policy winehq-stable | grep Candidate | awk '{print $2}')
+          echo "latest=$LATEST_WINE" >> "$GITHUB_OUTPUT"
+
+      - name: Update Dockerfile
+        if: steps.wine_version.outputs.latest != ''
+        run: |
+          LATEST_WINE="${{ steps.wine_version.outputs.latest }}"
+          sed -i "s/ARG WINE_VERSION=\".*\"/ARG WINE_VERSION=\"$LATEST_WINE\"/" Dockerfile
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: "chore(deps): update wine to ${{ steps.wine_version.outputs.latest }}"
+          title: "Update Wine to ${{ steps.wine_version.outputs.latest }}"
+          body: "Automated update of Wine version in the Dockerfile."
+          branch: "update-wine"
+          delete-branch: true
