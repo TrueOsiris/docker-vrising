@@ -1,6 +1,6 @@
 services:
   vrising:
-    image: dmirtillo/vrising-dedicated
+    image: trueosiris/vrising
     environment:
       - TZ=Europe/Rome
       - SERVERNAME=vrising-dedicated

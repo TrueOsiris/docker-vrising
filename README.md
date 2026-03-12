@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://github.com/dmirtillo/docker-vrising">
-    <img alt="V Rising Docker" src="https://github.com/dmirtillo/docker-vrising/blob/main/assets/docker-virising.png?raw=true" height="250">
+  <a href="https://github.com/TrueOsiris/docker-vrising">
+    <img alt="V Rising Docker" src="https://github.com/TrueOsiris/docker-vrising/blob/main/assets/docker-virising.png?raw=true" height="250">
   </a>
   <p align="center">A high-performance, easy-to-use Dockerized V Rising dedicated server.</p>
 </p>
@@ -12,10 +12,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/docker/pulls/dmirtillo/vrising-dedicated?logo=docker&label=pulls" alt="Pulls">
-  <img src="https://img.shields.io/docker/stars/dmirtillo/vrising-dedicated?logo=docker&label=stars" alt="Stars">
-  <img src="https://img.shields.io/github/stars/dmirtillo/docker-vrising?logo=github&label=stars" alt="GitHub Stars">
-  <img src="https://img.shields.io/github/last-commit/dmirtillo/docker-vrising?logo=github&label=last%20commit" alt="Last Commit">
+  <img src="https://img.shields.io/docker/pulls/trueosiris/vrising?logo=docker&label=pulls" alt="Pulls">
+  <img src="https://img.shields.io/docker/stars/trueosiris/vrising?logo=docker&label=stars" alt="Stars">
+  <img src="https://img.shields.io/github/stars/TrueOsiris/docker-vrising?logo=github&label=stars" alt="GitHub Stars">
+  <img src="https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising?logo=github&label=last%20commit" alt="Last Commit">
 </p>
 
 ---
@@ -47,6 +47,6 @@ Explore our guides to get your server up and running quickly and securely.
 
 - [Official V Rising Website](https://playvrising.com/)
 - [V Rising Dedicated Server Instructions (Stunlock Studios)](https://github.com/StunlockStudios/vrising-dedicated-server-instructions)
-- [Docker Hub Page](https://hub.docker.com/r/dmirtillo/vrising-dedicated)
+- [Docker Hub Page](https://hub.docker.com/r/trueosiris/vrising)
 
 *Special thanks to the Stunlock Studios team for creating such an amazing game!*

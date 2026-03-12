@@ -1,8 +1,8 @@
 # 🧛 V Rising Dedicated Server (Docker)
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/dmirtillo/vrising-dedicated?logo=docker&label=pulls)](https://hub.docker.com/r/dmirtillo/vrising-dedicated)
-[![Docker Stars](https://img.shields.io/docker/stars/dmirtillo/vrising-dedicated?logo=docker&label=stars)](https://hub.docker.com/r/dmirtillo/vrising-dedicated)
-[![GitHub Stars](https://img.shields.io/github/stars/dmirtillo/docker-vrising?logo=github&label=stars)](https://github.com/dmirtillo/docker-vrising)
+[![Docker Pulls](https://img.shields.io/docker/pulls/trueosiris/vrising?logo=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising)
+[![Docker Stars](https://img.shields.io/docker/stars/trueosiris/vrising?logo=docker&label=stars)](https://hub.docker.com/r/trueosiris/vrising)
+[![GitHub Stars](https://img.shields.io/github/stars/TrueOsiris/docker-vrising?logo=github&label=stars)](https://github.com/TrueOsiris/docker-vrising)
 [![Ubuntu 24.04](https://img.shields.io/badge/Ubuntu-24.04-E95420?logo=ubuntu&logoColor=white)](https://ubuntu.com)
 [![Wine 11.0](https://img.shields.io/badge/Wine-11.0-800000?logo=wine&logoColor=white)](https://winehq.org)
 
@@ -17,7 +17,7 @@ The recommended way to run the server is using [Docker Compose](https://docs.doc
 ```yaml
 services:
   vrising:
-    image: dmirtillo/vrising-dedicated
+    image: trueosiris/vrising
     container_name: vrising-server
     environment:
       - TZ=Europe/Rome
@@ -111,12 +111,12 @@ services:
 
 For detailed guides on networking, data management, and troubleshooting, visit the official repository:
 
-🔗 **[GitHub Repository: dmirtillo/docker-vrising](https://github.com/dmirtillo/docker-vrising)**
+🔗 **[GitHub Repository: TrueOsiris/docker-vrising](https://github.com/TrueOsiris/docker-vrising)**
 
-*   [🚀 Installation Guide](https://github.com/dmirtillo/docker-vrising/blob/main/docs/installation.md)
-*   [⚙️ Detailed Configuration](https://github.com/dmirtillo/docker-vrising/blob/main/docs/configuration.md)
-*   [💾 Data & Saves](https://github.com/dmirtillo/docker-vrising/blob/main/docs/data-management.md)
-*   [🌐 Networking & Ports](https://github.com/dmirtillo/docker-vrising/blob/main/docs/networking.md)
+*   [🚀 Installation Guide](https://github.com/TrueOsiris/docker-vrising/blob/main/docs/installation.md)
+*   [⚙️ Detailed Configuration](https://github.com/TrueOsiris/docker-vrising/blob/main/docs/configuration.md)
+*   [💾 Data & Saves](https://github.com/TrueOsiris/docker-vrising/blob/main/docs/data-management.md)
+*   [🌐 Networking & Ports](https://github.com/TrueOsiris/docker-vrising/blob/main/docs/networking.md)
 
 ---
 

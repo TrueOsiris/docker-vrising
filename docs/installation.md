@@ -9,7 +9,7 @@ The recommended way to run the server is using [Docker Compose](https://docs.doc
 ```yaml
 services:
   vrising:
-    image: dmirtillo/vrising-dedicated
+    image: trueosiris/vrising
     environment:
       - TZ=Europe/Rome
       - SERVERNAME=vrising-dedicated
@@ -43,7 +43,7 @@ Perfect for a private server where you work together to build a castle and defea
 ```yaml
 services:
   vrising:
-    image: dmirtillo/vrising-dedicated
+    image: trueosiris/vrising
     environment:
       - SERVERNAME="My Cozy Vampire Castle"
       - WORLDNAME="world1"
@@ -74,7 +74,7 @@ A public server focused on clan warfare and raiding.
 ```yaml
 services:
   vrising:
-    image: dmirtillo/vrising-dedicated
+    image: trueosiris/vrising
     environment:
       - SERVERNAME="Blood & Glory [PvP]"
       - WORLDNAME="pvp_world1"
@@ -111,7 +111,7 @@ docker run -d --name='vrising' \
   -v "$(pwd)/persistentdata:/mnt/vrising/persistentdata" \
   -p 9876:9876/udp \
   -p 9877:9877/udp \
-  dmirtillo/vrising-dedicated
+  trueosiris/vrising
 ```
 
 ## Post-Installation

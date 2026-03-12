@@ -134,7 +134,7 @@ If you prefer to have an RCON client running continuously alongside your server,
 ```yaml
 services:
   vrising:
-    image: dmirtillo/vrising-dedicated
+    image: trueosiris/vrising
     environment:
       - SERVERNAME=My RCON Server
       - HOST_SETTINGS_Rcon__Enabled=true
