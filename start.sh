@@ -1,6 +1,33 @@
 #!/bin/bash
+
+# Configuration paths
 s=/mnt/vrising/server
 p=/mnt/vrising/persistentdata
+
+# --- PRE-START (Root Operations) ---
+if [ "$(id -u)" = '0' ]; then
+    echo "Running as root, setting up permissions..."
+
+    # Support for PUID/PGID
+    PUID=${PUID:-1000}
+    PGID=${PGID:-1000}
+
+    echo "Ensuring steam user matches PUID:PGID ($PUID:$PGID)"
+    groupmod -o -g "$PGID" steam
+    usermod -o -u "$PUID" steam
+
+    # Ensure directories exist and are owned by steam
+    mkdir -p "$s" "$p" "/home/steam/.steam"
+    chown -R steam:steam "$s" "$p" "/home/steam"
+
+    # Fix for Xvfb lock if it exists
+    rm -f /tmp/.X0-lock
+
+    echo "Switching to steam user and continuing..."
+    exec gosu steam "$0" "$@"
+fi
+
+# --- RUNTIME (Steam User Operations) ---
 
 term_handler() {
 	echo "Shutting down Server"
@@ -19,33 +46,31 @@ term_handler() {
 
 cleanup_logs() {
 	echo "Cleaning up logs older than $LOGDAYS days"
-	find "$p" -name "*.log" -type f -mtime +$LOGDAYS -exec rm {} \;
+	find "$p" -name "*.log" -type f -mtime +"$LOGDAYS" -exec rm {} \;
 }
 
 trap 'term_handler' SIGTERM
 
-if [ -z "$LOGDAYS" ]; then
-	LOGDAYS=30
-fi
-if [[ -n $UID ]]; then
-	usermod -u "$UID" docker 2>&1
-fi
-if [[ -n $GID ]]; then
-	groupmod -g "$GID" docker 2>&1
-fi
-if [ -z "$SERVERNAME" ]; then
-	SERVERNAME="trueosiris-V"
-fi
+# Default Environment Variables
+LOGDAYS=${LOGDAYS:-30}
+SERVERNAME=${SERVERNAME:-"vrising-dedicated"}
+WORLDNAME=${WORLDNAME:-""}
+GAMEPORT=${GAMEPORT:-""}
+QUERYPORT=${QUERYPORT:-""}
+BRANCH=${BRANCH:-""}
+
 override_savename=""
 if [[ -n "$WORLDNAME" ]]; then
 	override_savename="-saveName $WORLDNAME"
 fi
+
 game_port=""
-if [[ -n $GAMEPORT ]]; then
+if [[ -n "$GAMEPORT" ]]; then
 	game_port=" -gamePort $GAMEPORT"
 fi
+
 query_port=""
-if [[ -n $QUERYPORT ]]; then
+if [[ -n "$QUERYPORT" ]]; then
 	query_port=" -queryPort $QUERYPORT"
 fi
 
@@ -53,16 +78,26 @@ beta_arg=""
 if [ -n "$BRANCH" ]; then
   beta_arg=" -beta $BRANCH" 
 fi
+
 cleanup_logs
 
-mkdir -p /root/.steam 2>/dev/null
-chmod -R 777 /root/.steam 2>/dev/null
+# SteamCMD Update
 echo " "
 echo "Updating V-Rising Dedicated Server files..."
 echo " "
-/usr/bin/steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir "$s" +login anonymous +app_update 1829350 $beta_arg validate +quit
-printf "steam_appid: "
-cat "$s/steam_appid.txt"
+
+# Phase 1: Update SteamCMD itself to avoid restart loops breaking arguments
+echo "Update SteamCMD..."
+steamcmd +login anonymous +quit
+
+# Phase 2: Install the game
+echo "Installing/Updating V Rising..."
+steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir "$s" +login anonymous +app_info_update 1 +app_update 1829350 $beta_arg validate +quit
+
+if [ -f "$s/steam_appid.txt" ]; then
+    printf "steam_appid: "
+    cat "$s/steam_appid.txt"
+fi
 
 echo " "
 if ! grep -q -o 'avx[^ ]*' /proc/cpuinfo; then
@@ -92,12 +127,9 @@ update_json_settings() {
 
     for var in "${env_vars[@]}"; do
         local raw_value="${!var}"
-        # Remove the prefix and convert to lowercase for matching
         local stripped_name="${var#${prefix}}"
-        # Convert to lowercase and replace underscores with dots for nested paths
         local search_key=$(echo "$stripped_name" | tr '[:upper:]' '[:lower:]' | sed 's/__/./g')
 
-        # Find the key path with case-insensitive matching and get the original value type
         local key_info
         key_info=$(jq -r --arg key "$search_key" '
             def find_path($obj; $key_parts; $current_path; $current_type):
@@ -130,13 +162,11 @@ update_json_settings() {
                     jq_set="$jq_path = \"${raw_value//\"/\\\"}\""
                     ;;
                 "boolean")
-                    # Convert to lowercase for case-insensitive comparison
                     local lower_value=$(echo "$raw_value" | tr '[:upper:]' '[:lower:]')
                     if [[ ! "$lower_value" =~ ^(true|false)$ ]]; then
                         echo "Error: '$matched_path' must be a boolean (true/false), skipping..."
                         continue
                     fi
-                    # Always use lowercase true/false in the output
                     jq_set="$jq_path = $lower_value"
                     ;;
                 "number"|"integer")
@@ -147,9 +177,7 @@ update_json_settings() {
                     jq_set="$jq_path = $raw_value"
                     ;;
                 "array")
-                    # Special handling for array types - try to parse as JSON array
                     if [[ "$raw_value" =~ ^\[.*\]$ ]]; then
-                        # If it looks like a JSON array, try to parse it
                         if jq -e . <<< "$raw_value" >/dev/null 2>&1; then
                             jq_set="$jq_path = $raw_value"
                         else
@@ -157,12 +185,10 @@ update_json_settings() {
                             continue
                         fi
                     else
-                        # If it's not a JSON array, treat as a single value array
                         jq_set="$jq_path = [\"$raw_value\"]"
                     fi
                     ;;
                 *)
-                    # For unknown types, try to preserve the original type
                     if [[ "$raw_value" =~ ^(true|false)$ ]]; then
                         jq_set="$jq_path = $raw_value"
                     elif [[ "$raw_value" =~ ^-?[0-9]+(\.[0-9]+)?$ ]]; then
@@ -175,31 +201,6 @@ update_json_settings() {
 
             if jq -e "$jq_set" "$tmp_file" > "${tmp_file}.new" 2>/dev/null; then
                 mv "${tmp_file}.new" "$tmp_file"
-            else
-                echo "Failed to update: $matched_path"
-                echo "   jq command: jq '$jq_set' $tmp_file"
-            fi
-        else
-            # Try to find the key with exact case for better error message
-            local exact_key=$(echo "$stripped_name" | tr '_' '.')
-            local key_exists=false
-
-            # Check if the key exists in the JSON (case insensitive)
-            if jq -e --arg key "$exact_key" '
-                def key_exists($obj; $key_parts):
-                    if ($key_parts | length) == 0 then
-                        true
-                    else
-                        $obj | to_entries | any(
-                            .key | ascii_downcase == $key_parts[0]
-                            and key_exists(.value; $key_parts[1:])
-                        )
-                    end;
-                key_exists(.; $key | split("."))
-            ' "$tmp_file" >/dev/null 2>&1; then
-                echo "Found key but couldn't update (possible type mismatch): $stripped_name"
-            else
-                echo "Ignoring non-existent setting: $stripped_name"
             fi
         fi
     done
@@ -209,7 +210,7 @@ update_json_settings() {
 }
 
 echo " "
-mkdir "$p/Settings" 2>/dev/null
+mkdir -p "$p/Settings" 2>/dev/null
 if [ ! -f "$p/Settings/ServerGameSettings.json" ]; then
 	echo "$p/Settings/ServerGameSettings.json not found. Copying default file."
 	cp "$s/VRisingServer_Data/StreamingAssets/Settings/ServerGameSettings.json" "$p/Settings/" 2>&1
@@ -238,25 +239,25 @@ if ! [ -f "${p}/$logfile" ]; then
 	touch "$p/$logfile"
 fi
 
-cd "$s" || {
-	echo "Failed to cd to $s"
-	exit 1
-}
+cd "$s" || exit 1
+
 echo "Starting V Rising Dedicated Server with name $SERVERNAME"
-echo "Trying to remove /tmp/.X0-lock"
-rm /tmp/.X0-lock 2>&1
 echo " "
 echo "Starting Xvfb"
 Xvfb :0 -screen 0 1024x768x16 &
+
+echo "Waiting for Xvfb to be ready..."
+sleep 2
+
+echo "Initializing Wine prefix..."
+WINEDLLOVERRIDES="mscoree,mshtml=" DISPLAY=:0.0 wineboot --init
+sleep 2
+
 echo "Launching wine64 V Rising"
 echo " "
-v() {
-	DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath $p -serverName "$SERVERNAME" "$override_savename" -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
-}
-v
-# Gets the PID of the last command
+
+DISPLAY=:0.0 wine64 /mnt/vrising/server/VRisingServer.exe -persistentDataPath "$p" -serverName "$SERVERNAME" "$override_savename" -logFile "$p/$logfile" "$game_port" "$query_port" 2>&1 &
 ServerPID=$!
 
-# Tail log file and waits for Server PID to exit
 /usr/bin/tail -n 0 -f "$p/$logfile" &
 wait $ServerPID

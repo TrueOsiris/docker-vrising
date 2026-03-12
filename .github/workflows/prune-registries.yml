@@ -1,0 +1,51 @@
+name: Prune Registries
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Every Sunday at midnight
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  prune-ghcr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prune untagged GHCR images
+        uses: vlaurin/action-ghcr-prune@main
+        with:
+          token: ${{ secrets.PAT_WITH_DELETE_PACKAGES_SCOPE }}
+          user: ${{ github.actor }}
+          container: docker-vrising
+          prune-untagged: true
+          dry-run: false
+
+  prune-dockerhub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prune old commit-SHA tags from Docker Hub
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          echo "Authenticating with Docker Hub..."
+          TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'${DOCKERHUB_USERNAME}'", "password": "'${DOCKERHUB_TOKEN}'"}' https://hub.docker.com/v2/users/login/ | jq -r .token)
+          
+          if [ "$TOKEN" == "null" ] || [ -z "$TOKEN" ]; then
+            echo "Failed to get Docker Hub token. Please check your secrets."
+            exit 1
+          fi
+
+          REPO="${DOCKERHUB_USERNAME}/vrising-dedicated"
+          echo "Fetching tags for ${REPO}..."
+          
+          # Fetch up to 100 tags to prune old commit SHAs
+          TAGS=$(curl -s -H "Authorization: JWT ${TOKEN}" "https://hub.docker.com/v2/repositories/${REPO}/tags/?page_size=100" | jq -r '.results|.[]|.name')
+          
+          for TAG in $TAGS; do
+            # Keep 'latest' and semantic version tags (e.g. v1.0.0, 1.0.0)
+            if [[ "$TAG" != "latest" ]] && [[ ! "$TAG" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+.*$ ]]; then
+              echo "Deleting legacy/commit-SHA tag: $TAG"
+              curl -s -X DELETE -H "Authorization: JWT ${TOKEN}" "https://hub.docker.com/v2/repositories/${REPO}/tags/${TAG}/"
+            else
+              echo "Keeping official tag: $TAG"
+            fi
+          done
