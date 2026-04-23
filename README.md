@@ -27,7 +27,8 @@
 Docker image rebuild + tested on a linux dockerhost (unraid).<br>
 For now, u need to add this to the compose file:<br>
 `entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]` <br>
-Thx [laerdev](https://github.com/laerdev) for the fix.<br>
+Thanks to [laerdev](https://github.com/laerdev) for the fix.<br>
+
 
 ### image 2025-08-01
 
