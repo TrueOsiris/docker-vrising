@@ -6,7 +6,7 @@ name: Docker Image CI/CD
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch:  # Allows you to run this manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build-and-push:
@@ -16,10 +16,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # This step creates the YYYY-MM-DD-HH24MI string
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d-%H%M')" >> $GITHUB_OUTPUT
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          # Make sure these match the Secret names in your GitHub Settings
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -32,7 +36,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          # This updates 'latest' and adds a unique tag based on the commit hash
+          # We use the output from the 'date' step here
           tags: |
             trueosiris/vrising:latest
-            trueosiris/vrising:${{ github.sha }}
+            trueosiris/vrising:${{ steps.date.outputs.date }}
