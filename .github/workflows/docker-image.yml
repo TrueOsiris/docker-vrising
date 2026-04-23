@@ -1,18 +1,38 @@
-name: Docker Image CI
+# .github/workflows/docker-image.yml
+# Author: Tim Chaubet
+
+name: Docker Image CI/CD
 
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:  # Allows you to run this manually from the Actions tab
 
 jobs:
-
-  build:
-
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag vrising:$(date +%s)
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          # Make sure these match the Secret names in your GitHub Settings
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          # This updates 'latest' and adds a unique tag based on the commit hash
+          tags: |
+            trueosiris/vrising:latest
+            trueosiris/vrising:${{ github.sha }}
