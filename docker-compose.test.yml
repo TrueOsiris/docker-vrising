@@ -1,0 +1,26 @@
+services:
+  vrising:
+    build: 
+      context: .
+    platform: linux/amd64
+    image: vrising-test
+    environment:
+      - TZ=Europe/Rome
+      - SERVERNAME=vrising-dedicated
+      - WINEDEBUG=fixme-all
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./test_server:/mnt/vrising/server
+      - ./test_data:/mnt/vrising/persistentdata
+    ports:
+      - '9876:9876/udp'
+      - '9877:9877/udp'
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z -u 127.0.0.1 $${QUERYPORT:-9877} || exit 1"]
+      interval: 10s # Faster for tests
+      timeout: 5s
+      start_period: 30s # Shorter for tests? No, Wine still needs time. Let's keep it somewhat realistic.
+      retries: 5
+    restart: unless-stopped
+    network_mode: bridge

@@ -1,233 +1,52 @@
 <p align="center">
   <a href="https://github.com/TrueOsiris/docker-vrising">
-    <img alt="Iroh" src="https://github.com/TrueOsiris/docker-vrising/blob/main/assets/docker-virising.png?raw=true" height="250">
+    <img alt="V Rising Docker" src="https://github.com/TrueOsiris/docker-vrising/blob/main/assets/docker-virising.png?raw=true" height="250">
   </a>
-  <p  align="center">Dockerized V Rising dedicated server in an Ubuntu 22.04 container with Wine.</p>
+  <p align="center">A high-performance, easy-to-use Dockerized V Rising dedicated server.</p>
 </p>
 
-[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/r/trueosiris/vrising)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/TrueOsiris/docker-vrising)
-[![Wine](https://img.shields.io/badge/Wine-800000?logo=wine&logoColor=white)](https://www.winehq.org/)
-[![Steam](https://img.shields.io/badge/Steam-1b2838?logo=steam&logoColor=white)](https://store.steampowered.com/app/1604030/V_Rising/)
-[![V Rising](https://img.shields.io/badge/V%20Rising-1604030-8A0303?logo=steam&logoColor=white)](https://store.steampowered.com/app/1604030/V_Rising/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/trueosiris/vrising?logo=docker&label=pulls)](https://hub.docker.com/r/trueosiris/vrising)
-[![Docker Stars](https://img.shields.io/docker/stars/trueosiris/vrising?logo=docker&label=stars)](https://hub.docker.com/r/trueosiris/vrising)
-[![Docker Image Size](https://img.shields.io/docker/image-size/trueosiris/vrising/latest?logo=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/vrising)
-[![GitHub stars](https://img.shields.io/github/stars/TrueOsiris/docker-vrising?logo=github&label=stars)](https://github.com/TrueOsiris/docker-vrising)
-[![GitHub forks](https://img.shields.io/github/forks/TrueOsiris/docker-vrising?logo=github&label=forks)](https://github.com/TrueOsiris/docker-vrising)
-[![GitHub open issues](https://img.shields.io/github/issues/TrueOsiris/docker-vrising?logo=github&label=open%20issues)](https://github.com/TrueOsiris/docker-vrising/issues)
-[![GitHub closed issues](https://img.shields.io/github/issues-closed/TrueOsiris/docker-vrising?logo=github&label=closed%20issues)](https://github.com/TrueOsiris/docker-vrising/issues?q=is%3Aissue+is%3Aclosed)
-[![GitHub last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising?logo=github&label=last%20commit)](https://github.com/TrueOsiris/docker-vrising/commits)
+<p align="center">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+  <img src="https://img.shields.io/badge/Ubuntu_24.04-E95420?style=for-the-badge&logo=ubuntu&logoColor=white" alt="Ubuntu">
+  <img src="https://img.shields.io/badge/Wine_11-800000?style=for-the-badge&logo=wine&logoColor=white" alt="Wine">
+</p>
 
+<p align="center">
+  <img src="https://img.shields.io/docker/pulls/trueosiris/vrising?logo=docker&label=pulls" alt="Pulls">
+  <img src="https://img.shields.io/docker/stars/trueosiris/vrising?logo=docker&label=stars" alt="Stars">
+  <img src="https://img.shields.io/github/stars/TrueOsiris/docker-vrising?logo=github&label=stars" alt="GitHub Stars">
+  <img src="https://img.shields.io/github/last-commit/TrueOsiris/docker-vrising?logo=github&label=last%20commit" alt="Last Commit">
+</p>
 
-## Updates
+---
 
-### image 2026-02-21
+## Documentation Index
 
-Docker image rebuild + tested on a linux dockerhost (unraid).<br>
-For now, u need to add this to the compose file:<br>
-`entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]` <br>
-Thanks to [laerdev](https://github.com/laerdev) for the fix.<br>
+Explore our guides to get your server up and running quickly and securely.
 
+- 🚀 **[Quick Start & Installation](docs/installation.md)** — Get your server running in minutes using Docker Compose or CLI.
+- ⚙️ **[Server Configuration](docs/configuration.md)** — Detailed guide on basic environment variables and advanced dynamic JSON patching.
+- 🌐 **[Networking & Ports](docs/networking.md)** — Port forwarding, server list visibility, and custom port configuration.
+- 💾 **[Data & Save Management](docs/data-management.md)** — How volumes work, performing backups, and migrating local saves to your server.
+- 🔧 **[Troubleshooting](docs/troubleshooting.md)** — Solutions for common errors, Windows host issues, and log explanations.
+- 🛠️ **[Development & Contributing](docs/development.md)** — CI/CD pipeline, automated pruning secrets, and the OpenSpec workflow.
+- 📜 **[Changelog](CHANGELOG.md)** — Keep track of the latest updates and bug fixes.
 
-### image 2025-08-01
+---
 
-- Just tested the latest image for V-Rising 1.1. 
-- Log will be spammed with these messages. Feel free to give me a solution here.<br>
-  01b4:fixme:winsock:server_ioctl_sock Unsupported ioctl 4004747b (device=4004 access=1 func=d1e method=3)<br>
-  vrising-1  | 01b4:fixme:winsock:WSAIoctl unsupported WS_IOCTL cmd (SIO_IDEAL_SEND_BACKLOG_QUERY)
-- There is no way to continue a game from 1.0. I just checked with the discord community.
-- Still an issue: when the server is passworded, joining via Steam seems not possible. Use the ingame server list to join.
+## Quick Features
 
-### image 2024-05-16 ([trueosiris/vrising:2.1](https://hub.docker.com/layers/trueosiris/vrising/2.1/images/sha256-00639c82158711d868f41750aa43f605bd35f5b775725137ef3b0b10ba80b52e?context=repo) or [latest](https://hub.docker.com/layers/trueosiris/vrising/latest/images/sha256-00639c82158711d868f41750aa43f605bd35f5b775725137ef3b0b10ba80b52e?context=repo)) 
+- **Automated Updates**: SteamCMD integration ensures your server is always running the latest version.
+- **Dynamic Configuration**: Modify game and host settings directly from your `docker-compose.yml` without touching JSON files.
+- **Slim & Fast**: Optimized Ubuntu 24.04 base with Wine 11.0 for maximum compatibility and performance.
+- **Verified Stability**: Includes automated E2E testing to ensure the image always boots successfully.
 
-- Merged with [pull65](https://github.com/TrueOsiris/docker-vrising/pull/65) from [Killerherts](https://github.com/killerherts).<br>
-  Logs older than 30 days are cleaned up on server start.
-- Merged with [pull52](https://github.com/TrueOsiris/docker-vrising/pull/52) from [Diyagi](https://github.com/diyagi).<br>
-  Previous container version can still be grabbed via [trueosiris/vrising:2.0](https://hub.docker.com/layers/trueosiris/vrising/2.0/images/sha256-b9142d6f653685c92e25745f48cd205a1ffc7ed4aedef19011b03ab2a03a33c6?context=repo)<br>
-  Main fixes are: clean shutdown & complete log to container log. Kudos!
-- Added date to the logfile name, so per server launch, a logfile will be created. For now, they will not be automatically cleaned up.
-- If you're experiencing [this issue](https://github.com/TrueOsiris/docker-vrising/issues/51) with "[476:488:20240511,134828.926:ERROR http_transport_win.cc:388] HTTP status 403" in the log, pull [trueosiris/vrising:display](https://hub.docker.com/layers/trueosiris/vrising/display/images/sha256-592b9ace78b7228c08134804fa94b0f47766bb9202d86048a0a4ded81f765cda?context=repo) which uses xvfb.
-- If you're experiencing [this issue](https://github.com/TrueOsiris/docker-vrising/issues/43) with "wine: Assertion failed at address 00007F79E2C9EA7C (thread 0094)" in the log, u might need the latest wine from winehq, therefore grab [trueosiris/vrising:winehq](https://hub.docker.com/layers/trueosiris/vrising/winehq/images/sha256-f7f662258b30d6250d16718aa008a95b868336c92fdd98e56fd39bbca5626f8c?context=repo)
+---
 
-## Environment variables
+## Credits & Links
 
+- [Official V Rising Website](https://playvrising.com/)
+- [V Rising Dedicated Server Instructions (Stunlock Studios)](https://github.com/StunlockStudios/vrising-dedicated-server-instructions)
+- [Docker Hub Page](https://hub.docker.com/r/trueosiris/vrising)
 
-| Variable   | Key                    | Description                                                                       |
-| ------------ | ------------------------ | ----------------------------------------------------------------------------------- |
-| TZ         | Europe/Brussels        | timezone for ntpdate                                                              |
-| SERVERNAME | published servername   | mandatory setting that overrules the ServerHostSettings.json entry                |
-| WORLDNAME  | optional worldname     | default = world1. No real need to alter this. saves will be in a subdir WORLDNAME |
-| GAMEPORT   | optional game udp port | to overrule Port in ServerHostSettings.json config                                |
-| QUERYPORT  | optional query port    | to overrule QueryPort in ServerHostSettings.json config                           |
-| LOGDAYS | optional lifetime of logfiles | overrule default of 30 days |
-| BRANCH | optional server version | Allows to run the server version legacy-1.0.x-pc |
-
-## Ports
-
-
-| Exposed Container port | Type | Default |
-| ---------------------- | ---- | ------- |
-| 9876                   | UDP  | ✔️      |
-| 9877                   | UDP  | ✔️      |
-
-## Volumes
-
-
-| Volume             | Container path              | Description                             |
-| -------------------- | ----------------------------- | ----------------------------------------- |
-| steam install path | /mnt/vrising/server         | path to hold the dedicated server files |
-| world              | /mnt/vrising/persistentdata | path that holds the world files         |
-
-## Docker cli
-
-```bash
-docker run -d --name='vrising' \
---net='bridge' \
---restart=unless-stopped \
--e WINEDEBUG=fixme-all \
--e TZ="Europe/Paris" \
--e SERVERNAME="trueosiris-V" \
--v '/path/on/host/server':'/mnt/vrising/server':'rw' \
--v '/path/on/host/persistentdata':'/mnt/vrising/persistentdata':'rw' \
--p 9876:9876/udp \
--p 9877:9877/udp \
---entrypoint "/bin/bash" \
-trueosiris/vrising \
--c "sed -i 's/\r//g' /start.sh && exec /bin/bash /start.sh"
-```
-
-## docker-compose.yml
-
-```yaml
-services:
-  vrising:
-    image: trueosiris/vrising
-    entrypoint: ["/bin/bash", "-c", "sed -i 's/\\r//g' /start.sh && exec /bin/bash /start.sh"]
-    environment:
-      - TZ=Europe/Paris
-      - SERVERNAME=vrising-TrueOsiris2026
-      - WINEDEBUG=fixme-all
-    volumes:
-      - type: bind
-        source: ./server
-        target: /mnt/vrising/server
-        bind:
-          create_host_path: true
-      - type: bind
-        source: ./persistentdata
-        target: /mnt/vrising/persistentdata
-        bind:
-          create_host_path: true
-    ports:
-      - '9876:9876/udp'
-      - '9877:9877/udp'
-    restart: unless-stopped
-    network_mode: bridge
-```
-
-## Newest modifications:
-
-- **Intuitive parameters** — If you want to modify parameters in `ServerGameSettings.json` and `ServerHostSettings.json`, add environment variables starting with `GAME_SETTINGS_` and `HOST_SETTINGS_` (both must be uppercase) in your docker-compose.yml file. The parameter names that follow are case-insensitive, so `HOST_SETTINGS_LISTONSTEAM` and `HOST_SETTINGS_ListOnSteam` both work.
-```yaml
-environment:
-  - HOST_SETTINGS_ListOnSteam=true
-  - HOST_SETTINGS_LISTONEOS=true
-  - GAME_SETTINGS_GAMEMODETYPE=PvE
-```
-- **Supports dynamic modification of nested JSON parameters** — since some parameter names contain `_`, a double underscore `__` is used to separate levels.
-```yaml
-environment:
-  - HOST_SETTINGS_Rcon__Enabled=true
-  - HOST_SETTINGS_Rcon__Password=powerfulpwd
-  - GAME_SETTINGS_UnitStatModifiers_Global__MaxHealthModifier=2
-  - GAME_SETTINGS_CastleStatModifiers_Global__HeartLimits__Level1__FloorLimit=100
-```
-- **Fail-safe** — entering a non-existent parameter like `HOST_SETTINGS_NotExistKey=1` will not be written to the configuration file.
-- **Parameter type validation** — if the input type differs from the original like `HOST_SETTINGS_Port=abcd`, it will not be written to the configuration file.
-- All modified parameter settings can be viewed in:
-  - `/mnt/vrising/persistentdata/Settings/ServerGameSettings.json`
-  - `/mnt/vrising/persistentdata/Settings/ServerHostSettings.json`
-
-## Links
-
-- [V Rising Dedicated Server Instructions](https://github.com/StunlockStudios/vrising-dedicated-server-instructions)
-- [Dockerhub - Trueosiris/vrising](https://hub.docker.com/repository/docker/trueosiris/vrising)
-- [Github - trueosiris/vrising](https://github.com/TrueOsiris/docker-vrising)
-
-## RCON <small>- Optional</small>
-
-To enable RCON edit `ServerHostSettings.json` and paste following lines after `QueryPort`. To communicate using RCON protocal use the [RCON CLI](https://github.com/gorcon/rcon-cli) by gorcon.
-
-```json
-"Rcon": {
-  "Enabled": true,
-  "Password": "docker",
-  "Port": 25575
-},
-```
-
-## Remarks
-
-- Server config files are in `/path/on/host/persistentdata/Settings`. Files in `/path/on/host/server/` are overwritten on Steam update. <br>
-  Priority of settings is
-
-  a. container variables
-
-  b. files in /persistentdata
-
-  c. files in /server. (and these are reset to defaults each new patch)
-
-  If there are no files in `/path/on/host/persistentdata/Settings` on container start, the default files will be copied there from the /server directory.<br>
-  Edit `ServerHostSettings.json` if you want to change the ports, descriptions etc.
-- Description can be changed in `/path/on/host/persistentdata/Settings/ServerHostSettings.json`. The server will have to be restarted after changes.
-- If you use different internal & external ports, you can only use direct connect. For example `-p 12345:6789/udp` container port 6789 as defined in ServerHostSettings.json, and exposed as 12345 will make your server invisible.
-- Make sure `"ListOnSteam": true,` and `"ListOnEOS": true` are set in the ServerHostSettings.json in \persistentdata, so the server is visible in the serverlist.
-- When the server is passworded, joining via Steam seems <b>not</b> possible. Use the ingame server list to join.
-- Launching the server can take up to 10 minutes, even on a fast system, certainly with an existing save.
-- If you want to see the server in the server list and want to use 27015-27016/UDP, you'll need to change the ports in the ServerHostSettings.json file to 27015 and 27016. Then expose these ports (below). Of course, forward these udp ports on your firewall from incoming wan to the ports on the internal ip of your dockerhost.
-
-  - Start the container & let the server install.
-  - Stop the container.
-  - Alter the ports in `/path/on/host/persistentdata/Settings/ServerHostSettings.json` to
-    ```
-     "Port": 27015,
-     "QueryPort": 27016,
-    ```
-  - On your firewall, port forward incoming wan udp ports 27015 and 27016 to the same udp ports on your dockerhost ip.
-  - Restart the container with these ports:
-    ```
-     -p 27015:27015/udp
-     -p 27016:27016/udp
-    ```
-- If you want to continue from your local game, stop the container, overwrite the persistentdata
-  contents with your local data, and relaunch the server.
-  
-- If you're running windows as a docker host, you'll get this exception:
-  ```
-  vrising-1  | 0024:err:module:LdrInitializeThunk "UnityPlayer.dll" failed to initialize, aborting
-  vrising-1  | 0024:err:module:LdrInitializeThunk Initializing dlls for L"Z:\\mnt\\vrising\\server\\VRisingServer.exe" failed, status c0000005
-  ```
-  Unless you use volumes like this:
-  ```
-  volumes:
-  - E:\something\server:/mnt/vrising/server
-  ```
-- You might want to add a separate custom settings file (Custom.json) in persistentdata.
-  - start the server to have the files created
-  - shut down the server
-  - add custom.json to the persistentdata folder (see volumes)
-  - Then point your ServerHostSettings in persistentdata/Settings to that file by adding `"GameSettingsPreset": "Custom"`
-  - start the server again.
-
-## Docker log
-
-Since 1.1 the log will be spamming these messages, but no need to worry:<br>
-vrising-1   | 01b4:fixme:winsock:server_ioctl_sock Unsupported ioctl 4004747b (device=4004 access=1 func=d1e method=3)<br>
-vrising-1   | 01b4:fixme:winsock:WSAIoctl unsupported WS_IOCTL cmd (SIO_IDEAL_SEND_BACKLOG_QUERY)<br>
-
-Here is a [working 1.1.hotfix3 log](https://github.com/TrueOsiris/docker-vrising/blob/main/logs/1.1.hotfix3.log) as reference.
-
-## Credits
-
-- All credits go to the awesome designers of [V-Rising](https://playvrising.com/)!
+*Special thanks to the Stunlock Studios team for creating such an amazing game!*
